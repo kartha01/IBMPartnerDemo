@@ -46,7 +46,7 @@ If you are looking for something you can personalized, isolated and persistent, 
     |Security|3|8/32|
   1. Click *Create* on the right hand side blue button.  Just above this is your estimate.  Make sure that there is a line item for Cloud Pak entitlement with a negative value.
 
-<iframe width="600" height="322" src="https://www.youtube.com/embed/dDC9eqIMO8U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="600" height="322" src="https://www.youtube.com/embed/dDC9eqIMO8U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Checking OpenShift was created and working properly
 1. Open the [Dashboard](https://cloud.ibm.com/) on IBM Cloud.
