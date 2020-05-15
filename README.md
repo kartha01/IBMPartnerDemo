@@ -37,7 +37,7 @@ If you are looking for something you can personalized, isolated and persistent, 
   1. Pick number of worker nodes ***Example:*** Cloud Pak for Data start with 3. *suggestions in table below*
   1. Adjust your cluster name to your liking. ***Example*** CloudPakDataDemo-HealthCare
   1. Click *Create* on the right hand side blue button.  Just above this is your estimate.  Make sure that there is a line item for Cloud Pak entitlement with a negative value.
-  
+
   |Cloud Pak|Nodes|Size: Cores/RAM|
   |:--------|:----:|:--------------:|
   |Apps|1|4/16|
@@ -47,6 +47,8 @@ If you are looking for something you can personalized, isolated and persistent, 
   |Multi-Cloud Management|1|1/8|
   |Security|3|8/32|
 
+[![](video/CreateOCPCluster.png)](video/CreateOCPCluster.mov)
+
 ### Checking OpenShift was created and working properly
 1. Open the [Dashboard](https://cloud.ibm.com/) on IBM Cloud.
 1. Click the link for *Clusters*  This give you a high level view of the cluster.  Take note of the version up until the underbar.  You will need to match this version with your OpenShift Client. ***Example:***
@@ -55,3 +57,5 @@ If you are looking for something you can personalized, isolated and persistent, 
   1. Click on *Worker nodes*  This lists out the specifics for each virtual server.
   1. Click *Worker pool*. This shows you how many in the pool, flavor, etc  The three dots to the right allow you to delete or resize.   If you started with three and need more, you can *resize* the worker pool.  up or down.
   1. Click *Access*.  This is all the tools you will want to access the underlying OpenShift cluster from the command line.   You can do things from the console, but many folks want to use command line. You will need these to provision additional Cloud Pak services. Go ahead and download these to your system. Make sure that the OpenShift Client is the same version as your cluster.
+
+  [![ocp](http://img.youtube.com/vi/KOxbO0EI4MA/0.jpg)](https://www.youtube.com/watch?v=KOxbO0EI4MA "ocp")
