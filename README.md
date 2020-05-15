@@ -34,7 +34,7 @@ If you are looking for something you can personalized, isolated and persistent, 
   1. Pick your Availability *Single zone*
   1. Pick worker zone
   1. Click Change Flavor to select the appropriate Flavor then click *Done* ***Example*** Cloud Pak for Data uses either 16 core/64GB RAM or 32 core/64GB RAM.   
-  1. Pick number of worker nodes ***Example:*** Cloud Pak for Data start with 3. ***NOTE FOR TOM: NEED TO FILL TABLE FOR OTHER CLOUD PAKS***
+  1. Pick number of worker nodes ***Example:*** Cloud Pak for Data start with 3. ***NOTE FOR TOM: NEED TO FILL TABLE FOR OTHER CLOUD PAKS***  
   |Cloud Pak|Nodes|Size: Cores/RAM|
   |:--------|:----:|:--------------:|
   |Apps|1|4/16|
