@@ -59,3 +59,8 @@ If you are looking for something you can personalized, isolated and persistent, 
   1. Click *Access*.  This is all the tools you will want to access the underlying OpenShift cluster from the command line.   You can do things from the console, but many folks want to use command line. You will need these to provision additional Cloud Pak services. Go ahead and download these to your system. Make sure that the OpenShift Client is the same version as your cluster.
 
   <iframe width="600" height="322" src="https://www.youtube.com/embed/RexZGfz_D04" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  ### Installing the client environment
+  1. Download the Client
+  1. unzip and copy oc to your /usr/local/bin or include in PATH.
+  
