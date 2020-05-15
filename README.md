@@ -63,4 +63,12 @@ If you are looking for something you can personalized, isolated and persistent, 
   ### Installing the client environment
   1. Download the Client
   1. unzip and copy oc to your /usr/local/bin or include in PATH.
-  
+
+
+  ### Install your Cloud Pak of Choice
+  [Cloud Oak for Apps](apps.md)
+  [Cloud pak for Automation](autmoation.md)
+  [Cloud Pak for Data](Data.md)
+  [Cloud Pak for Intergration](integration.md)
+  [Cloud Pak for Mult-Cloud Manager](mcm.md)
+  [Cloud Pak for Mult-Security](security.md)
