@@ -46,7 +46,6 @@ If you are looking for something you can personalized, isolated and persistent, 
     |Security|3|8/32|
   1. Click *Create* on the right hand side blue button.  Just above this is your estimate.  Make sure that there is a line item for Cloud Pak entitlement with a negative value.
 
-
 ### Checking OpenShift was created and working properly
 1. Open the [Dashboard](https://cloud.ibm.com/) on IBM Cloud.
 1. Click the link for *Clusters*  This give you a high level view of the cluster.  Take note of the version up until the underbar.  You will need to match this version with your OpenShift Client. ***Example:***
