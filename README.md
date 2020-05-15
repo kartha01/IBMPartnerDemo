@@ -1,26 +1,25 @@
 # Partner Demo Environments on IBM Cloud
 
-## Ephemeral Product demo no customization needed (Free)
+## Ephemeral Product demo (Free) Good if limited customization needed
 1. Product demos where you are just showing the product with some canned assets, you can use [Cloud Pak for Data Experiences](https://www.ibm.com/cloud/paks/experiences/cloud-pak-for-data)  
-
   Not every service is provisioned, but these are live clusters with multiple people sharing the environment.  Meaning while you can add live data (at this moment), but others can see it.  You can spin this up in 10 minutes and have most of what you need there.  There is internal discussions of locking this down tighter as mainly a sales tool.
 
-## Persistant Demo Environment (Cost)
-If you are looking for something you can personalized, isolated and persistent, you can go down the path of a cluster of your own on IBM Cloud.  Following the steps below, you will be responsible for infrastructure costs, but we do have some offsets that can easy this monetary pain.
+## Persistent Demo Environment (Cost)
+If you are looking for something you can personalized, isolated and persistent, you can go down the path of a cluster of your own on IBM Cloud. Following the steps below, you will be responsible for infrastructure costs, but we do have some offsets that can easy this monetary pain.
 ### Prerequisite steps to get entitlement to Cloud Pak software:
 1. Already an IBM PartnerWorld Partner and have purchased the Value Package subscription.  If not please find the correct [Value Pack subscription here](https://www.ibm.com/partnerworld/program/benefits/partner-package).
 1. Add employees to your IBM PartnerWorld Profile.  This will provide them with authorization to entitled software on premises or Cloud Container registry.
-1. Verify that you have access to [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).c click Library, it should say "IBM SOFTWARE ACCESS 1 YEAR"
+1. Verify that you have access to [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).  Click Library, it should say "IBM SOFTWARE ACCESS 1 YEAR"
 
 ### Creating an IBM Cloud account
 1. Decide on what [type of account](https://cloud.ibm.com/docs/account?topic=account-accounts) you desire for your Organization.
-1.[Create an IBM Cloud account](https://cloud.ibm.com/registration?cm_sp=Cloud-Home-_-LeadspaceReg-IBMCloud_CloudHome-_-LSReg) for your Organization.  You will want to add people to this and use business email addresses. These business email addresses should also be listed in your IBM PartnerWorld Profile. This gains you entitlement to Not For Resale IBM Software and Container registry for Cloud Paks.
+1.[Create an IBM Cloud account](https://cloud.ibm.com/registration?cm_sp=Cloud-Home-_-LeadspaceReg-IBMCloud_CloudHome-_-LSReg) for your Organization. You will want to add people to this and use business email addresses. These business email addresses should also be listed in your IBM PartnerWorld Profile. This gains you entitlement to Not For Resale IBM Software and Container registry for Cloud Paks.
 1. Verify you can log into your companies account.
 1. Request your [PartnerWorld IBM Cloud Credits](https://www-356.ibm.com/partnerworld/wps/servlet/mem/ContentHandler/pw_frm_bam_mrb_ibm-cloud-credits).  You will need your cloud account #, so the credits are allocated appropriately.  This is is an annual action.
 1. Best practices on [setting up your account](https://cloud.ibm.com/docs/account?topic=account-account_setup)
 1. Add additional people to the organization's cloud account.
 
-### Creating an Open Shift Cluster
+### Creating an Open Shift cluster
 1. Log into [IBM Cloud](https://cloud.ibm.com/)
 1. Click on Catalog > Services
 1. Filter on Containers by checking the box on the left.
@@ -46,4 +45,4 @@ If you are looking for something you can personalized, isolated and persistent, 
 1. From here you can see all vital information at one glance.
   1. Click on *Worker nodes*  This lists out the specifics for each virtual server.
   1. Click *Worker pool*. This shows you how many in the pool, flavor, etc  The three dots to the right allow you to delete or resize.   If you started with three and need more, you can *resize* the worker pool.  up or down.
-  1. Click *Access*.  This is all the tools you will want to access the underlying OpenShift cluster from the command line.   You can do things from the console, but many folks want to use command line.   You will need these to provision additional Cloud Pak services. Go ahead an download these to your system.  Make sure that the OpenShift Client is the same version as your cluster.  
+  1. Click *Access*.  This is all the tools you will want to access the underlying OpenShift cluster from the command line.   You can do things from the console, but many folks want to use command line. You will need these to provision additional Cloud Pak services. Go ahead and download these to your system. Make sure that the OpenShift Client is the same version as your cluster.
