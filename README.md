@@ -44,6 +44,7 @@ If you are looking for something you can personalized, isolated and persistent, 
     |Integration|3|8/32|
     |Multi-Cloud Management|1|1/8|
     |Security|3|8/32|
+    ||||
   1. Click *Create* on the right hand side blue button.  Just above this is your estimate.  Make sure that there is a line item for Cloud Pak entitlement with a negative value.
 
 
