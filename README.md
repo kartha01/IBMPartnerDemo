@@ -60,12 +60,20 @@ If you are looking for something you can personalized, isolated and persistent, 
 
   <iframe width="600" height="322" src="https://www.youtube.com/embed/RexZGfz_D04" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-  ### Installing the client environment
+
+### Installing the client environment
   1. Download the Client
-  1. unzip and copy oc to your /usr/local/bin or include in PATH.
+  1. unzip and copy oc to your `/usr/local/bin` or include in PATH.
+  1. Execute oc version to check that everything is working.  
+  1. Go back to the dashboard and in the upper right click the blue button/link for OpenShift Web Console.
+  1. in the upper right hand corner, there should be a person icon, click the arrow and click "Copy Login Command".  This will out the login with your token in to your copy buffer.
+  1. Paste into your terminal window.  `oc login https://c106-e.us-south.containers.cloud.ibm.com:30783 --token=EAVMH6YNi0BA88H3VO90v_WidUoNsG7reNPOtF3u4Tg`
+  1. Test out command line connectivity to underlying OpenShift infrastructure:  `oc version`  or `oc get pods` You can also do much of this through the OpenShift Console
+  1. While you can install the Cloud Paks into the default project, it's a better idea to put it in its own project or namespace.  These terms are linked.  Lets create a new project.  I'll call mine `zen` from the terminal while logged in issue `oc new-project zen`  This will create a zen project and you will use this project name when creating the cloud pak.  
 
 
-  ### Install your Cloud Pak of Choice
+
+### Install your Cloud Pak of Choice
   [Cloud Oak for Apps](apps.md)
   [Cloud pak for Automation](autmoation.md)
   [Cloud Pak for Data](Data.md)
