@@ -16,6 +16,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 1.[Create an IBM Cloud account](https://cloud.ibm.com/registration?cm_sp=Cloud-Home-_-LeadspaceReg-IBMCloud_CloudHome-_-LSReg) for your Organization. You will want to add people to this and use business email addresses. These business email addresses should also be listed in your IBM PartnerWorld Profile. This gains you entitlement to Not For Resale IBM Software and Container registry for Cloud Paks.
 1. Verify you can log into your companies account.
 1. Request your [PartnerWorld IBM Cloud Credits](https://www-356.ibm.com/partnerworld/wps/servlet/mem/ContentHandler/pw_frm_bam_mrb_ibm-cloud-credits).  You will need your cloud account #, so the credits are allocated appropriately.  This is is an annual action.
+1. Adding [subscription and credits to your account.](https://cloud.ibm.com/docs/billing-usage?topic=billing-usage-subscription_code)
 1. Best practices on [setting up your account](https://cloud.ibm.com/docs/account?topic=account-account_setup)
 1. Add additional people to the organization's cloud account.
 
