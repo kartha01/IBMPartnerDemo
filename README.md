@@ -66,10 +66,14 @@ If you are looking for something you can personalized, isolated and persistent, 
   1. unzip and copy oc to your `/usr/local/bin` or include in PATH.
   1. Execute oc version to check that everything is working.  
   1. Go back to the dashboard and in the upper right click the blue button/link for OpenShift Web Console.
-  1. in the upper right hand corner, there should be a person icon, click the arrow and click "Copy Login Command".  This will out the login with your token in to your copy buffer.
+  1. in the upper right hand corner, there should be a person icon, click the arrow and click "Copy Login Command".  This will out the login with your token in to your copy buffer.  **This token is renewed daily.**
   1. Paste into your terminal window.  `oc login https://c106-e.us-south.containers.cloud.ibm.com:30783 --token=EAVMH6YNi0BA88H3VO90v_WidUoNsG7reNPOtF3u4Tg`
   1. Test out command line connectivity to underlying OpenShift infrastructure:  `oc version`  or `oc get pods` You can also do much of this through the OpenShift Console
-  1. While you can install the Cloud Paks into the default project, it's a better idea to put it in its own project or namespace.  These terms are linked.  Lets create a new project.  I'll call mine `zen` from the terminal while logged in issue `oc new-project zen`  This will create a zen project and you will use this project name when creating the cloud pak.  
+  1. While you can install the Cloud Paks into the default project, it's a better idea to put it in its own project or namespace.  These terms are linked.  Lets create a new project.  I'll call mine `zen` from the terminal while logged in issue `oc new-project zen`  This will create a zen project and you will use this project name when creating the Cloud Pak.  
+  1.  If you are going to customize the Cloud Pak cluster with other services your will need to create a Route to the internal container registry.  These are your two commands
+  `oc create route reencrypt --service=docker-registry -n default`
+  `oc annotate route docker-registry --overwrite haproxy.router.openshift.io/balance=source -n default`
+  `oc get routes`
 
 
 
