@@ -73,7 +73,7 @@ If you are looking for something you can personalized, isolated and persistent, 
   1.  If you are going to customize the Cloud Pak cluster with other services your will need to create a Route to the internal container registry.  These are your two commands
   `oc create route reencrypt --service=docker-registry -n default`
   `oc annotate route docker-registry --overwrite haproxy.router.openshift.io/balance=source -n default`
-  `oc get routes`
+  `oc get routes -n default`
 
 
 ### Install your Cloud Pak of Choice
@@ -82,4 +82,3 @@ If you are looking for something you can personalized, isolated and persistent, 
   - [Cloud Pak for Data](Data.md)
   - [Cloud Pak for Intergration](integration.md)
   - [Cloud Pak for Mult-Cloud Manager](mcm.md)
-  - [Cloud Pak for Mult-Security](security.md)
