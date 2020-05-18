@@ -76,11 +76,10 @@ If you are looking for something you can personalized, isolated and persistent, 
   `oc get routes`
 
 
-
 ### Install your Cloud Pak of Choice
-  [Cloud Oak for Apps](apps.md)
-  [Cloud pak for Automation](autmoation.md)
-  [Cloud Pak for Data](Data.md)
-  [Cloud Pak for Intergration](integration.md)
-  [Cloud Pak for Mult-Cloud Manager](mcm.md)
-  [Cloud Pak for Mult-Security](security.md)
+  - [Cloud Oak for Apps](apps.md)
+  - [Cloud pak for Automation](autmoation.md)
+  - [Cloud Pak for Data](Data.md)
+  - [Cloud Pak for Intergration](integration.md)
+  - [Cloud Pak for Mult-Cloud Manager](mcm.md)
+  - [Cloud Pak for Mult-Security](security.md)
