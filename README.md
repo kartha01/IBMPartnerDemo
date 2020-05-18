@@ -71,9 +71,9 @@ If you are looking for something you can personalized, isolated and persistent, 
   1. Test out command line connectivity to underlying OpenShift infrastructure:  `oc version`  or `oc get pods` You can also do much of this through the OpenShift Console
   1. While you can install the Cloud Paks into the default project, it's a better idea to put it in its own project or namespace.  These terms are linked.  Lets create a new project.  I'll call mine `zen` from the terminal while logged in issue `oc new-project zen`  This will create a zen project and you will use this project name when creating the Cloud Pak.  
   1.  If you are going to customize the Cloud Pak cluster with other services your will need to create a Route to the internal container registry.  These are your two commands
-  `oc create route reencrypt --service=docker-registry -n default`
-  `oc annotate route docker-registry --overwrite haproxy.router.openshift.io/balance=source -n default`
-  `oc get routes -n default`
+  - `oc create route reencrypt --service=docker-registry -n default`
+  - `oc annotate route docker-registry --overwrite haproxy.router.openshift.io/balance=source -n default`
+  - `oc get routes -n default`
 
 
 ### Install your Cloud Pak of Choice
