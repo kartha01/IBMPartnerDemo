@@ -33,4 +33,4 @@
 1. then click "Configure" for this Cloud Pak for Data on ROKS, the semaphores are already configured, so make sure to uncheck the box to the left of `Set up semaphore parameters for Data Virtualization automatically`, otherwise the provision can fail.
 1. Once complete, you will see Data Virtualization under the Collect area on the left table of contents.  From here you can add data sources or pointers to file folders.
 1.  If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take.   
-1. For Watson OpenScale and Watson Knowledge Catalog, there is an `Open` button which launch a UI to help configure the intitial information.
+1. For Watson OpenScale and Watson Knowledge Catalog, there is an `Open` button which launch a UI to help configure the initial information.
