@@ -1,4 +1,4 @@
-# Install instructions for Cloud Pak for data
+# Install instructions for Cloud Pak for Data
 
 ## Provision the Control plane or lite assembly
 1. Click Catalog
@@ -34,3 +34,10 @@
 1. Once complete, you will see Data Virtualization under the Collect area on the left table of contents.  From here you can add data sources or pointers to file folders.
 1.  If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take.   
 1. For Watson OpenScale and Watson Knowledge Catalog, there is an `Open` button which launch a UI to help configure the initial information.
+
+## adding additional services.
+
+export NAMESPACE=zen
+export STORAGE_CLASS=ibmc-file-gold-gid
+
+./cpd-linux adm --repo ../repo.yaml  --namespace $NAMESPACE --apply --accept-all-licenses --assembly <assembly name>
