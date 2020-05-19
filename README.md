@@ -4,6 +4,11 @@
 1. Product demos where you are just showing the product with some canned assets, you can use [Cloud Pak for Data Experiences](https://www.ibm.com/cloud/paks/experiences/cloud-pak-for-data)  
   Not every service is provisioned, but these are live clusters with multiple people sharing the environment.  Meaning while you can add live data (at this moment), but others can see it.  You can spin this up in 10 minutes and have most of what you need there.  There is internal discussions of locking this down tighter as mainly a sales tool.
 
+##  Other options  to think about
+  - Blue Demos (need competency to view certain assets)
+  - Quick ready-for environments with canned set of services.
+
+
 ## Persistent Demo Environment (Cost)
 If you are looking for something you can personalized, isolated and persistent, you can go down the path of a cluster of your own on IBM Cloud. Following the steps below, you will be responsible for infrastructure costs, but we do have some offsets that can easy this monetary pain.
 ### Prerequisite steps to get entitlement to Cloud Pak software:
@@ -19,6 +24,9 @@ If you are looking for something you can personalized, isolated and persistent, 
 1. Adding [subscription and credits to your account.](https://cloud.ibm.com/docs/billing-usage?topic=billing-usage-subscription_code)
 1. Best practices on [setting up your account](https://cloud.ibm.com/docs/account?topic=account-account_setup)
 1. Add additional people to the organization's cloud account.
+
+### Add IBM Cloud Security instructions and best practices
+***Coming soon***
 
 ### Creating an Open Shift cluster
 1. Log into [IBM Cloud](https://cloud.ibm.com/)
