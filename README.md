@@ -12,7 +12,7 @@
 ## Persistent Demo Environment (Cost)
 If you are looking for something you can personalized, isolated and persistent, you can go down the path of a cluster of your own on IBM Cloud. Following the steps below, you will be responsible for infrastructure costs, but we do have some offsets that can easy this monetary pain.
 ### Prerequisite steps to get entitlement to Cloud Pak software:
-1. Already an IBM PartnerWorld Partner and have purchased the Value Package subscription.  If not please find the correct [Value Pack subscription here](https://www.ibm.com/partnerworld/program/benefits/partner-package).
+1. Already an IBM PartnerWorld member and have purchased an IBM Partner Package.  Every package has the Software Access Catalog, so choose the right [Partner Package for your business](https://www.ibm.com/partnerworld/program/benefits/partner-package) (Note: Must be logged in to PartnerWorld to see details)
 1. Add employees to your IBM PartnerWorld Profile.  This will provide them with authorization to entitled software on premises or Cloud Container registry.
 1. Verify that you have access to [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).  Click Library, it should say "IBM SOFTWARE ACCESS 1 YEAR"
 
@@ -22,6 +22,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 1. Verify you can log into your companies account.
 1. Request your [PartnerWorld IBM Cloud Credits](https://www-356.ibm.com/partnerworld/wps/servlet/mem/ContentHandler/pw_frm_bam_mrb_ibm-cloud-credits).  You will need your cloud account #, so the credits are allocated appropriately.  This is is an annual action.
 1. Adding [subscription and credits to your account.](https://cloud.ibm.com/docs/billing-usage?topic=billing-usage-subscription_code)
+1. If you need more cloud credits than your base Partner Package offers, you can also choose to purchase a Booster Pack to add more cloud credits to your account.  [Learn more and choose a Booster Pack here.](https://www.ibm.com/partnerworld/program/benefits/partner-package-booster)
 1. Best practices on [setting up your account](https://cloud.ibm.com/docs/account?topic=account-account_setup)
 1. Add additional people to the organization's cloud account.
 
