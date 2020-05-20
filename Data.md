@@ -34,12 +34,17 @@
 1. Once complete, you will see Data Virtualization under the Collect area on the left table of contents.  From here you can add data sources or pointers to file folders.
 1.  If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take.   
 1. For Watson OpenScale and Watson Knowledge Catalog, there is an `Open` button which launch a UI to help configure the initial information.
-
+1. Lets provision OpenScale.
+1. you will be met with an auto configure.  However you have not database to use.   You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section. 
 ## adding additional services.
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under `Installing the client environment`  You will have logged into the OpenShift cluster, set the project to `zen` already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.
+
+1. How do I get the installer?
 
 
 export NAMESPACE=zen
 export STORAGE_CLASS=ibmc-file-gold-gid
 
 ./cpd-linux adm --repo ../repo.yaml  --namespace $NAMESPACE --apply --accept-all-licenses --assembly <assembly name>
+
+./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=$(oc get route -n default docker-registry|tail -1|awk '{print $2}')/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly <assembly name>
