@@ -36,6 +36,8 @@
 1. For Watson OpenScale and Watson Knowledge Catalog, there is an `Open` button which launch a UI to help configure the initial information.
 
 ## adding additional services.
+1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under `Installing the client environment`  You will have logged into the OpenShift cluster, set the project to `zen` already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.
+
 
 export NAMESPACE=zen
 export STORAGE_CLASS=ibmc-file-gold-gid
