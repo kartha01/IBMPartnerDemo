@@ -34,7 +34,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 1. Click on Catalog > Services
 1. Filter on Containers by checking the box on the left.
 1. Select Red Hat OpenShift on IBM cloud
-1. On the right is a pane for estimated monthly cost, since the cost is based on hourly tiered Kubernetes Compute plus the 30 day OpenShift license.  If you are authenticated and authorized for PartnerWorld Software Access Catalog per above instructions, you are only responsible the hourly compute used.  This suggests that you can quiesce the virtual servers to pause the hourly charges.
+1. On the right is a pane for estimated monthly cost, since the cost is based on hourly tiered Kubernetes Compute plus the 30 day OpenShift license.  If you are authenticated and authorized for PartnerWorld Software Access Catalog per above instructions, you are only responsible the hourly compute used.  This suggests that you can quiesce the virtual servers to pause the hourly charges, but not true.  You will be billed even if Compute reources are down. 
 1. On the left is where you will alter the version, license, type of compute and number of worker nodes. **Note:** You are only paying for Worker nodes no master or bastion nodes.  
 1. Going down the page:
   1. First select the OpenShift version
