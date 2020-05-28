@@ -22,7 +22,7 @@
 
 <iframe width="600" height="322" src="https://www.youtube.com/embed/Ic0xnlci47o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Walk around Cloud Pak for Data
+## Set up Data Virtualization
 1. From the Schematics workspace, click `Offering dashboard`
 1. Depending on your browser, you will need to accept the certificate.  General path is Advanced then accept risk.  This will bring you to the login page. Bookmark this for future usage.
 1. Login using default credentials as seen in video.
@@ -30,21 +30,57 @@
 1. Take a look at the services that are `enabled`.   These have been installed or deployed.   You should see 5 services.  AI (Watson Studio, Watson Machine Learning, Watson OpenScale), Data Governance (Watson Knowledge Catalog) and Data Sources (Data Virtualization).  
 1. Some are set up automatically and some you need to provision.  If you fo to the Data Virtualization tile, you will see you need to "Provision Instance".  
 1. Let's provision the instance.  Click on "Provision Instance".
-1. then click "Configure" for this Cloud Pak for Data on ROKS, the semaphores are already configured, so make sure to uncheck the box to the left of `Set up semaphore parameters for Data Virtualization automatically`, otherwise the provision can fail.
+1. Then click "Configure". For this Cloud Pak for Data on ROKS, the semaphores are already configured, so make sure to uncheck the box to the left of `Set up semaphore parameters for Data Virtualization automatically`, otherwise the provision can fail.
 1. Once complete, you will see Data Virtualization under the Collect area on the left table of contents.  From here you can add data sources or pointers to file folders.
+
+## Set up Watsom Studio or Watson Machine Learning
 1.  If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take.   
-1. For Watson OpenScale and Watson Knowledge Catalog, there is an `Open` button which launch a UI to help configure the initial information.
-1. Lets provision OpenScale.
-1. you will be met with an auto configure.  However you have not database to use.   You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section. 
+
+## Set up Watson OpenScale
+1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
+1. Let's provision OpenScale.
+1. You will be met with an auto configure.  
+1. First step is to enter connection details for a Db2 Database, however one has not yet been Deployed.  You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section.
+
 ## adding additional services.
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under `Installing the client environment`  You will have logged into the OpenShift cluster, set the project to `zen` already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.
 
-1. How do I get the installer?
+1. How do I get the installer? Good question.  You work for an IBM Partner with Software Access Catalog subscription.  Your IBM Cloud ID is listed in your companies PartnerWorld Profile.  This provides access to [Software Access Catalog](https://www.ibm.com/partnerworld/program/benefits/software-access-catalog)
+1. Access the catalog
+1. Log in using your IBM ID (linked to partnerWorld profile).
+1. Scroll to the bottom and click "I Agree"
+1. Click in the edit box under "Find by Part Number".  Enter `CC3Y1ML`.  Click Search.
+1. Download Director will be pre selected, change to *HTTP*.
+1. Click the radio button for *IBM Cloud Pak for Data Enterprise Edition V2.5 - Installer Linux x86 Multilingual (CC3Y1ML)*
+1. Click the *I agree* radio button and click *Download Now*
+1. Locate the *CP4D_EE_Installer_V2.5.bin* file. (probably in the downloads directory)
+1. Move to a Linux system.  execute `chmod +x CP4D_EE_Installer_V2.5.bin`
+1. Exceute the command `./CP4D_EE_Installer_V2.5.bin`  This will download the installer for linux and Mac (darwin) in a tar file *cloudpak4data-ee-v2.5.0.0*
+1. Extract the tar file `tar -xvf cloudpak4data-ee-v2.5.0.0`
+1. Find a file called `repo.yaml`  This is a simple file, but key. Here is where you will add the apikey to get access to the container registry for the additional Services.   
+1. In a web browser, Login and access [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).  Click *Get entitlement key* on the left side above Library.  Either generate a key or Copy the existing key.  This will populate your scratchpad where you can paste it into the `repo.yaml` file.
+1.  Paste the apikey into the Yaml file to the right of the `apikey:`  After you paste, it should something like this only longer.
+~~~
+registry:
+  - url: cp.icr.
+    username: cp
+    apikey: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJ
+    name: base-registry
+fileservers:
+ - url: https://raw.
+~~~~
 
 
-export NAMESPACE=zen
-export STORAGE_CLASS=ibmc-file-gold-gid
 
-./cpd-linux adm --repo ../repo.yaml  --namespace $NAMESPACE --apply --accept-all-licenses --assembly <assembly name>
-
-./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=$(oc get route -n default docker-registry|tail -1|awk '{print $2}')/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly <assembly name>
+## Install Db2 Warehouse
+1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
+   1. Run: `oc label node <node name or IP Address> icp4data=database-db2wh`
+1. Run env to verify that the following variables are exported
+~~~~
+export NAMESPACE=zen`
+export STORAGE_CLASS=ibmc-file-gold-gid`
+~~~~
+1. Set the security aspects for Db2 Warehouse to install properly
+`./cpd-linux adm --repo ../repo.yaml  --namespace $NAMESPACE --apply --accept-all-licenses --assembly db2wh`
+1. Deploy Db2 Warehouse by running the following:
+`./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=$(oc get route -n default docker-registry|tail -1|awk '{print $2}')/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh`
