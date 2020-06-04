@@ -22,19 +22,23 @@
 
 <iframe width="600" height="322" src="https://www.youtube.com/embed/Ic0xnlci47o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Set up Data Virtualization
+## Review Services installed
 1. From the Schematics workspace, click `Offering dashboard`
 1. Depending on your browser, you will need to accept the certificate.  General path is Advanced then accept risk.  This will bring you to the login page. Bookmark this for future usage.
 1. Login using default credentials as seen in video.
 1. Along the black menu bar at the top the icon to the right on the magnifying glass is "Services".  Click on this link.  
 1. Take a look at the services that are `enabled`.   These have been installed or deployed.   You should see 5 services.  AI (Watson Studio, Watson Machine Learning, Watson OpenScale), Data Governance (Watson Knowledge Catalog) and Data Sources (Data Virtualization).  
-1. Some are set up automatically and some you need to provision.  If you fo to the Data Virtualization tile, you will see you need to "Provision Instance".  
-1. Let's provision the instance.  Click on "Provision Instance".
+1. Some are set up automatically and some you need to provision.  
+
+## Set up Data Virtualization
+1. Click on the *Services* icon to get to the services catalog.
+1. Go to the Data Virtualization tile, you see to "Provision Instance".
+1. Click on "Provision Instance".
 1. Then click "Configure". For this Cloud Pak for Data on ROKS, the semaphores are already configured, so make sure to uncheck the box to the left of `Set up semaphore parameters for Data Virtualization automatically`, otherwise the provision can fail.
 1. ***Note to tom:*** Make sure your change the storage classes from `default` to `ibmc-file-gold-gid`
 1. Once complete, you will see Data Virtualization under the Collect area on the left table of contents.  From here you can add data sources or pointers to file folders.
 
-## Set up Watsom Studio or Watson Machine Learning
+## Set up Watson Studio or Watson Machine Learning
 1.  If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take.   
 
 ## Set up Watson OpenScale
@@ -75,6 +79,7 @@ fileservers:
 
 ## Install Db2 Warehouse
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
+   1. Rum: `oc get nodes`   This will produce a list of nodes to pick from.
    1. Run: `oc label node <node name or IP Address> icp4data=database-db2wh`
 1. Run env to verify that the following variables are exported
 ~~~~
