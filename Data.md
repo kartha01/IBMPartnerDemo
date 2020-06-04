@@ -31,6 +31,7 @@
 1. Some are set up automatically and some you need to provision.  If you fo to the Data Virtualization tile, you will see you need to "Provision Instance".  
 1. Let's provision the instance.  Click on "Provision Instance".
 1. Then click "Configure". For this Cloud Pak for Data on ROKS, the semaphores are already configured, so make sure to uncheck the box to the left of `Set up semaphore parameters for Data Virtualization automatically`, otherwise the provision can fail.
+1. ***Note to tom:*** Make sure your change the storage classes from `default` to `ibmc-file-gold-gid`
 1. Once complete, you will see Data Virtualization under the Collect area on the left table of contents.  From here you can add data sources or pointers to file folders.
 
 ## Set up Watsom Studio or Watson Machine Learning
@@ -82,8 +83,10 @@ export STORAGE_CLASS=ibmc-file-gold-gid
 export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template={{.spec.host}})
 ~~~~
 1. Set the security aspects for Db2 Warehouse to install properly
-`./cpd-linux adm --repo ../repo.yaml  --namespace $NAMESPACE --apply --accept-all-licenses --assembly db2wh`
+  `./cpd-linux adm --repo ../repo.yaml  --namespace $NAMESPACE --apply --accept-all-licenses --assembly db2wh`
 1. Deploy Db2 Warehouse by running the following:
 `./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=$DOCKER_REGISTRY_PREFIX/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh`
+1.
 
-`./cpd-darwin un—install namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run`
+### uninstalling a service
+`./cpd-darwin uninstall -namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run`
