@@ -79,19 +79,19 @@ fileservers:
 
 ## Install Db2 Warehouse
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
-   1. Rum: `oc get nodes`   This will produce a list of nodes to pick from.
+   1. Rum: `oc get nodes`   This will produce a list of nodes.
    1. Run: `oc label node <node name or IP Address> icp4data=database-db2wh`
 1. Run env to verify that the following variables are exported
-~~~~
-export NAMESPACE=zen
-export STORAGE_CLASS=ibmc-file-gold-gid
-export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template={{.spec.host}})
-~~~~
+
+`export NAMESPACE=zen`
+`export STORAGE_CLASS=ibmc-file-gold-gid`
+`export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template={{.spec.host}})`
+
 1. Set the security aspects for Db2 Warehouse to install properly
   `./cpd-linux adm --repo ../repo.yaml  --namespace $NAMESPACE --apply --accept-all-licenses --assembly db2wh`
 1. Deploy Db2 Warehouse by running the following:
-`./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=$DOCKER_REGISTRY_PREFIX/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh`
-1.
+  `./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=$DOCKER_REGISTRY_PREFIX/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh`
+1. 
 
 ### uninstalling a service
 `./cpd-darwin uninstall -namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run`
