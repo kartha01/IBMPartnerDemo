@@ -88,10 +88,34 @@ fileservers:
 `export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template={{.spec.host}})`
 
 1. Set the security aspects for Db2 Warehouse to install properly
-  `./cpd-linux adm --repo ../repo.yaml  --namespace $NAMESPACE --apply --accept-all-licenses --assembly db2wh`
+  `./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2wh`
 1. Deploy Db2 Warehouse by running the following:
-  `./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=$DOCKER_REGISTRY_PREFIX/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh`
-1. 
+  `./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh`
+1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
-### uninstalling a service
-`./cpd-darwin uninstall -namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run`
+### Provision a Database instance
+1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
+1. On the services page, click the left side filter to go to *Datasources* to get to **Db2 Warehouse** tile.  
+1. Click the 3 vertical dots on upper left of the tile.
+1. Click *Provision Instance*.
+1. On the *Configure* page keep defaults or adjust if you know you need more.  Click *Next*.
+1. On the *Storage* page, Select *Create new storage*; Change **Storage Class** to *ibmc-file-gold-gid*; Adjust the size to reflect the amount needed.  *Default is 100GB*.
+1. Click *Next*
+1. Review the settings. Here you can change the **Display name** to something more memorable. Click *Create*.
+1. Your instance is being created and will be accessible from the **Services > Db2 Warehouse tile.**  Also accessed from the Left menu *My Instance* then click *Provisioned instances*
+1. From *Provision Instances* on the left you will see 3 horizontal dots.  Click this and see the options.
+  - *Open* will open the DB2 Warehouse instance for use.
+  - *View details* will provide you the details including *user*; *passord* ;*jdbc url*
+  - *Manage Access* let you add user ids and assign them *Admin* or *User* roles.
+  - *Delete* This will delete this particular instance.
+### Create a Table  
+1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by *admin*, via *SQL editor* by default will go under **Schema** *user999*.
+  - You can use the UI and select and create tables under certain schemas.
+
+### uninstalling DB2 Warehouse.
+1. First you will want to release any storage and delete instances to make sure storage is released.   Use *Delete* to do this.
+1. From the commands. 1) set namespace 2) do a dry run unintall to check what will be taken off. 3) run the uninstall.
+  - `export NAMESPACE=zen`  My namespace is *zen* your may be different like *default*
+  - `./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run`
+  - `./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh`
+1.  Go to the Services catalog and verify that Db2 Wareshouse is no longer enabled.   
