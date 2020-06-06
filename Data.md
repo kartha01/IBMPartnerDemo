@@ -34,9 +34,11 @@
 1. Click on the *Services* icon to get to the services catalog.
 1. Go to the Data Virtualization tile, you see to "Provision Instance".
 1. Click on "Provision Instance".
-1. Then click "Configure". For this Cloud Pak for Data on ROKS, the semaphores are already configured, so make sure to uncheck the box to the left of `Set up semaphore parameters for Data Virtualization automatically`, otherwise the provision can fail.
-1. ***Note to tom:*** Make sure your change the storage classes from `default` to `ibmc-file-gold-gid`
+1. Then click "Configure". For this Cloud Pak for Data on ROKS, the semaphores are already configured, so make sure to uncheck the box to the left of `Set up semaphore parameters for Data Virtualization automatically`, otherwise the provision can fail.Click *Configure*.
+1. Select the number of nodes and cores to allocate.  For a demo system defaults are enough.  ***Note:*** depending on how many node you have in your worker pool, this could fail provisioning with a not enough resource message.  If you configure a default 3 16/64 workers and install all of the services, this message can appear.  Resizing your worker pool to 4 will get you around this.
+1. Make sure your change the storage classes from `default` to `ibmc-file-gold-gid`.  Choosing default could cause a failure.
 1. Once complete, you will see Data Virtualization under the Collect area on the left table of contents.  From here you can add data sources or pointers to file folders.
+**Note:** I have not yet tested this with local file folders.
 
 ## Set up Watson Studio or Watson Machine Learning
 1.  If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take.   
@@ -50,7 +52,7 @@
 ## adding additional services.
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under `Installing the client environment`  You will have logged into the OpenShift cluster, set the project to `zen` already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.
 
-1. How do I get the installer? Good question.  You work for an IBM Partner with Software Access Catalog subscription.  Your IBM Cloud ID is listed in your companies PartnerWorld Profile.  This provides access to [Software Access Catalog](https://www.ibm.com/partnerworld/program/benefits/software-access-catalog)
+1. How do I get the installer? Good question.  You work for an IBM Partner with Software Access Catalog subscription.  Your IBM Cloud ID is listed in your companies PartnerWorld Profile.  This provides access to [Software Access Catalog](https://www.ibm.com/partnerworld/program/benefits/software-access-catalog)  **Note:** There is not a Windows install and the `.bin` file in PartnerWorld Software Access Catalog doesn't download properly on Mac.  Make sure you have access to a Linux system to get the `.tar.gz` file.
 1. Access the catalog
 1. Log in using your IBM ID (linked to partnerWorld profile).
 1. Scroll to the bottom and click "I Agree"
@@ -74,7 +76,6 @@ registry:
 fileservers:
  - url: https://raw.
 ~~~~
-
 
 
 ## Install Db2 Warehouse
