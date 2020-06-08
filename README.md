@@ -87,7 +87,7 @@ If you are looking for something you can personalized, isolated and persistent, 
   1. This is where you will install the Cloud Pak for Data Services.
   1. You can work with Deployments, jobs, volume claims and Pods later by accessing this space.
 
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/TPgUJkIyQoY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe width="600" height="322" src="https://www.youtube.com/embed/TPgUJkIyQoY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Installing the client environment
   1. Download the Client
