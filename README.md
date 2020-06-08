@@ -48,6 +48,7 @@ If you are looking for something you can personalized, isolated and persistent, 
   1. Pick number of worker nodes ***Example:*** Cloud Pak for Data start with 3. *suggestions in table below*
   1. Adjust your cluster name to your liking. ***Example*** CloudPakDataDemo-HealthCare
   1. Click *Create* on the right hand side blue button.  Just above this is your estimate.  Make sure that there is a line item for Cloud Pak entitlement with a negative value.
+  1. This can take 30 mimutes to provision.
 
 |Cloud Pak|Nodes|Size: Cores/RAM|
 |:---|:---:|:---:|
