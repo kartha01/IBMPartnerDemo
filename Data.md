@@ -19,6 +19,7 @@
 1. Scroll down and select the services that you desire to add to Cloud Pak for Data. **Note:** ***This is a first time set up action only. Currently, Once provisioned, toggling true then false will lead to no further action.  You will need to uninstall or install again, which will be shown later.***
 1. On the right, you should see your entitlements and a yellow box, which will turn green after you run the script below.
 1. **Check the box** and to *accept the license*.   
+1.  This can take 4 hours to provision.
 
 <iframe width="600" height="322" src="https://www.youtube.com/embed/Ic0xnlci47o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
