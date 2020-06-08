@@ -100,6 +100,8 @@ fileservers:
   `./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh`
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
+
+
 ### Provision a Database instance
 1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
 1. On the services page, **Click** the left side filter to go to *Datasources* to get to **Db2 Warehouse** tile.  
@@ -115,6 +117,8 @@ fileservers:
   - *View details* will provide you the details including *user* ; *password* ; *jdbc url*
   - *Manage Access* let you add user ids and assign them *Admin* or *User* roles.
   - *Delete* This will delete this particular instance.
+**Note:**  If you resize your cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you relabel a node and restart the pods so they start on the same node.
+
 ### Create a Table  
 1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by *admin*, via *SQL editor* by default will go under **Schema** *user999*.
   - You can use the UI and select and create tables under certain schemas.
