@@ -71,7 +71,21 @@ If you are looking for something you can personalized, isolated and persistent, 
 
   <iframe width="600" height="322" src="https://www.youtube.com/embed/RexZGfz_D04" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-
+### Using Openshift console
+  1. Since master nodes are shared in the ROKS environment and you will use a token to gain access, you can get there via your IBM Cloud account.  
+  1. From the Main IBM Cloud page, **click** on the *Navigation menu* in thee upper left.   
+  1. **Scroll down** to *OpenShift*
+  1. **Click** *Clusters*
+  1. **Click** on your cluster. Mine is *CloudPadData*.
+  1. If you are not in *Overview* then **Click** *Overview*
+  1. **Click** *OpenShift web console*
+  1. Since we want to install to a project other than default, **Click** the *+ Create Project* button int the upper right.
+    - Add *zen* to the **Name**
+    - Add *zen* or *Cloud Pak for Data* to **Display Name**
+    - Add something for you knowledge to description. I'll leave mine blank.
+  1. This is where you will install the Cloud Pak for Data Services.
+  1. You can work with Deployments, jobs, volume claims and Pods later by accessing this space.
+    
 ### Installing the client environment
   1. Download the Client
   1. unzip and copy oc to your `/usr/local/bin` or include in PATH.
