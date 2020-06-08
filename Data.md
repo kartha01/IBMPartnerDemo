@@ -3,13 +3,13 @@
 ## Provision the Control plane or lite assembly
 1. **Click** *Catalog*
 1. **Click** *Software*
-1. In the search box enter Cloud Pak and press enter.  This should list the available Cloud Paks that can be provisioned. In these instructions, you are going to install Cloud Pak for Data.
+1. **Filter** on *Analytics* or In the search box **enter** *Cloud Pak* and press **enter**.  This should list the available Cloud Paks that can be provisioned. In these instructions, you are going to install ***Cloud Pak for Data***.
 1. **Click** on the *Cloud Pak for Data* tile.
 1. **Click** on the *Readme* tab to review what you can provision using ***Schematics*** (Terraform).
 
 ## Building the configuration
 1. On the *create* tab, this is where we will build the configuration of the Cloud Pak for Data clusters
-1. First section describes the minimum configuration.  For Cloud Pak for Data it is as follows.  `Each cluster must meet a set of minimum requirements: 3 nodes with 16 cores, 64GB memory, and 25GB disk per node.`
+1. First section describes the bare minimum configuration.  For Cloud Pak for Data it is as follows.  `Each cluster must meet a set of minimum requirements: 3 nodes with 16 cores, 64GB memory, and 25GB disk per node.`  As I know I want to add Db2 Warehouse and provision a Data Virtualization instance, I will start with 4 node OpenShift cluster. 
 1. Select the cluster that was previously created.  Where you created project `zen`.
 1. Select the project.   While you can pick `default`, you would be better served picking the previously create project like `zen`.
 1. Rename the workspace to something you will remember like `CPDDemo-HealthCare` for a health care demo.
