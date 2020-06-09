@@ -15,7 +15,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 ### Prerequisite steps to get entitlement to Cloud Pak software:
 1. Already an IBM PartnerWorld member and have purchased an IBM Partner Package.  Every package has the Software Access Catalog, so choose the right [Partner Package for your business](https://www.ibm.com/partnerworld/program/benefits/partner-package) **Note:** Must be logged in to PartnerWorld to see details
 1. Add employees to your IBM PartnerWorld Profile.  This will provide them with authorization to entitled software on premises or Cloud Container registry.
-1. Verify that you have access to [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).  Click *Library*, it should say `IBM SOFTWARE ACCESS 1 YEAR`
+1. Verify that you have access to [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).  Click ***Library***, it should say `IBM SOFTWARE ACCESS 1 YEAR`
 
 ### Creating an IBM Cloud account
 1. Decide on what [type of account](https://cloud.ibm.com/docs/account?topic=account-accounts) you desire for your Organization.
@@ -39,15 +39,15 @@ If you are looking for something you can personalized, isolated and persistent, 
 1. On the left is where you will alter the version, license, type of compute and number of worker nodes. **Note:** You are only paying for Worker nodes no master or bastion nodes.  
 1. Going down the page:
   1. First select the OpenShift version
-  1. OCP Entitlement;  Select *Apply my Cloud Pak entitlement to this worker pool*
-  1. Select Resource Group - *Default* unless you created your own which is easier to organize later.
+  1. OCP Entitlement;  Select ***Apply my Cloud Pak entitlement to this worker pool***
+  1. Select Resource Group - ***Default*** unless you created your own which is easier to organize later.
   1. Pick your Geography
-  1. Pick your Availability *Single zone*
+  1. Pick your Availability ***Single zone***
   1. Pick worker zone
-  1. Click Change Flavor to select the appropriate Flavor then click *Done* ***Example*** Cloud Pak for Data uses either 16 core/64GB RAM or 32 core/64GB RAM.   
-  1. Pick number of worker nodes ***Example:*** Cloud Pak for Data start with 3. *suggestions in table below*
-  1. Adjust your cluster name to your liking. ***Example*** CloudPakDataDemo-HealthCare
-  1. Click *Create* on the right hand side blue button.  Just above this is your estimate.  Make sure that there is a line item for Cloud Pak entitlement with a negative value.
+  1. Click Change Flavor to select the appropriate Flavor then click ***Done*** **Example** Cloud Pak for Data uses either 16 core/64GB RAM or 32 core/64GB RAM.   
+  1. Pick number of worker nodes **Example:** Cloud Pak for Data start with 3. ***suggestions in table below***
+  1. Adjust your cluster name to your liking. **Example** CloudPakDataDemo-HealthCare
+  1. Click **Create** on the right hand side blue button.  Just above this is your estimate.  Make sure that there is a line item for Cloud Pak entitlement with a negative value.
   1. This can take 30 mimutes to provision.
 
 |Cloud Pak|Nodes|Size: Cores/RAM|
@@ -63,26 +63,26 @@ If you are looking for something you can personalized, isolated and persistent, 
 
 ### Checking OpenShift was created and working properly
 1. Open the [Dashboard](https://cloud.ibm.com/) on IBM Cloud.
-1. Click the link for *Clusters*  This give you a high level view of the cluster.  Take note of the version up until the underbar.  You will need to match this version with your OpenShift Client. ***Example:***
-1. Click on the cluster name ***Example:*** CloudPakDataDemo-HealthCare
+1. Click the link for ***Clusters***  This give you a high level view of the cluster.  Take note of the version up until the underbar.  You will need to match this version with your OpenShift Client. **Example:**
+1. Click on the cluster name **Example:** CloudPakDataDemo-HealthCare
 1. From here you can see all vital information at one glance.
-  1. Click on *Worker nodes*  This lists out the specifics for each virtual server.
-  1. Click *Worker pool*. This shows you how many in the pool, flavor, etc  The three dots to the right allow you to delete or resize.   If you started with three and need more, you can *resize* the worker pool.  up or down.
-  1. Click *Access*.  This is all the tools you will want to access the underlying OpenShift cluster from the command line.   You can do things from the console, but many folks want to use command line. You will need these to provision additional Cloud Pak services. Go ahead and download these to your system. Make sure that the OpenShift Client is the same version as your cluster.
+  1. Click on ***Worker nodes***  This lists out the specifics for each virtual server.
+  1. Click ***Worker pool***. This shows you how many in the pool, flavor, etc  The three dots to the right allow you to delete or resize.   If you started with three and need more, you can ***resize*** the worker pool.  up or down.
+  1. Click ***Access***.  This is all the tools you will want to access the underlying OpenShift cluster from the command line.   You can do things from the console, but many folks want to use command line. You will need these to provision additional Cloud Pak services. Go ahead and download these to your system. Make sure that the OpenShift Client is the same version as your cluster.
 
   <iframe width="600" height="322" src="https://www.youtube.com/embed/RexZGfz_D04" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Using Openshift console
   1. Since master nodes are shared in the ROKS environment and you will use a token to gain access, you can get there via your IBM Cloud account.  
-  1. From the Main IBM Cloud page, **click** on the *Navigation menu* in thee upper left.   
-  1. **Scroll down** to *OpenShift*
-  1. **Click** *Clusters*
-  1. **Click** on your cluster. Mine is *CloudPadData*.
-  1. If you are not in *Overview* then **Click** *Overview*
-  1. **Click** *OpenShift web console*
-  1. Since we want to install to a project other than default, **Click** the *+ Create Project* button int the upper right.
-    - Add *zen* to the **Name**
-    - Add *zen* or *Cloud Pak for Data* to **Display Name**
+  1. From the Main IBM Cloud page, **click** on the ***Navigation menu*** in thee upper left.   
+  1. **Scroll down** to ***OpenShift***
+  1. **Click** ***Clusters***
+  1. **Click** on your cluster. Mine is ***CloudPakData***.
+  1. If you are not in ***Overview*** then **Click** ***Overview***
+  1. **Click** ***OpenShift web console***
+  1. Since we want to install to a project other than default, **Click** the ***+ Create Project*** button int the upper right.
+    - Add ***zen*** to the **Name**
+    - Add ***zen*** or ***Cloud Pak for Data*** to **Display Name**
     - Add something for you knowledge to description. I'll leave mine blank.
   1. This is where you will install the Cloud Pak for Data Services.
   1. You can work with Deployments, jobs, volume claims and Pods later by accessing this space.
@@ -94,7 +94,7 @@ If you are looking for something you can personalized, isolated and persistent, 
   1. unzip and copy oc to your `/usr/local/bin` or include in PATH.
   1. Execute oc version to check that everything is working.  
   1. Go back to the dashboard and in the upper right click the blue button/link for OpenShift Web Console.
-  1. in the upper right hand corner, there should be a person icon, click the arrow and click "Copy Login Command".  This will out the login with your token in to your copy buffer.  **This token is renewed daily.**
+  1. in the upper right hand corner, there should be a person icon, **click** the arrow and **click** ***Copy Login Command***.  This will out the login with your token in to your copy buffer.  **This token is renewed daily.**
   1. Paste into your terminal window.  `oc login https://c106-e.us-south.containers.cloud.ibm.com:30783 --token=EAVMH6YNi0BA88H3VO90v_WidUoNNPOtF3u4Tg`
   1. Test out command line connectivity to underlying OpenShift infrastructure:  `oc version`  or `oc get pods` You can also do much of this through the OpenShift Console
   1. While you can install the Cloud Paks into the default project, it's a better idea to put it in its own project or namespace.  These terms are linked.  Let's create a new project.  I'll call mine `zen` from the terminal while logged in issue `oc new-project zen`  This will create a zen project and you will use this project name when creating the Cloud Pak.  
