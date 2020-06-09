@@ -127,8 +127,8 @@ fileservers:
 
 ### uninstalling DB2 Warehouse.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
-1. From the commands. 1) set namespace 2) do a dry run unintall to check what will be taken off. 3) run the uninstall.
+1. From the commands. 1) set namespace 2) do a dry run uninstall to check what will be taken off. 3) run the uninstall.
   - `export NAMESPACE=zen`  My namespace is ***zen*** your may be different like ***default***
   - `./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run`
   - `./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh`
-1.  Go to the Services catalog and verify that Db2 Wareshouse is no longer enabled.   
+1.  Go to the Services catalog and verify that Db2 Warehouse is no longer enabled.   
