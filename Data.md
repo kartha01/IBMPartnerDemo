@@ -57,7 +57,8 @@
 
 ## adding additional services.
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under **Installing the client environment**  You will have logged into the OpenShift cluster, set the project to ***zen*** already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.  If ***zen*** doesn't exist, then your probably went with ***default***.
-1. How do I get the installer? Good question.  You work for an ***IBM Business Partner*** with ***Software Access Catalog subscription***.  Your **IBM Cloud ID** is listed in your companies PartnerWorld Profile.  This provides access to [Software Access Catalog](https://www.ibm.com/partnerworld/program/benefits/software-access-catalog)  **Note:** There is not a Windows install and the `.bin` file in PartnerWorld Software Access Catalog doesn't download properly on Mac.  Make sure you have access to a Linux system to get the `.tar.gz` file.
+1. How do I get the installer? Good question.  You work for an ***IBM Business Partner*** with ***Software Access Catalog subscription***.  Your **IBM Cloud ID** is listed in your companies PartnerWorld Profile.  This provides access to [Software Access Catalog](https://www.ibm.com/partnerworld/program/benefits/software-access-catalog)  
+  **Note:** There is not a Windows install and the `.bin` file in PartnerWorld Software Access Catalog doesn't download properly on Mac.  Make sure you have access to a Linux system to get the `.tar.gz` file.
 1. Access the catalog
 1. **Log in** using your ***IBM ID*** (linked to partnerWorld profile).
 1. Scroll to the bottom and **Click** ***I Agree***
@@ -66,9 +67,18 @@
 1. **Click** the radio button for ***IBM Cloud Pak for Data Enterprise Edition V2.5 - Installer Linux x86 Multilingual (CC3Y1ML)***
 1. **Click** the ***I agree*** radio button and **Click** ***Download Now***
 1. Locate the `CP4D_EE_Installer_V2.5.bin` file. (probably in the downloads directory)
-1. Move to a Linux system.  execute `chmod +x CP4D_EE_Installer_V2.5.bin`
-1. Exceute the command `./CP4D_EE_Installer_V2.5.bin`  This will download the installer for linux and Mac (darwin) in a tar file `cloudpak4data-ee-v2.5.0.0.tar.gz`
-1. Extract the tar file `tar -xvf cloudpak4data-ee-v2.5.0.0`
+1. Move to a Linux system and execute:
+~~~
+chmod +x CP4D_EE_Installer_V2.5.bin
+~~~
+1. Exceute the command, which will download the installer for linux and Mac (darwin) in a tar file `cloudpak4data-ee-v2.5.0.0.tar.gz`
+~~~
+./CP4D_EE_Installer_V2.5.bin
+~~~
+1. Extract the tar file.
+~~~
+tar -xvf cloudpak4data-ee-v2.5.0.0
+~~~
 1. Find a file called `repo.yaml`  This is a simple file, but key. Here is where you will add the `apikey` to get access to the container registry for the additional Services.   
 1. In a web browser, **Login** and access [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).  **Click** ***Get entitlement key*** on the left side above Library.  Either ***Generate a key*** or ***Copy the existing key***.  This will populate your scratchpad where you can paste it into the `repo.yaml` file.
 1.  **Paste** the ***apikey*** into the Yaml file to the right of the `apikey:`  After you paste, it should something like this only longer.
@@ -86,10 +96,11 @@ fileservers:
 ## Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
    1. Run: `oc get nodes`   This will produce a list of nodes.
-   1. Run: `oc label node <node name or IP Address> icp4data=database-db2wh`
-   - This label binds Db2 to a specific node as well as all database instances.  Select this node accordingly.
-
-   **Note:**  If you resize your OpenShift cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you label another node and restart the db2wh pods, so they start on the same node.  Do not try to label 2 nodes as you will get an anti-affintiy error in the db2u-0 and unified-console pods,  They will stay in a state of pending.  
+   1. Bind Db2 Warehouse and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2wh` to a node. Select this node according to known resources available.
+   ~~~
+   oc label node <node name or IP Address> icp4data=database-db2wh
+   ~~~
+   **Note:**  If you resize your OpenShift cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you label another node and restart the `db2wh` pods, so they start on the same node.  Do not try to label 2 nodes as you will get an ***anti-affinity*** error in the `db2u-0` and unified-console pods,  They will stay in a state of pending.  
 1. Run env to verify that the following variables are exported
    ~~~
    export NAMESPACE=zen
@@ -97,9 +108,13 @@ fileservers:
    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template={{.spec.host}})
    ~~~
 1. Set the security aspects for Db2 Warehouse to install properly
-  `./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2wh`
+  ~~~
+  ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2wh`
+  ~~~
 1. Deploy Db2 Warehouse by running the following:
-  `./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh`
+  ~~~
+  ./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh
+  ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
 
@@ -127,8 +142,17 @@ fileservers:
 
 ### Uninstalling DB2 Warehouse.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
-1. From the commands. 1) set namespace 2) do a dry run uninstall to check what will be taken off. 3) run the uninstall.
-  - `export NAMESPACE=zen`  My namespace is ***zen*** your may be different like ***default***
-  - `./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run`
-  - `./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh`
-1.  Go to the Services catalog and verify that Db2 Warehouse is no longer enabled.   
+1. From the command line:
+  - Set namespace.  My namespace is ***zen*** your may be different like ***default***
+  ~~~
+  export NAMESPACE=zen
+  ~~~  
+  - Do a dry run uninstall to check what will be taken off.
+  ~~~
+  ./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run
+  ~~~
+  - Run the uninstall
+  ~~~
+  ./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh
+  ~~~
+1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
