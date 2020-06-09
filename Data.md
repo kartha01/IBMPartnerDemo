@@ -42,8 +42,13 @@
 1. **Click** ***Configure***.
 1. Select the number of nodes and cores to allocate.  For a demo system defaults are enough.  **Note:** Depending on how many node you have in your worker pool, this could fail provisioning with a not enough resource message.  If you configure a default 3 16/64 workers and install all of the services, this message can appear.  Resizing your worker pool to 4 will get you around this.
 1. Make sure your change the storage classes from `default` to `ibmc-file-gold-gid`.  Choosing default could cause a failure.
-1. Once complete, you will see Data Virtualization under the Collect area on the left table of contents.  From here you can add data sources or pointers to file folders.
-**Note:** I have not yet tested this with Remote Data Connections aka  local file folders.
+1. Once provisioned, set some users to have ***Data Engineer*** role.
+   - Go to the Navigator on the left and scroll down to ***Administer***  **Click** on ***Manage Users***.
+   - On the right of the list of users, you will see a pencil, which indicates ***edit***.  **Click** the pencil for the user you desire to edit. If you pick ***admin***, you will see this is a new role added based on the Data Virtualization service.  
+1. Go to ***My Instance***   
+1. Once complete, you will see **Data Virtualization** under the **Collect** area on the left table of contents.  From here you can add data sources or pointers to file folders.
+**Note:** I have not yet tested this with ***Remote Data Connections*** aka  local file folders.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/k-Di4nFHY20" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Set up Watson Studio or Watson Machine Learning
 1.  If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take. You can proceed and create a project.
