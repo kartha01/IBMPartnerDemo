@@ -62,7 +62,7 @@
 1. Access the catalog
 1. **Log in** using your ***IBM ID*** (linked to partnerWorld profile).
 1. Scroll to the bottom and **Click** ***I Agree***
-1. **Click** in the edit box under "Find by Part Number".  Enter `CC3Y1ML`.  **Click** ***Search***.
+1. **Click** in the edit box under **Find by Part Number**.  Enter `CC3Y1ML`.  **Click** ***Search***.
 1. ***Download Director*** will be pre selected, change to ***HTTP***.
 1. **Click** the radio button for ***IBM Cloud Pak for Data Enterprise Edition V2.5 - Installer Linux x86 Multilingual (CC3Y1ML)***
 1. **Click** the ***I agree*** radio button and **Click** ***Download Now***
@@ -132,7 +132,7 @@ fileservers:
 1. From ***Provision Instances*** on the left you will see 3 horizontal dots.  **Click** this and see the options.
   - ***Open*** will open the DB2 Warehouse instance for use.
   - ***View details*** will provide you the details including ***user*** ; ***password*** ; ***jdbc url***
-  - ***Manage Access*** let you add user ids and assign them ***Admin*** or ***User*** roles.
+  - ***Manage Access*** let you add ***user ids*** and assign them ***Admin*** or ***User*** roles.
   - ***Delete*** This will delete this particular instance.
 
 
