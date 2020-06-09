@@ -125,7 +125,7 @@ fileservers:
 1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by ***admin***, via **SQL editor** by default will go under **Schema** ***user999***.
   - You can use the UI and select and create tables under certain schemas.
 
-### uninstalling DB2 Warehouse.
+### Uninstalling DB2 Warehouse.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
 1. From the commands. 1) set namespace 2) do a dry run uninstall to check what will be taken off. 3) run the uninstall.
   - `export NAMESPACE=zen`  My namespace is ***zen*** your may be different like ***default***
