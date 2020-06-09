@@ -84,10 +84,12 @@ fileservers:
 ~~~~
 
 
-## Install Db2 Warehouse
+## Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
    1. Rum: `oc get nodes`   This will produce a list of nodes.
    1. Run: `oc label node <node name or IP Address> icp4data=database-db2wh`
+   - This label binds Db2 to a specific node as well as all database instances.  Select this node accordingly.
+   **Note:**  If you resize your OpenShift cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you label another node and restart the db2wh pods, so they start on the same node.  Do not try to label 2 nodes as you will get an anti-affintiy error in the db2u-0 and unified-console pods,  They will stay in a state of pending.  
 1. Run env to verify that the following variables are exported
 
 `export NAMESPACE=zen`
@@ -117,7 +119,7 @@ fileservers:
   - *View details* will provide you the details including *user* ; *password* ; *jdbc url*
   - *Manage Access* let you add user ids and assign them *Admin* or *User* roles.
   - *Delete* This will delete this particular instance.
-**Note:**  If you resize your OpenShift cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you relabel a node and restart the pods so they start on the same node.
+
 
 ### Create a Table  
 1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by *admin*, via *SQL editor* by default will go under **Schema** *user999*.
