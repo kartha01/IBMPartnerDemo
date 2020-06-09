@@ -117,7 +117,7 @@ fileservers:
   - *View details* will provide you the details including *user* ; *password* ; *jdbc url*
   - *Manage Access* let you add user ids and assign them *Admin* or *User* roles.
   - *Delete* This will delete this particular instance.
-**Note:**  If you resize your cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you relabel a node and restart the pods so they start on the same node.
+**Note:**  If you resize your OpenShift cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you relabel a node and restart the pods so they start on the same node.
 
 ### Create a Table  
 1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by *admin*, via *SQL editor* by default will go under **Schema** *user999*.
