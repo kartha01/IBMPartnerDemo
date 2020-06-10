@@ -48,7 +48,7 @@ If you are looking for something you can personalized, isolated and persistent, 
   1. Pick your Availability ***Single zone***
   1. Pick worker zone
   1. Click Change Flavor to select the appropriate Flavor then click ***Done*** **Example** Cloud Pak for Data uses either 16 core/64GB RAM or 32 core/64GB RAM.   
-  1. Pick number of worker nodes **Example:** Cloud Pak for Data start with 3. ***suggestions in table below***
+  1. Pick number of worker nodes **Example:** Cloud Pak for Data start with 3. ***suggestions on bare minimum in table below***
   1. Adjust your cluster name to your liking. **Example** CloudPakDataDemo-HealthCare
   1. Click **Create** on the right hand side blue button.  Just above this is your estimate.  Make sure that there is a line item for Cloud Pak entitlement with a negative value.
   1. This can take 30 mimutes to provision.
