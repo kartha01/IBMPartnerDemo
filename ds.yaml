@@ -1,0 +1,15 @@
+shared-services:
+  kafka:
+    volumeClaim:
+      overrideStorageClass: true
+      storageClassName: "ibmc-file-gold-gid"
+
+wdp-db2:
+  dataVolume:
+    storageClassName: "ibmc-file-gold-gid"
+    overrideStorageClass: true
+
+xmetarepoVolumeInfo:
+  volumeClaim:
+    storageClassName: "ibmc-file-gold-gid"
+    overrideStorageClass: true
