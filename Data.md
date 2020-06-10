@@ -139,7 +139,7 @@ fileservers:
   ~~~
 1. Deploy Db2 Warehouse by running the following:
   ~~~
-  ./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh
+  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh
   ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
@@ -233,10 +233,10 @@ Total Elapsed time is 11 minutes for the install.
   ~~~  
   - Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly ds --uninstall-dry-run
+  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly ds --uninstall-dry-run
   ~~~
   - Run the uninstall
   ~~~
-  ./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly ds
+  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly ds
   ~~~
 1.  Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
