@@ -29,9 +29,9 @@
 1. **Login** using default credentials as seen in video.
 1. Along the black menu bar at the top the icon to the right on the magnifying glass is `Services`.  **Click** on this link.  
 1. Take a look at the services that are `enabled`.   These have been installed or deployed.   You should see 5 services.  
-- **AI** (Watson Studio, Watson Machine Learning, Watson OpenScale)
-- **Data Governance** (Watson Knowledge Catalog)
-- **Data Sources** (Data Virtualization).  
+  - **AI** (Watson Studio, Watson Machine Learning, Watson OpenScale)
+  - **Data Governance** (Watson Knowledge Catalog)
+  - **Data Sources** (Data Virtualization).  
 1. Some are set up automatically and some you need to provision.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vYS7xwk0fn8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
 
