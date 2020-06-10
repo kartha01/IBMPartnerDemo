@@ -185,3 +185,37 @@ fileservers:
 
 Total Elapsed time is 11 minutes for the install.
 <iframe width="600" height="322" src="https://www.youtube.com/embed/HhBzRVBBanQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Create a Transformation Project
+1. From the navigator **click** ***Oraganize > transform data***.  This will bring you into the Data Flow Designer in a projects view.
+1. From here you can create a new project.  
+  - **Click** ***+ Create*** then provide a Project name.
+  - **Click** ***Create*** button.  This will take a minute or two.
+1. **Click** the ***Clog*** and there will be 4 options.
+  - **Adjust Compute Nodes** //This allows you to scale nodes for a parallel job.
+  - **Configuration** //Allows you to tweak service configurations
+  - **Multi-Cloud Kafka brokers** (might be grayed out)
+  - **Server** //Connections to Github and whether to use Machine Learning (On by default)
+1. **Click** on ***dstage1*** to see how this works.
+  1. **Click** on ***+ Create***, you should see a ***Parallel job*** and ***Sequence job***
+  1. **Click** ether job and a palette of nodes are available to you to build your job.  These nodes are specific to the type of job.
+  1. Across the top, you should see another cog.  This allows you to add ***Smart Palatte*** to the options.  This will start prompting you with potential options.
+  1.  Across the very top, is where you will add ***Connections***, ***Table Definitions***, ***Parameter Sets***, ***Jobs*** and the current ***Job_1*** that you were just creating.  
+
+
+### Uninstalling DataStage.
+1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
+1. From the command line:
+  - Set **namespace**.  My namespace is ***zen*** your may be different like ***default***
+  ~~~
+  export NAMESPACE=zen
+  ~~~  
+  - Do a dry run uninstall to check what will be taken off.
+  ~~~
+  ./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly ds --uninstall-dry-run
+  ~~~
+  - Run the uninstall
+  ~~~
+  ./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly ds
+  ~~~
+1.  Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
