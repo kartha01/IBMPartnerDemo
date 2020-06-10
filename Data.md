@@ -172,16 +172,16 @@ fileservers:
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template={{.spec.host}})
    ~~~
-1. Set the security aspects for Db2 Warehouse to install properly
+1. Set the security aspects for DataStage to install properly
   ~~~
   ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ds`
   ~~~
-1. Deploy Db2 Warehouse by running the following:
+1. Deploy DataStage by running the following:
   ~~~
   ./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly ds --override=ds.yaml
   ~~~
 1. You will need to tab to accept the license twice.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
-Total Elapsed time is 11 minutes for the install. 
+Total Elapsed time is 11 minutes for the install.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/HhBzRVBBanQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
