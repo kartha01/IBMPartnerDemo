@@ -48,7 +48,7 @@
 1. Go to ***My Instance***   
 1. Once complete, you will see **Data Virtualization** under the **Collect** area on the left table of contents.  From here you can add data sources or pointers to file folders.
 **Note:** I have not yet tested this with ***Remote Data Connections*** aka  local file folders.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/k-Di4nFHY20" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="600" height="322" src="https://www.youtube.com/embed/ll40JJx5xyc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Set up Watson Studio or Watson Machine Learning
 1.  If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take. You can proceed and create a project.
