@@ -163,7 +163,7 @@ fileservers:
 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
 
-## Installing  DataStage service
+## Installing DataStage service
 1. Verify you have enough resource capcity to run DataStage.  You many need to increase your work pool by a node.
 1. Create a [ds.yaml](ds.yaml) file to override and set certain storage classes. On ROKS we will be using the default storage classes, but defining them no the less.
 1. Run `env` to verify that the following variables are exported
@@ -201,7 +201,6 @@ Total Elapsed time is 11 minutes for the install.
   1. **Click** ether job and a palette of nodes are available to you to build your job.  These nodes are specific to the type of job.
   1. Across the top, you should see another cog.  This allows you to add ***Smart Palatte*** to the options.  This will start prompting you with potential options.
   1.  Across the very top, is where you will add ***Connections***, ***Table Definitions***, ***Parameter Sets***, ***Jobs*** and the current ***Job_1*** that you were just creating.  
-
 
 ### Uninstalling DataStage.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
