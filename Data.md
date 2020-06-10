@@ -149,8 +149,7 @@ fileservers:
 ### Provision a Database instance
 1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
 1. On the services page, **Click** the left side filter to go to ***Datasources*** to get to **Db2 Warehouse** tile.  
-1. **Click** the 3 vertical dots on upper left of the tile.
-1. **Click** ***Provision Instance***.
+1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
 1. On the ***Configure*** page keep defaults or adjust if you know you need more.  **Click** ***Next***.
 1. On the ***Storage*** page, Select ***Create new storage***; Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
 1. **Click** ***Next***
