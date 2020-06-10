@@ -155,7 +155,8 @@ fileservers:
 1. **Click** ***Next***
 1. Review the settings. Here you can change the **Display name** to something more memorable. **Click** ***Create***.
 1. Your instance is being created and will be accessible from the **Services > Db2 Warehouse tile.**  Also accessed from the Left menu ***My Instance*** then **Click** ***Provisioned instances***
-1. From ***Provision Instances*** on the left you will see 3 horizontal dots.  **Click** this and see the options.
+1. From ***Provision Instances*** on the left you will see 3 horizontal dots. From this view, you can watch the steps of the provsion, just incase it fails based on insufficient resources.
+1. **Click** this and see the options.
   - ***Open*** will open the DB2 Warehouse instance for use.
   - ***View details*** will provide you the details including ***user*** ; ***password*** ; ***jdbc url***
   - ***Manage Access*** let you add ***user ids*** and assign them ***Admin*** or ***User*** roles.
