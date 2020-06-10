@@ -32,7 +32,8 @@
 - **AI** (Watson Studio, Watson Machine Learning, Watson OpenScale)
 - **Data Governance** (Watson Knowledge Catalog)
 - **Data Sources** (Data Virtualization).  
-1. Some are set up automatically and some you need to provision.  
+1. Some are set up automatically and some you need to provision.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vYS7xwk0fn8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
 
 ## Set up Data Virtualization
 1. **Click** on the ***Services*** icon to get to the services catalog.
