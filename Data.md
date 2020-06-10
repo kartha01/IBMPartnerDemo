@@ -102,11 +102,31 @@ fileservers:
 ## Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
    1. Run: `oc get nodes`   This will produce a list of nodes.
-   1. Bind Db2 Warehouse and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2wh` to a node. Select this node according to known resources available.
+   1. Run `oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '` Review the output and find the node with the least amount of resources allocated   You will be setting a ***label*** to create **Node Affinity**.  **Db2 Warehouse** pods will be installed to this particular node.  Database will also be provisioned to this node.   Sometimes you may need to resize your OpenShift worker pool size to increase capacity. Base on review I will pick node `10.95.7.49` as it has the least amount of resources allocated right now.
+   ~~~
+   Toms-MBP:bin tjm$ oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '
+    MemoryPressure   False   Wed, 10 Jun 2020 16:21:28 -0400   Mon, 08 Jun 2020 10:19:26 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
+    Hostname:    10.95.7.21
+    cpu       14941m (94%)      63645m (400%)
+    memory    44715538Ki (74%)  150095560704 (244%)
+    MemoryPressure   False   Wed, 10 Jun 2020 16:21:29 -0400   Mon, 08 Jun 2020 10:19:13 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
+    Hostname:    10.95.7.23
+    cpu       13960m (87%)      39825m (250%)
+    memory    42889746Ki (71%)  106114088960 (172%)
+    MemoryPressure   False   Wed, 10 Jun 2020 16:21:32 -0400   Mon, 08 Jun 2020 10:16:15 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
+    Hostname:    10.95.7.49
+    cpu       10718m (67%)      33863m (213%)
+    memory    24435218Ki (40%)  85963040Ki (143%)
+    MemoryPressure   False   Wed, 10 Jun 2020 16:21:35 -0400   Mon, 08 Jun 2020 10:21:40 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
+    Hostname:    10.95.7.6
+    cpu       11970m (75%)      49570m (312%)
+    memory    30833170Ki (51%)  87313121280 (142%)
+   ~~~
+   1. Bind Db2 Warehouse and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2wh` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
    ~~~
    oc label node <node name or IP Address> icp4data=database-db2wh
    ~~~
-   **Note:**  If you resize your OpenShift cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you label another node and restart the `db2wh` pods, so they start on the same node.  Do not try to label 2 nodes as you will get an ***anti-affinity*** error in the `db2u-0` and unified-console pods,  They will stay in a state of pending.  
+   **Note:**  If you resize your OpenShift cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you label another node and restart the `db2wh` pods, so they start on the same node.  Do not try to label 2 nodes as you will get an ***anti-affinity*** error in the `db2u-0` and unified-console pods,  They will stay in a state of `pending`.  
 1. Run env to verify that the following variables are exported
    ~~~
    export NAMESPACE=zen
