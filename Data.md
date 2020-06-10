@@ -161,3 +161,27 @@ fileservers:
   ./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh
   ~~~
 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
+
+
+## Installing  DataStage service
+1. Verify you have enough resource capcity to run DataStage.  You many need to increase your work pool by a node.
+1. Create a [ds.yaml](ds.yaml) file to override and set certain storage classes. On ROKS we will be using the default storage classes, but defining them no the less.
+1. Run `env` to verify that the following variables are exported
+   ~~~
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template={{.spec.host}})
+   ~~~
+1. Set the security aspects for Db2 Warehouse to install properly
+  ~~~
+  ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ds`
+  ~~~
+1. Deploy Db2 Warehouse by running the following:
+  ~~~
+  ./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly ds --override=ds.yaml
+  ~~~
+1. You will need to tab to accept the license twice.
+1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+
+Total Elapsed time is 11 minutes for the install. 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HhBzRVBBanQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
