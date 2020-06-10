@@ -184,4 +184,4 @@ fileservers:
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
 Total Elapsed time is 11 minutes for the install.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HhBzRVBBanQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="600" height="322" src="https://www.youtube.com/embed/HhBzRVBBanQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
