@@ -164,7 +164,8 @@ fileservers:
   - ***View details*** will provide you the details including ***user*** ; ***password*** ; ***jdbc url***
   - ***Manage Access*** let you add ***user ids*** and assign them ***Admin*** or ***User*** roles.
   - ***Delete*** This will delete this particular instance.
-
+**Note** Total time took about 12 minutes  
+<iframe width="560" height="315" src="https://www.youtube.com/embed/943Gi4Z9vUo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Create a Table  
 1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by ***admin***, via **SQL editor** by default will go under **Schema** ***user999***.
