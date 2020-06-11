@@ -49,6 +49,7 @@
 1. Go to ***My Instance***   
 1. Once complete, you will see **Data Virtualization** under the **Collect** area on the left table of contents.  From here you can add data sources or pointers to file folders.
 **Note:** I have not yet tested this with ***Remote Data Connections*** aka  local file folders.
+
 **Note:**  The total provision and assigning roles was 21 minutes.
 <iframe width="600" height="322" src="https://www.youtube.com/embed/ll40JJx5xyc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -58,9 +59,12 @@
 ## Set up Watson OpenScale
 1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
 1. Let's provision OpenScale.
-1. You will be met with an auto configure.  
-1. First step is to enter connection details for a Db2 Database, however one has not yet been Deployed.  You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section.
-1. **Create** a ***Watson Machine Learning*** instance.
+1. You will be met with an ***auto setup*** to configure.  
+1. First step is accept the local WML instance.
+2. Enter connection details for a Db2 Database.  I am using a DB2 Warehouse that I installed later on.  You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section.
+
+**Note:** Actual time taken is 18 minutes which included reviewing the sample.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dJV_ZqK-pvc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## adding additional services.
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under **Installing the client environment**  You will have logged into the OpenShift cluster, set the project to ***zen*** already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.  If ***zen*** doesn't exist, then your probably went with ***default***.
