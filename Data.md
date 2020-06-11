@@ -19,8 +19,8 @@
 1. Scroll down and select the services that you desire to add to Cloud Pak for Data. **Note:** This is a first time set up action only. Currently, Once provisioned, toggling true then false will lead to no further action.  You will need to uninstall or install again, which will be shown later.
 1. On the right, you should see your entitlements and a yellow box, which will turn green after you run the script below.
 1. **Check the box** and to ***accept the license***.   
-1.  This can take 4 hours to provision.
 
+**Note:** This can take 4 hours to provision.
 <iframe width="600" height="322" src="https://www.youtube.com/embed/Ic0xnlci47o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Review Services installed
@@ -49,6 +49,7 @@
 1. Go to ***My Instance***   
 1. Once complete, you will see **Data Virtualization** under the **Collect** area on the left table of contents.  From here you can add data sources or pointers to file folders.
 **Note:** I have not yet tested this with ***Remote Data Connections*** aka  local file folders.
+**Note:**  The total provision and assigning roles was 21 minutes.
 <iframe width="600" height="322" src="https://www.youtube.com/embed/ll40JJx5xyc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Set up Watson Studio or Watson Machine Learning
@@ -143,6 +144,7 @@ fileservers:
   ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
+**Note:** Elapsed time is about 16 minutes
 <iframe width="560" height="315" src="https://www.youtube.com/embed/943Gi4Z9vUo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
