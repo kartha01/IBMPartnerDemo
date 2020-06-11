@@ -108,8 +108,8 @@ If you are looking for something you can personalized, isolated and persistent, 
 
 
 ### Install your Cloud Pak of Choice
-  - [Cloud Pak for Apps](apps.md)
-  - [Cloud pak for Automation](automation.md)
+<!---  - [Cloud Pak for Apps](apps.md)
+  - [Cloud pak for Automation](automation.md) --->
   - [Cloud Pak for Data](Data.md)
-  - [Cloud Pak for Intergration](integration.md)
-  - [Cloud Pak for Mult-Cloud Manager](mcm.md)
+<!---  - [Cloud Pak for Intergration](integration.md)
+  - [Cloud Pak for Mult-Cloud Manager](mcm.md) --->
