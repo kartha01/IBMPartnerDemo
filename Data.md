@@ -157,7 +157,8 @@ fileservers:
 1. **Click** ***Next***
 1. Review the settings. Here you can change the **Display name** to something more memorable. **Click** ***Create***.
 1. Your instance is being created and will be accessible from the **Services > Db2 Warehouse tile.**  Also accessed from the Left menu ***My Instance*** then **Click** ***Provisioned instances***
-1. From ***Provision Instances*** on the left you will see 3 horizontal dots. From this view, you can watch the steps of the provsion, just incase it fails based on insufficient resources.
+1. From ***Provision Instances*** on the left you will see 3 horizontal dots. From this view, you can watch the steps of the provision, just incase it fails based on insufficient resources.
+**Note:** You can see a red triangle that states Failed. This is temporary and is most likely the Cloud provision service waiting on a storage volume to come online and available to mount as a persistent volume to map the persistent volume claim.
 1. **Click** this and see the options.
   - ***Open*** will open the DB2 Warehouse instance for use.
   - ***View details*** will provide you the details including ***user*** ; ***password*** ; ***jdbc url***
