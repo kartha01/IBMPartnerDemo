@@ -210,7 +210,7 @@ fileservers:
   ~~~
   ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly ds --override=ds.yaml
   ~~~
-1. You will need to tab to accept the license twice.
+1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
 Total Elapsed time is 11 minutes for the install.
@@ -264,5 +264,8 @@ Total Elapsed time is 11 minutes for the install.
   ~~~
   ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly cde
   ~~~
-1. You will need to tab to accept the license twice.
+1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+
+**Note:** Total install time was 13 minutes.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cs8-FbiYGM8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
