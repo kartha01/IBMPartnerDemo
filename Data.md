@@ -136,7 +136,7 @@ fileservers:
    ~~~
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{{.spec.host}})
    ~~~
 1. Set the security aspects for Db2 Warehouse to install properly
   ~~~
@@ -200,7 +200,7 @@ fileservers:
    ~~~
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template={{.spec.host}})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{{.spec.host}})
    ~~~
 1. Set the security aspects for DataStage to install properly
   ~~~
