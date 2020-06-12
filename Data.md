@@ -9,7 +9,7 @@
 
 ## Building the configuration
 1. On the ***create*** tab, this is where we will build the configuration of the Cloud Pak for Data clusters
-1. First section describes the bare minimum configuration.  For Cloud Pak for Data it is as follows.  `Each cluster must meet a set of minimum requirements: 3 nodes with 16 cores, 64GB memory, and 25GB disk per node.`  As I know I want to add Db2 Warehouse and provision a Data Virtualization instance, I will start with 4 node OpenShift cluster.  As I add more features, I am needing more capacity when I provision the instance. 
+1. First section describes the bare minimum configuration.  For Cloud Pak for Data it is as follows.  `Each cluster must meet a set of minimum requirements: 3 nodes with 16 cores, 64GB memory, and 25GB disk per node.`  As I know I want to add Db2 Warehouse and provision a Data Virtualization instance, I will start with 4 node OpenShift cluster.  As I add more features, I am needing more capacity when I provision the instance.
 1. Select the cluster that was previously created.  Where you created project `zen`.
 1. Select the project.   While you can pick `default`, you would be better served picking the previously create project like `zen`.
 1. Rename the workspace to something you will remember like `CPDDemo-HealthCare` for a health care demo.
@@ -184,11 +184,11 @@ fileservers:
   ~~~  
   - Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run
+  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run
   ~~~
   - Run the uninstall
   ~~~
-  ./cpd-darwin uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh
+  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh
   ~~~
 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
@@ -204,11 +204,11 @@ fileservers:
    ~~~
 1. Set the security aspects for DataStage to install properly
   ~~~
-  ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ds`
+  ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ds
   ~~~
 1. Deploy DataStage by running the following:
   ~~~
-  ./cpd-darwin --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly ds --override=ds.yaml
+  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly ds --override=ds.yaml
   ~~~
 1. You will need to tab to accept the license twice.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
@@ -217,7 +217,7 @@ Total Elapsed time is 11 minutes for the install.
 <iframe width="600" height="322" src="https://www.youtube.com/embed/HhBzRVBBanQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Create a Transformation Project
-1. From the navigator **click** ***Oraganize > transform data***.  This will bring you into the Data Flow Designer in a projects view.
+1. From the navigator **click** ***Organize > transform data***.  This will bring you into the Data Flow Designer in a projects view.
 1. From here you can create a new project.  
   - **Click** ***+ Create*** then provide a Project name.
   - **Click** ***Create*** button.  This will take a minute or two.
@@ -248,3 +248,21 @@ Total Elapsed time is 11 minutes for the install.
   ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly ds
   ~~~
 1.  Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
+
+## Installing Analytics Dashboards
+1. Run `env` to verify that the following variables are exported
+   ~~~
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   ~~~
+1. Set the security aspects for DataStage to install properly
+  ~~~
+  ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly cde
+  ~~~
+1. Deploy DataStage by running the following:
+  ~~~
+  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly cde
+  ~~~
+1. You will need to tab to accept the license twice.
+1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
