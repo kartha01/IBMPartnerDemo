@@ -9,7 +9,7 @@
 
 ## Building the configuration
 1. On the ***create*** tab, this is where we will build the configuration of the Cloud Pak for Data clusters
-1. First section describes the bare minimum configuration.  For Cloud Pak for Data it is as follows.  `Each cluster must meet a set of minimum requirements: 3 nodes with 16 cores, 64GB memory, and 25GB disk per node.`  As I know I want to add Db2 Warehouse and provision a Data Virtualization instance, I will start with 4 node OpenShift cluster.
+1. First section describes the bare minimum configuration.  For Cloud Pak for Data it is as follows.  `Each cluster must meet a set of minimum requirements: 3 nodes with 16 cores, 64GB memory, and 25GB disk per node.`  As I know I want to add Db2 Warehouse and provision a Data Virtualization instance, I will start with 4 node OpenShift cluster.  As I add more features, I am needing more capacity when I provision the instance. 
 1. Select the cluster that was previously created.  Where you created project `zen`.
 1. Select the project.   While you can pick `default`, you would be better served picking the previously create project like `zen`.
 1. Rename the workspace to something you will remember like `CPDDemo-HealthCare` for a health care demo.
