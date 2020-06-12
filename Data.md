@@ -102,7 +102,7 @@ registry:
 fileservers:
  - url: https://raw.
 ~~~~
-
+**Note:**  While the documentation denotes Linux, using cpd-linux, the video uses cdp-darwin for Mac.  Currently, there is no Windows interface. 
 
 ## Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
