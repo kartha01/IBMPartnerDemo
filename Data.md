@@ -102,7 +102,7 @@ registry:
 fileservers:
  - url: https://raw.
 ~~~~
-**Note:**  While the documentation denotes Linux, using cpd-linux, the video uses cdp-darwin for Mac.  Currently, there is no Windows interface. 
+**Note:**  While the documentation denotes Linux, using cpd-linux, the video uses cdp-darwin for Mac.  Currently, there is no Windows interface.
 
 ## Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
@@ -148,7 +148,7 @@ fileservers:
   ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
-**Note:** Elapsed time is about 16 minutes
+**Note:** Actual time taken is 16 minutes
 <iframe width="560" height="315" src="https://www.youtube.com/embed/943Gi4Z9vUo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
@@ -213,7 +213,7 @@ fileservers:
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
-Total Elapsed time is 11 minutes for the install.
+**Note:** Actual time taken is 11 minutes for the install.
 <iframe width="600" height="322" src="https://www.youtube.com/embed/HhBzRVBBanQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Create a Transformation Project
@@ -267,5 +267,5 @@ Total Elapsed time is 11 minutes for the install.
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
-**Note:** Total install time was 13 minutes.
+**Note:** Actual time taken is 13 minutes.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/cs8-FbiYGM8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
