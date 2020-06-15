@@ -64,11 +64,15 @@
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
    ~~~
-1. Scale up **Watson Studio** or **Watson Machine Learning** by running the following (config sizes are medium and large):
+1. Scale up **Watson Studio** or **Watson Machine Learning** by running the following (config sizes are small, medium and large):
    ~~~
-    ./cpd-linux scale -a wlm -n zen --config medium  --load-from ./cpd-linux-workspace
+   ./cpd-linux scale -a wml -n zen --config medium  --load-from ./cpd-linux-workspace
    ~~~
-
+1. Scale down **Watson Studio** or **Watson Machine Learning** by running the following (config sizes are small, medium and large):
+   ~~~
+   ./cpd-linux scale -a wml -n zen --config small  --load-from ./cpd-linux-workspace
+   ~~~
+   
 ## Set up Watson OpenScale
 1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
 1. Let's provision OpenScale.
