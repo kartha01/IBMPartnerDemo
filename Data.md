@@ -122,6 +122,21 @@ fileservers:
 ~~~~
 **Note:**  While the documentation denotes Linux, using cpd-linux, the video uses cdp-darwin for Mac.  Currently, there is no Windows interface.
 
+### To enable or disable the default asmin users
+1. It is suggested to connect your user repository to an LDAP system.  
+1. Once connected to LDAP, you should ***disable*** the default **admin** user.
+1. To do this you will run a script in the user management pod.
+~~~
+export NAMESPACE=zen
+oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | tail -1 | cut -f1 -d\ ) -- bash -c "/usr/src/server-src/scripts/manage-user.sh --disable-user admin"
+~~~
+1. To reenable **admin** user run the following, which will prompt you for a new password:
+~~~
+export NAMESPACE=zen
+oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | tail -1 | cut -f1 -d\ ) -- bash -c "/usr/src/server-src/scripts/manage-user.sh --enable-user admin"
+~~~
+Note: If you have lost or forgotten your CPD Admin password, you can log into OpenShift then execute the enable command which prompts you for a new password. 
+
 ## Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
    1. Run: `oc get nodes`   This will produce a list of nodes.
