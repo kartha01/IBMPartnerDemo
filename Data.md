@@ -54,7 +54,20 @@
 <iframe width="600" height="322" src="https://www.youtube.com/embed/ll40JJx5xyc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Set up Watson Studio or Watson Machine Learning
-1.  If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take. You can proceed and create a project.
+1. If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take. You can proceed and create a project.
+
+### Increase the capacity or scale up your service
+1. You can scale **up** the services by executing these commands for either **wsl** or **wml**.  **Note:** There is currently no scale down function.
+1. Run env to verify that the following variables are exported
+   ~~~
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   ~~~
+1. Scale up **Watson Studio** or **Watson Machine Learning** by running the following (config sizes are medium and large):
+   ~~~
+    ./cpd-linux scale -a wlm -n zen --config medium  --load-from ./cpd-linux-workspace
+   ~~~
 
 ## Set up Watson OpenScale
 1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
@@ -142,7 +155,7 @@ fileservers:
   ~~~
   ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2wh`
   ~~~
-1. Deploy Db2 Warehouse by running the following:
+1. Deploy **Db2 Warehouse** by running the following:
   ~~~
   ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh
   ~~~
@@ -269,3 +282,22 @@ fileservers:
 
 **Note:** Actual time taken is 13 minutes.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/cs8-FbiYGM8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Installing Analytics Engine (Spark Clusters)
+If you are using **Data Refinery** and you have to prep files larger than 100MB, then you will want to install the **Analytics Engine** to be able to select a different runtime than ***Data Refinery XS***.  This is the service to ***install*** if you want to use **Spark** with **Watson Studio**.
+1. 1. Run `env` to verify that the following variables are exported
+   ~~~
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   ~~~
+1. Set the security aspects for DataStage to install properly
+  ~~~
+  ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly spark
+  ~~~
+1. Deploy DataStage by running the following:
+  ~~~
+  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly spark
+  ~~~
+1. You will need to tab to accept the license.
+1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
