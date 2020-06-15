@@ -57,6 +57,7 @@
 1. If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take. You can proceed and create a project.
 
 ### Increase the capacity or scale up your service
+1. To scale services, you will need to have the command line installed.  (Instruction under the ***Adding additional services*** section)
 1. You can scale **up** the services by executing these commands for either **wsl** or **wml**.  **Note:** There is currently no scale down function.
 1. Run env to verify that the following variables are exported
    ~~~
@@ -72,7 +73,7 @@
    ~~~
    ./cpd-linux scale -a wml -n zen --config small  --load-from ./cpd-linux-workspace
    ~~~
-   
+
 ## Set up Watson OpenScale
 1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
 1. Let's provision OpenScale.
@@ -83,7 +84,7 @@
 **Note:** Actual time taken is 18 minutes which included reviewing the sample.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dJV_ZqK-pvc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## adding additional services.
+## Adding additional services
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under **Installing the client environment**  You will have logged into the OpenShift cluster, set the project to ***zen*** already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.  If ***zen*** doesn't exist, then your probably went with ***default***.
 1. How do I get the installer? Good question.  You work for an ***IBM Business Partner*** with ***Software Access Catalog subscription***.  Your **IBM Cloud ID** is listed in your companies PartnerWorld Profile.  This provides access to [Software Access Catalog](https://www.ibm.com/partnerworld/program/benefits/software-access-catalog)  
   **Note:** There is not a Windows install and the `.bin` file in PartnerWorld Software Access Catalog doesn't download properly on Mac.  Make sure you have access to a Linux system to get the `.tar.gz` file.
