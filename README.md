@@ -1,8 +1,8 @@
 # Partner Demo Environments on IBM Cloud
 - [Ephemeral Product demo (Free) Good if limited customization needed](#ephemeral-product-demo--free--good-if-limited-customization-needed)
 - [Other options  to think about](#other-options--to-think-about)
-- [Persistent Demo Environment (Cost)](#persistent-demo-environment--cost-)
-  * [Prerequisite steps to get entitlement to Cloud Pak software:](#prerequisite-steps-to-get-entitlement-to-cloud-pak-software-)
+- [Persistent Demo Environment (Cost)](#persistent-demo-environment--cost)
+  * [Prerequisite steps to get entitlement to Cloud Pak software:](#prerequisite-steps-to-get-entitlement-to-cloud-pak-software)
   * [PartnerWorld Cloud Credits IBM Cloud account](#partnerworld-cloud-credits-ibm-cloud-account)
   * [POC account](#poc-account)
   * [Creating an IBM Cloud account without credits.](#creating-an-ibm-cloud-account-without-credits)
@@ -11,7 +11,7 @@
   * [Checking OpenShift was created and working properly](#checking-openshift-was-created-and-working-properly)
   * [Using Openshift console](#using-openshift-console)
   * [Installing the CLI environment](#installing-the-cli-environment)
-  * [Quick run through of some OpenShift CLI commands  (Coming)](#quick-run-through-of-some-openshift-cli-commands---coming-)
+  * [Quick run through of some OpenShift CLI commands  (Coming)](#quick-run-through-of-some-openshift-cli-commands---coming)
   * [Install your Cloud Pak of Choice](#install-your-cloud-pak-of-choice)
 
 ## Ephemeral Product demo (Free) Good if limited customization needed
