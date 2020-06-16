@@ -28,7 +28,7 @@
 - [Adding additional services](#adding-additional-services)
   * [To enable or disable the default admin users](#to-enable-or-disable-the-default-admin-users)
   * [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
-- [Install Db2 Warehouse (SMP)](#install-db2-warehouse--smp)
+- [Install Db2 Warehouse (SMP)](#install-db2-warehouse-smp)
   * [Provision a Database instance](#provision-a-database-instance)
   * [Create a Table](#create-a-table-1)
   * [Uninstalling DB2 Warehouse.](#uninstalling-db2-warehouse)
