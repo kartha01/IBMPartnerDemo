@@ -11,7 +11,7 @@
   * [Checking OpenShift was created and working properly](#checking-openshift-was-created-and-working-properly)
   * [Using Openshift console](#using-openshift-console)
   * [Installing the CLI environment](#installing-the-cli-environment)
-  * [Quick run through of some OpenShift CLI commands  (Coming)](#quick-run-through-of-some-openshift-cli-commands---coming)
+  * [Quick run through of some OpenShift CLI commands (Coming)](#quick-run-through-of-some-openshift-cli-commands---coming)
   * [Install your Cloud Pak of Choice](#install-your-cloud-pak-of-choice)
 
 ## Ephemeral Product demo - Good if limited customization needed
