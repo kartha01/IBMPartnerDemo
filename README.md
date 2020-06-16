@@ -1,5 +1,5 @@
 # Partner Demo Environments on IBM Cloud
-- [Ephemeral Product demo - Good if limited customization needed](#ephemeral-product-demo--free--good-if-limited-customization-needed)
+- [Ephemeral Product demo - Good if limited customization needed](#ephemeral-product-demo--good-if-limited-customization-needed)
 - [Other options to think about](#other-options-to-think-about)
 - [Persistent Demo Environment (Cost)](#persistent-demo-environment-cost)
   * [Prerequisite steps to get entitlement to Cloud Pak software:](#prerequisite-steps-to-get-entitlement-to-cloud-pak-software)
