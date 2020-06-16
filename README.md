@@ -159,17 +159,14 @@ Toms-MBP:bin tjm$ oc get pods -n openshift-template-service-broker
 NAME                         READY     STATUS    RESTARTS   AGE
 apiserver-7df5d95cfb-knzdc   1/1       Running   0          3d
 apiserver-7df5d95cfb-p9cxm   1/1       Running   0          35m
-
 Toms-MBP:bin tjm$ oc delete pod apiserver-7df5d95cfb-knzdc
 Error from server (NotFound): pods "apiserver-7df5d95cfb-knzdc" not found
 Toms-MBP:bin tjm$ oc delete pod apiserver-7df5d95cfb-knzdc -n openshift-template-service-broker
 pod "apiserver-7df5d95cfb-knzdc" deleted
-
 Toms-MBP:bin tjm$ oc get pods -n openshift-template-service-broker
 NAME                         READY     STATUS    RESTARTS   AGE
 apiserver-7df5d95cfb-55dcd   0/1       Running   0          13s
 apiserver-7df5d95cfb-p9cxm   1/1       Running   0          36m
-
 Toms-MBP:bin tjm$ oc get pods -n openshift-template-service-broker
 NAME                         READY     STATUS    RESTARTS   AGE
 apiserver-7df5d95cfb-55dcd   1/1       Running   0          35s
