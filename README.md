@@ -177,7 +177,6 @@ apiserver-7df5d95cfb-p9cxm   1/1       Running   0          36m
 Toms-MBP:~ tjm$ oc delete pods apiserver-7df5d95cfb-p9cxm -n openshift-template-service-broker --grace-period=0 --force
 warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
 pod "apiserver-7df5d95cfb-p9cxm" force deleted
-
 Toms-MBP:~ tjm$ oc get pods -n openshift-template-service-broker
 NAME                         READY     STATUS    RESTARTS   AGE
 apiserver-7df5d95cfb-55dcd   1/1       Running   0          11m
