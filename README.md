@@ -159,20 +159,35 @@ Toms-MBP:bin tjm$ oc get pods -n openshift-template-service-broker
 NAME                         READY     STATUS    RESTARTS   AGE
 apiserver-7df5d95cfb-knzdc   1/1       Running   0          3d
 apiserver-7df5d95cfb-p9cxm   1/1       Running   0          35m
+
 Toms-MBP:bin tjm$ oc delete pod apiserver-7df5d95cfb-knzdc
 Error from server (NotFound): pods "apiserver-7df5d95cfb-knzdc" not found
 Toms-MBP:bin tjm$ oc delete pod apiserver-7df5d95cfb-knzdc -n openshift-template-service-broker
 pod "apiserver-7df5d95cfb-knzdc" deleted
+
 Toms-MBP:bin tjm$ oc get pods -n openshift-template-service-broker
 NAME                         READY     STATUS    RESTARTS   AGE
 apiserver-7df5d95cfb-55dcd   0/1       Running   0          13s
 apiserver-7df5d95cfb-p9cxm   1/1       Running   0          36m
+
 Toms-MBP:bin tjm$ oc get pods -n openshift-template-service-broker
 NAME                         READY     STATUS    RESTARTS   AGE
 apiserver-7df5d95cfb-55dcd   1/1       Running   0          35s
 apiserver-7df5d95cfb-p9cxm   1/1       Running   0          36m
 ~~~
-1. Always adding `-n openshift-template-service-broker` or another namespace can be annoying.  If you think you will be in a specific namespace more often than not, like ***zen*** for **Cloud Pak for Data** then execute `oc project zen`  this will allow you to drop the `-n <namespace>` for anything that is in this namespace.
+1. For an **Evicted** pod, it might not go gracefully, so you can add `--grace-period=0 --force` to your delete command.
+~~~
+Toms-MBP:~ tjm$ oc delete pods apiserver-7df5d95cfb-p9cxm -n openshift-template-service-broker --grace-period=0 --force
+warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+pod "apiserver-7df5d95cfb-p9cxm" force deleted
+
+Toms-MBP:~ tjm$ oc get pods -n openshift-template-service-broker
+NAME                         READY     STATUS    RESTARTS   AGE
+apiserver-7df5d95cfb-55dcd   1/1       Running   0          11m
+apiserver-7df5d95cfb-m67nk   1/1       Running   0          35s
+~~~
+
+1.Always adding `-n openshift-template-service-broker` or another ***namespace*** can be annoying.  If you think you will be in a specific namespace more often than not, like ***zen*** for **Cloud Pak for Data** then execute `oc project zen`  this will allow you to drop the `-n <namespace>` for anything that is in this namespace.
 
 **MORE TO COME**
 
