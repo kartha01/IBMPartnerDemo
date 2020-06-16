@@ -1,7 +1,7 @@
 # Partner Demo Environments on IBM Cloud
 - [Ephemeral Product demo (Free) Good if limited customization needed](#ephemeral-product-demo--free--good-if-limited-customization-needed)
-- [Other options  to think about](#other-options--to-think-about)
-- [Persistent Demo Environment (Cost)](#persistent-demo-environment--cost)
+- [Other options to think about](#other-options-to-think-about)
+- [Persistent Demo Environment (Cost)](#persistent-demo-environment-cost)
   * [Prerequisite steps to get entitlement to Cloud Pak software:](#prerequisite-steps-to-get-entitlement-to-cloud-pak-software)
   * [PartnerWorld Cloud Credits IBM Cloud account](#partnerworld-cloud-credits-ibm-cloud-account)
   * [POC account](#poc-account)
@@ -18,12 +18,11 @@
 1. Product demos where you are just showing the product with some canned assets, you can use [Cloud Pak for Data Experiences](https://www.ibm.com/cloud/paks/experiences/cloud-pak-for-data)  
 **Limitations:** Not every service is provisioned, but these are live clusters with multiple people sharing the environment.  Meaning while you can add live data (at this moment), but others can see it.  You can spin this up in 10 minutes and have most of what you need there.  There is internal discussions of locking this down tighter as mainly a sales tool.
 
-##  Other options  to think about
+##  Other options to think about
   - Blue Demos (need competency to view certain assets) - Currently no CPD partner facing VMs.
   - Quick ready-for environments with canned set of services.
 
-
-## Persistent Demo Environment (Cost)
+## Persistent Demo Environment-Cost
 If you are looking for something you can personalized, isolated and persistent, you can go down the path of a cluster of your own on IBM Cloud. Following the steps below, you will be responsible for infrastructure costs, but we do have some offsets that can easy this monetary pain.
 
 ### Prerequisite steps to get entitlement to Cloud Pak software:
@@ -92,7 +91,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 
   <iframe width="600" height="322" src="https://www.youtube.com/embed/RexZGfz_D04" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### Using Openshift console
+### Using OpenShift console
   1. Since master nodes are shared in the ROKS environment and you will use a token to gain access, you can get there via your IBM Cloud account.  
   1. From the Main IBM Cloud page, **click** on the ***Navigation menu*** in thee upper left.   
   1. **Scroll down** to ***OpenShift***
@@ -123,7 +122,7 @@ If you are looking for something you can personalized, isolated and persistent, 
   - `oc annotate route docker-registry --overwrite haproxy.router.openshift.io/balance=source -n default`
   - `oc get routes -n default`
 
-### Quick run through of some OpenShift CLI commands  (Coming)
+### Quick run through of some OpenShift CLI commands - Coming
 In the section installing, you ran a few commands to validate the installation.  Let go a little deeper to showcase what you might want to be able to do from the command line.
 
 1. **List** all the **pods** in the **cluster**.  You should see on the left the **namespaces** or **projects**. next moving right is the **pod name**, how many are **ready**, their **state**, **restarts** and days running or **age**.
@@ -226,8 +225,6 @@ Events:
   Normal  Created    14m   kubelet, 10.95.7.50  Created container
   Normal  Started    14m   kubelet, 10.95.7.50  Started container
 ~~~  
-
-
 
 
 
