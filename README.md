@@ -95,9 +95,10 @@ If you are looking for something you can personalized, isolated and persistent, 
 |Multi-Cloud Management|1|1/8|
 |Security|3|8/32|
 <br>
+
 <iframe width="600" height="322" src="https://www.youtube.com/embed/dDC9eqIMO8U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br>
-
+** **
     [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Checking OpenShift was created and working properly
