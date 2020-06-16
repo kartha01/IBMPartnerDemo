@@ -270,7 +270,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 
 ### Create a Transformation Project
 1. From the navigator **click** ***Organize > transform data***.  This will bring you into the Data Flow Designer in a projects view.
-  1. If you do not see ***Organize > transform data***, check your setting and profile in the upper right under the user icon. **Click** ***Profile and Setttings*** > ***Permissions*** then verify you have following two permissions:
+  1. If you do not see ***Organize > transform data***, check your setting and profile in the upper right under the user icon. **Click** ***Profile and Setttings*** > ***Permissions*** then verify that you have following two permissions:
   - Integrate and transform data
   - View governance artifacts
     If not the users will need to have ***Data Engineer*** role.
