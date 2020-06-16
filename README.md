@@ -1,4 +1,20 @@
 # Partner Demo Environments on IBM Cloud
+- [Ephemeral Product demo (Free) Good if limited customization needed](#ephemeral-product-demo--free--good-if-limited-customization-needed)
+- [Other options  to think about](#other-options--to-think-about)
+- [Persistent Demo Environment (Cost)](#persistent-demo-environment--cost-)
+  * [Prerequisite steps to get entitlement to Cloud Pak software:](#prerequisite-steps-to-get-entitlement-to-cloud-pak-software-)
+  * [PartnerWorld Cloud Credits IBM Cloud account](#partnerworld-cloud-credits-ibm-cloud-account)
+  * [POC account](#poc-account)
+  * [Creating an IBM Cloud account without credits.](#creating-an-ibm-cloud-account-without-credits)
+  * [Add IBM Cloud Security instructions and best practices](#add-ibm-cloud-security-instructions-and-best-practices)
+  * [Creating an Open Shift cluster](#creating-an-open-shift-cluster)
+  * [Checking OpenShift was created and working properly](#checking-openshift-was-created-and-working-properly)
+  * [Using Openshift console](#using-openshift-console)
+  * [Installing the CLI environment](#installing-the-cli-environment)
+  * [Quick run through of some OpenShift CLI commands  (Coming)](#quick-run-through-of-some-openshift-cli-commands---coming-)
+  * [Install your Cloud Pak of Choice](#install-your-cloud-pak-of-choice)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 ## Ephemeral Product demo (Free) Good if limited customization needed
 1. Product demos where you are just showing the product with some canned assets, you can use [Cloud Pak for Data Experiences](https://www.ibm.com/cloud/paks/experiences/cloud-pak-for-data)  
