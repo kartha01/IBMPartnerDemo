@@ -186,8 +186,37 @@ NAME                         READY     STATUS    RESTARTS   AGE
 apiserver-7df5d95cfb-55dcd   1/1       Running   0          11m
 apiserver-7df5d95cfb-m67nk   1/1       Running   0          35s
 ~~~
+1. Always adding `-n openshift-template-service-broker` or another ***namespace*** can be annoying.  If you think you will be in a specific namespace more often than not, like ***zen*** for **Cloud Pak for Data** then execute `oc project zen`  this will allow you to drop the `-n <namespace>` for anything that is in this namespace.
+1. If you want to look into the logs of a pod, you can run `oc logs <pod name> -n <namespace>`  Sometimes there is a lot of information and other times not so much.   You can watch or follow the logs by adding `-f` to the end of the command.
+~~~
+Toms-MBP:~ tjm$ oc logs apiserver-7df5d95cfb-m67nk -n openshift-template-service-broker
+I0616 17:12:52.000294       1 serve.go:116] Serving securely on [::]:8443
+I0616 17:12:52.000593       1 controller_utils.go:1025] Waiting for caches to sync for tsb controller
+I0616 17:12:52.101071       1 controller_utils.go:1032] Caches are synced for tsb controller
+~~~
+1. If this doesn't yield much information, then you can use `oc describe <resource>`.
+~~~
+Toms-MBP:~ tjm$ oc describe pod  apiserver-7df5d95cfb-m67nk -n openshift-template-service-broker
+Name:               apiserver-7df5d95cfb-m67nk
+Namespace:          openshift-template-service-broker
+Priority:           0
+PriorityClassName:  <none>
+Node:               10.95.7.50/10.95.7.50
+Start Time:         Tue, 16 Jun 2020 13:12:49 -0400
+...
+...
+Events:
+  Type    Reason     Age   From                 Message
+  ----    ------     ----  ----                 -------
+  Normal  Scheduled  14m   default-scheduler    Successfully assigned openshift-template-service-broker/apiserver-7df5d95cfb-m67nk to 10.95.7.50
+  Normal  Pulled     14m   kubelet, 10.95.7.50  Container image "registry.ng.bluemix.net/armada-master/iksorigin-ose-template-service-broker:v3.11.216" already present on machine
+  Normal  Created    14m   kubelet, 10.95.7.50  Created container
+  Normal  Started    14m   kubelet, 10.95.7.50  Started container
+~~~  
 
-1.Always adding `-n openshift-template-service-broker` or another ***namespace*** can be annoying.  If you think you will be in a specific namespace more often than not, like ***zen*** for **Cloud Pak for Data** then execute `oc project zen`  this will allow you to drop the `-n <namespace>` for anything that is in this namespace.
+
+
+
 
 **MORE TO COME**
 
