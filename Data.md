@@ -120,7 +120,7 @@ registry:
 fileservers:
  - url: https://raw.
 ~~~~
-**Note:**  While the documentation denotes Linux, using cpd-linux, the video uses cdp-darwin for Mac.  Currently, there is no Windows interface.
+**Note:**  While the documentation denotes Linux, using **cpd-linux**, the video uses **cdp-darwin** for Mac.  Currently, there is no Windows interface.
 
 ### To enable or disable the default admin users
 1. It is suggested to connect your user repository to an LDAP system.  
@@ -136,6 +136,26 @@ export NAMESPACE=zen
 oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | tail -1 | cut -f1 -d\ ) -- bash -c "/usr/src/server-src/scripts/manage-user.sh --enable-user admin"
 ~~~
 **Note:** If you have lost or forgotten your CPD Admin password, you can log into OpenShift then execute the enable command which prompts you for a new password.
+
+### How can I patch a service or control plane
+From time to time any software needs a patch for security reasons, new feature or a bug fix.  How do you know that there is a patch for a specifica service, common services or the control plane.   Take a [look here for v2.5]( https://www.ibm.com/support/knowledgecenter/SSQNUZ_2.5.0/patch/avail-patches.html).  This document has a link to each of the service patches and any extra work that might be needed.   Most patches need a prerequisite patch for the common services.
+1. These commands will start to look familiar.  Set up the environment variables that you will use in the commands, this will lead to less errors later on.
+~~~
+export NAMESPACE=zen
+export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+~~~
+1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-2.5.0.0-ccs-patch-6***.  This name will change after this writing. Note the assembly name can be `wkc` or `wsl`, why not `lite` for the control plane, I am not sure as of this writing.  
+~~~
+./cpd-linux patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly wkc  --patch-name cpd-2.5.0.0-ccs-patch-6
+~~~
+1. Verify that the patch has been applied.
+~~~
+Toms-MBP:~ tjm$ oc project zen
+Already on project "zen" on server "https://c106-e.us-south.containers.cloud.ibm.com:31432".
+Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort | uniq | cut -d: -f2
+       cpd-2.5.0.0-ccs-patch-6
+~~~
+1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name*
 
 ## Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
