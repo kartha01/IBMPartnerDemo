@@ -1,28 +1,28 @@
 # Partner Demo Environments on IBM Cloud
-- [Ephemeral Product demo - Good if limited customization needed](#ephemeral-product-demo--good-if-limited-customization-needed)
+- [Ephemeral Product demo - Good if limited customization needed](#ephemeral-product-demo-free-good-if-limited-customization-needed)
 - [Other options to think about](#other-options-to-think-about)
 - [Persistent Demo Environment (Cost)](#persistent-demo-environment-cost)
   * [Prerequisite steps to get entitlement to Cloud Pak software:](#prerequisite-steps-to-get-entitlement-to-cloud-pak-software)
   * [PartnerWorld Cloud Credits IBM Cloud account](#partnerworld-cloud-credits-ibm-cloud-account)
   * [POC account](#poc-account)
   * [Creating an IBM Cloud account without credits.](#creating-an-ibm-cloud-account-without-credits)
-  * [Add IBM Cloud Security instructions and best practices](#add-ibm-cloud-security-instructions-and-best-practices)
-  * [Creating an Open Shift cluster](#creating-an-open-shift-cluster)
-  * [Checking OpenShift was created and working properly](#checking-openshift-was-created-and-working-properly)
-  * [Using Openshift console](#using-openshift-console)
-  * [Installing the CLI environment](#installing-the-cli-environment)
-  * [Quick run through of some OpenShift CLI commands (Coming)](#quick-run-through-of-some-openshift-cli-commands---coming)
-  * [Install your Cloud Pak of Choice](#install-your-cloud-pak-of-choice)
+- [Add IBM Cloud Security instructions and best practices](#add-ibm-cloud-security-instructions-and-best-practices)
+- [Creating an Open Shift cluster](#creating-an-open-shift-cluster)
+- [Checking OpenShift was created and working properly](#checking-openshift-was-created-and-working-properly)
+- [Using Openshift console](#using-openshift-console)
+- [Installing the CLI environment](#installing-the-cli-environment)
+- [Quick run through of some OpenShift CLI commands (Coming)](#quick-run-through-of-some-openshift-cli-commands---coming)
+- [Install your Cloud Pak of Choice](#install-your-cloud-pak-of-choice)
 
-## Ephemeral Product demo - Good if limited customization needed
+## Ephemeral Product demo (free) Good if limited customization needed
 1. Product demos where you are just showing the product with some canned assets, you can use [Cloud Pak for Data Experiences](https://www.ibm.com/cloud/paks/experiences/cloud-pak-for-data)  
 **Limitations:** Not every service is provisioned, but these are live clusters with multiple people sharing the environment.  Meaning while you can add live data (at this moment), but others can see it.  You can spin this up in 10 minutes and have most of what you need there.  There is internal discussions of locking this down tighter as mainly a sales tool.
 
-##  Other options to think about
+## Other options to think about
   - Blue Demos (need competency to view certain assets) - Currently no CPD partner facing VMs.
   - Quick ready-for environments with canned set of services.
 
-## Persistent Demo Environment-Cost
+## Persistent Demo Environment (Cost)
 If you are looking for something you can personalized, isolated and persistent, you can go down the path of a cluster of your own on IBM Cloud. Following the steps below, you will be responsible for infrastructure costs, but we do have some offsets that can easy this monetary pain.
 
 ### Prerequisite steps to get entitlement to Cloud Pak software:
@@ -46,10 +46,10 @@ If you are looking for something you can personalized, isolated and persistent, 
 1. Best practices on [setting up your account](https://cloud.ibm.com/docs/account?topic=account-account_setup)
 1. Add additional people to the organization's cloud account.
 
-### Add IBM Cloud Security instructions and best practices
+## Add IBM Cloud Security instructions and best practices
 ***Coming soon***
 
-### Creating an Open Shift cluster
+## Creating an Open Shift cluster
 1. Log into [IBM Cloud](https://cloud.ibm.com/)
 1. Click on Catalog > Services
 1. Filter on Containers by checking the box on the left.
@@ -80,7 +80,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 <br>
 <iframe width="600" height="322" src="https://www.youtube.com/embed/dDC9eqIMO8U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br>
-### Checking OpenShift was created and working properly
+## Checking OpenShift was created and working properly
 1. Open the [Dashboard](https://cloud.ibm.com/) on IBM Cloud.
 1. Click the link for ***Clusters***  This give you a high level view of the cluster.  Take note of the version up until the underbar.  You will need to match this version with your OpenShift Client. **Example:**
 1. Click on the cluster name **Example:** CloudPakDataDemo-HealthCare
@@ -91,7 +91,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 
   <iframe width="600" height="322" src="https://www.youtube.com/embed/RexZGfz_D04" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### Using OpenShift console
+## Using OpenShift console
   1. Since master nodes are shared in the ROKS environment and you will use a token to gain access, you can get there via your IBM Cloud account.  
   1. From the Main IBM Cloud page, **click** on the ***Navigation menu*** in thee upper left.   
   1. **Scroll down** to ***OpenShift***
@@ -108,7 +108,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 
   <iframe width="600" height="322" src="https://www.youtube.com/embed/TPgUJkIyQoY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### Installing the CLI environment
+## Installing the CLI environment
   1. Download the Client
   1. unzip and copy oc to your `/usr/local/bin` or include in PATH.
   1. Execute oc version to check that everything is working.  
@@ -230,7 +230,7 @@ Events:
 
 **MORE TO COME**
 
-### Install your Cloud Pak of Choice
+## Install your Cloud Pak of Choice
 <!---  [Cloud Pak for Apps](apps.md) [Cloud pak for Automation](automation.md) --->
   - [Cloud Pak for Data](Data.md)
 <!---  [Cloud Pak for Intergration](integration.md)[Cloud Pak for Mult-Cloud Manager](mcm.md) --->
