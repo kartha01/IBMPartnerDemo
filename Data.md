@@ -156,7 +156,6 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
        cpd-2.5.0.0-ccs-patch-6
 ~~~
 1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name*
-
 ## Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
    1. Run: `oc get nodes`   This will produce a list of nodes.
@@ -271,6 +270,9 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 
 ### Create a Transformation Project
 1. From the navigator **click** ***Organize > transform data***.  This will bring you into the Data Flow Designer in a projects view.
+  1. If you do not see ***Organize > transform data***, the users accessing will need to have ***Data Engineer*** role.
+     - Go to the Navigator on the left and scroll down to ***Administer***  **Click** on ***Manage Users***.
+     - On the right of the list of users, you will see a pencil, which indicates ***edit***.  **Click** the pencil for the user you desire to edit. If you pick ***admin***, you will see this is a new role added based on the Data Virtualization service.
 1. From here you can create a new project.  
   - **Click** ***+ Create*** then provide a Project name.
   - **Click** ***Create*** button.  This will take a minute or two.
