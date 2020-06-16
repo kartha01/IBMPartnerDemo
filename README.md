@@ -92,7 +92,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 
   <iframe width="600" height="322" src="https://www.youtube.com/embed/TPgUJkIyQoY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### Installing the client environment
+### Installing the CLI environment
   1. Download the Client
   1. unzip and copy oc to your `/usr/local/bin` or include in PATH.
   1. Execute oc version to check that everything is working.  
@@ -106,6 +106,75 @@ If you are looking for something you can personalized, isolated and persistent, 
   - `oc annotate route docker-registry --overwrite haproxy.router.openshift.io/balance=source -n default`
   - `oc get routes -n default`
 
+### Quick run through of some OpenShift CLI commands  (Coming)
+In the section installing, you ran a few commands to validate the installation.  Let go a little deeper to showcase what you might want to be able to do from the command line.
+
+1. **List** all the **pods** in the **cluster**.  You should see on the left the **namespaces** or **projects**. next moving right is the **pod name**, how many are **ready**, their **state**, **restarts** and days running or **age**.
+`oc get pods --all-namespaces`
+~~~
+Toms-MBP:bin tjm$ oc get pods --all-namespaces
+NAMESPACE                           NAME                                                              READY     STATUS      RESTARTS   AGE
+default                             docker-registry-6d6cdd559d-ll5rz                                  1/1       Running     0          3d
+default                             docker-registry-6d6cdd559d-w7pb6                                  1/1       Running     0          3d
+...
+ibm-system                          ibm-cloud-provider-ip-169-60-227-155-6b8c7f49cf-nm9v5             1/1       Running     0          3d
+...
+kube-proxy-and-dns                  proxy-and-dns-rgkzw                                               1/1       Running     0          18d
+kube-proxy-and-dns                  proxy-and-dns-tt6rz                                               1/1       NodeLost    0          7d
+...
+kube-service-catalog                apiserver-64d8986ddd-22f2z                                        1/1       Running     0          3d
+...
+kube-system                         vpn-5848948c84-c9frz                                              1/1       Running     0          3d
+...
+openshift-ansible-service-broker    asb-58f44b5c6c-6472d                                              1/1       Unknown     0          3d
+openshift-ansible-service-broker    asb-58f44b5c6c-jz6zn                                              1/1       Running     0          18m
+...
+openshift-monitoring                prometheus-operator-68ccbf549-dwxld                               1/1       Running     0          3d
+...
+openshift-template-service-broker   apiserver-7df5d95cfb-9pzlz                                        1/1       Unknown     0          3d
+openshift-template-service-broker   apiserver-7df5d95cfb-knzdc                                        1/1       Running     0          3d
+~~~
+1. **List** all the **pods** in a **namespace**.  Compare this list to the last.  Notice anything?  The ***Unknown*** is gone and replaced with a different pod.  OpenShift realized it was not responsive and spun up a different pod, then shut down the old one.  
+~~~
+Toms-MBP:bin tjm$ oc get pods -n openshift-template-service-broker
+NAME                         READY     STATUS    RESTARTS   AGE
+apiserver-7df5d95cfb-knzdc   1/1       Running   0          3d
+apiserver-7df5d95cfb-p9cxm   1/1       Running   0          26m
+~~~
+Try another, notice ***NodeLost*** is gone. **NodeLost** in this case the pod name is the same, so the updated state kept OpenShift from restarting the pod or deleting.  
+~~~
+Toms-MBP:bin tjm$ oc get pods -n kube-proxy-and-dns  
+NAME                  READY     STATUS    RESTARTS   AGE
+proxy-and-dns-2866f   1/1       Running   0          18d
+proxy-and-dns-5m5tr   1/1       Running   0          18d
+proxy-and-dns-b997g   1/1       Running   0          18d
+proxy-and-dns-d8jrr   1/1       Running   0          18d
+proxy-and-dns-fk74t   1/1       Running   0          18d
+proxy-and-dns-rgkzw   1/1       Running   0          18d
+proxy-and-dns-tt6rz   1/1       Running   1          7d
+~~~
+1. If you have a pod that is **Evicted** or **Terminating**, you may want to delete or reboot these manually. You can gracefully terminate and restart a pod or force it down. We are going to **delete** a **pod** in the ***openshift-template-service-broker*** namespace.  **Note:** my second command, I forgot to add a namespace.
+~~~
+Toms-MBP:bin tjm$ oc get pods -n openshift-template-service-broker
+NAME                         READY     STATUS    RESTARTS   AGE
+apiserver-7df5d95cfb-knzdc   1/1       Running   0          3d
+apiserver-7df5d95cfb-p9cxm   1/1       Running   0          35m
+Toms-MBP:bin tjm$ oc delete pod apiserver-7df5d95cfb-knzdc
+Error from server (NotFound): pods "apiserver-7df5d95cfb-knzdc" not found
+Toms-MBP:bin tjm$ oc delete pod apiserver-7df5d95cfb-knzdc -n openshift-template-service-broker
+pod "apiserver-7df5d95cfb-knzdc" deleted
+Toms-MBP:bin tjm$ oc get pods -n openshift-template-service-broker
+NAME                         READY     STATUS    RESTARTS   AGE
+apiserver-7df5d95cfb-55dcd   0/1       Running   0          13s
+apiserver-7df5d95cfb-p9cxm   1/1       Running   0          36m
+Toms-MBP:bin tjm$ oc get pods -n openshift-template-service-broker
+NAME                         READY     STATUS    RESTARTS   AGE
+apiserver-7df5d95cfb-55dcd   1/1       Running   0          35s
+apiserver-7df5d95cfb-p9cxm   1/1       Running   0          36m
+~~~
+1. Always adding `-n openshift-template-service-broker` or another namespace can be annoying.  If you think you will be in a specific namespace more often than not, like ***zen*** for **Cloud Pak for Data** then execute `oc project zen`  this will allow you to drop the `-n <namespace>` for anything that is in this namespace.
+
+**MORE TO COME**
 
 ### Install your Cloud Pak of Choice
 <!---  [Cloud Pak for Apps](apps.md) [Cloud pak for Automation](automation.md) --->
