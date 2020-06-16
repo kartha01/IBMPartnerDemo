@@ -155,7 +155,7 @@ Already on project "zen" on server "https://c106-e.us-south.containers.cloud.ibm
 Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort | uniq | cut -d: -f2
        cpd-2.5.0.0-ccs-patch-6
 ~~~
-1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name*
+1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name**
 ## Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
    1. Run: `oc get nodes`   This will produce a list of nodes.
