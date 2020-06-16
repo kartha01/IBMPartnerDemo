@@ -273,11 +273,11 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   1. If you do not see ***Organize > transform data***, check your setting and profile in the upper right under the user icon. **Click** ***Profile and Setttings*** > ***Permissions*** then verify you have following two permissions:
   - Integrate and transform data
   - View governance artifacts
-  If not the users will need to have ***Data Engineer*** role.
+    If not the users will need to have ***Data Engineer*** role.
      - Go to the Navigator on the left and scroll down to ***Administer***  **Click** on ***Manage Users***.
      - On the right of the list of users, you will see a pencil, which indicates ***edit***.  
      - **Click** the pencil for the user you desire to edit.
-     - Choose ***Data Engineer*** to get the appropriate permissions. 
+     - Choose ***Data Engineer*** to get the appropriate permissions.
 1. From here you can create a new project.  
   - **Click** ***+ Create*** then provide a Project name.
   - **Click** ***Create*** button.  This will take a minute or two.
