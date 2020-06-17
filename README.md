@@ -1,5 +1,5 @@
 # Partner Demo Environments on IBM Cloud
-- [Ephemeral Product demo (free) Good if limited customization needed](#ephemeral-product-demo-free-good-if-limited-customization-needed)
+- [Product demo (free) Good if limited customization needed](#product-demo-free-good-if-limited-customization-needed)
 - [Other options to think about](#other-options-to-think-about)
 - [Persistent Demo Environment (Cost)](#persistent-demo-environment-cost)
   * [Prerequisite steps to get entitlement to Cloud Pak software:](#prerequisite-steps-to-get-entitlement-to-cloud-pak-software)
@@ -15,7 +15,7 @@
 - [Install your Cloud Pak of Choice](#install-your-cloud-pak-of-choice)
 
 
-## Ephemeral Product demo (free) Good if limited customization needed
+## Product demo (free) Good if limited customization needed
 1. Product demos where you are just showing the product with some canned assets, you can use [Cloud Pak for Data Experiences](https://www.ibm.com/cloud/paks/experiences/cloud-pak-for-data)  
 **Limitations:** Not every service is provisioned, but these are live clusters with multiple people sharing the environment.  Meaning while you can add live data (at this moment), but others can see it.  You can spin this up in 10 minutes and have most of what you need there.  There is internal discussions of locking this down tighter as mainly a sales tool.
 
