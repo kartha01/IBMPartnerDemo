@@ -19,25 +19,25 @@
 1. Product demos where you are just showing the product with some canned assets, you can use [Cloud Pak for Data Experiences](https://www.ibm.com/cloud/paks/experiences/cloud-pak-for-data)  
 **Limitations:** Not every service is provisioned, but these are live clusters with multiple people sharing the environment.  Meaning while you can add live data (at this moment), but others can see it.  You can spin this up in 10 minutes and have most of what you need there.  There is internal discussions of locking this down tighter as mainly a sales tool.
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Other options to think about
   - Blue Demos (need competency to view certain assets) - Currently no CPD partner facing VMs.
   - Quick ready-for environments with canned set of services.
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Persistent Demo Environment (Cost)
 If you are looking for something you can personalized, isolated and persistent, you can go down the path of a cluster of your own on IBM Cloud. Following the steps below, you will be responsible for infrastructure costs, but we do have some offsets that can easy this monetary pain.
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ### Prerequisite steps to get entitlement to Cloud Pak software:
 1. Already an IBM PartnerWorld member and have purchased an IBM Partner Package.  Every package has the Software Access Catalog, so choose the right [Partner Package for your business](https://www.ibm.com/partnerworld/program/benefits/partner-package) **Note:** Must be logged in to PartnerWorld to see details
 1. Add employees to your IBM PartnerWorld Profile.  This will provide them with authorization to entitled software on premises or Cloud Container registry.
 1. Verify that you have access to [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).  Click ***Library***, it should say `IBM SOFTWARE ACCESS 1 YEAR`
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ### PartnerWorld Cloud Credits IBM Cloud account
 1. When you picked your **PartnerWorld Package**, an IBM Cloud account will be created for your company.   When this is available perform the following steps.
@@ -46,12 +46,12 @@ If you are looking for something you can personalized, isolated and persistent, 
 1. Best practices on [setting up your account](https://cloud.ibm.com/docs/account?topic=account-account_setup)
 1. Add additional people to the organization's cloud account.
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ### POC account
 ***Coming soon***
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ###  Creating an IBM Cloud account without credits.
 1. Sign up for IBM CloudPakData
@@ -59,12 +59,12 @@ If you are looking for something you can personalized, isolated and persistent, 
 1. Best practices on [setting up your account](https://cloud.ibm.com/docs/account?topic=account-account_setup)
 1. Add additional people to the organization's cloud account.
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Add IBM Cloud Security instructions and best practices
 ***Coming soon***
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Creating an Open Shift cluster
 1. Log into [IBM Cloud](https://cloud.ibm.com/)
@@ -98,8 +98,8 @@ If you are looking for something you can personalized, isolated and persistent, 
 
 <iframe width="600" height="322" src="https://www.youtube.com/embed/dDC9eqIMO8U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br>
-** **
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Checking OpenShift was created and working properly
 1. Open the [Dashboard](https://cloud.ibm.com/) on IBM Cloud.
@@ -112,7 +112,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 
   <iframe width="600" height="322" src="https://www.youtube.com/embed/RexZGfz_D04" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-      [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Using OpenShift console
   1. Since master nodes are shared in the ROKS environment and you will use a token to gain access, you can get there via your IBM Cloud account.  
@@ -131,7 +131,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 
   <iframe width="600" height="322" src="https://www.youtube.com/embed/TPgUJkIyQoY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-      [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Installing the CLI environment
   1. Download the Client
@@ -147,7 +147,7 @@ If you are looking for something you can personalized, isolated and persistent, 
   - `oc annotate route docker-registry --overwrite haproxy.router.openshift.io/balance=source -n default`
   - `oc get routes -n default`
 
-      [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ### Quick run through of some OpenShift CLI commands - Coming
 In the section installing, you ran a few commands to validate the installation.  Let go a little deeper to showcase what you might want to be able to do from the command line.
@@ -257,10 +257,10 @@ Events:
 
 **MORE TO COME**
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Install your Cloud Pak of Choice
 <!---  [Cloud Pak for Apps](apps.md) [Cloud pak for Automation](automation.md) --->
   - [Cloud Pak for Data](Data.md)
 <!---  [Cloud Pak for Intergration](integration.md)[Cloud Pak for Mult-Cloud Manager](mcm.md) --->
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
