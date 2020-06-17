@@ -12,7 +12,7 @@
   * [Checking OpenShift was created and working properly](#checking-openshift-was-created-and-working-properly)
   * [Using OpenShift console](#using-openshift-console)
   * [Installing the CLI environment](#installing-the-cli-environment)
-    + [Quick run through of some OpenShift CLI commands - Coming](#quick-run-through-of-some-openshift-cli-commands-coming)
+    + [Quick run through of some OpenShift CLI commands](#quick-run-through-of-some-openshift-cli-commands)
   * [Install your Cloud Pak of Choice](#install-your-cloud-pak-of-choice)
 
 ## Ephemeral Product demo (free) Good if limited customization needed
@@ -149,7 +149,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
-### Quick run through of some OpenShift CLI commands - Coming
+### Quick run through of some OpenShift CLI commands
 In the section installing, you ran a few commands to validate the installation.  Let go a little deeper to showcase what you might want to be able to do from the command line.
 
 1. **List** all the **pods** in the **cluster**.  You should see on the left the **namespaces** or **projects**. next moving right is the **pod name**, how many are **ready**, their **state**, **restarts** and days running or **age**.
