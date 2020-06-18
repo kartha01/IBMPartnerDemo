@@ -17,7 +17,7 @@
   * [Create a Transformation Project](#create-a-transformation-project)
   * [Uninstalling DataStage.](#uninstalling-datastage)
 - [Installing Analytics Dashboards](#installing-analytics-dashboards)
-  * [Uninstalling Analytics Dashboards](uninstalling-Analytics-Dashboards)
+  * [Uninstalling Analytics Dashboards](uninstalling-analytics-dashboards)
 - [Installing Analytics Engine (Spark Clusters)](#installing-analytics-engine-spark-clusters)
   * [Provision Analytics Engine instance](#provision-analytics-engine-instance)
 - [Installing Cognos Analytics](#installing-cognos-analytics)
