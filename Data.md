@@ -374,7 +374,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
   ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly cde
   ~~~
-1. Deploy DataStage by running the following:
+1. Deploy Analytics Dashboards by running the following:
   ~~~
   ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly cde
   ~~~
@@ -394,11 +394,11 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
    ~~~
-1. Set the security aspects for Spark to install properly
+1. Set the security aspects for Analytics Engine to install properly
   ~~~
   ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly spark
   ~~~
-1. Deploy DataStage by running the following:
+1. Deploy Analytics Engine by running the following:
   ~~~
   ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly spark
   ~~~
@@ -424,7 +424,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
    ~~~
    ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ca
    ~~~
-1. Deploy DataStage by running the following:
+1. Deploy Cognos Analytics by running the following:
    ~~~
    ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly ca
    ~~~
