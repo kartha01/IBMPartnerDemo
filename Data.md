@@ -1,4 +1,5 @@
 # Install instructions for Cloud Pak for Data
+- [Provision OpenShift](https://tjmcmanus.github.io/IBMPartnerDemo/#creating-an-open-shift-cluster)
 - [Provision the Control plane or lite assembly](#provision-the-control-plane-or-lite-assembly)
 - [Building the configuration](#building-the-configuration)
 - [Review Services installed](#review-services-installed)
