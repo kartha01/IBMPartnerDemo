@@ -425,12 +425,12 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### Provision Analytics Engine instance
 ***coming soon***
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Installing Cognos Analytics
 Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)  
@@ -451,10 +451,10 @@ Understand the [current differences here](https://community.ibm.com/community/us
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### Provision Cognos Analytics instance
 
 ***coming soon***  
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
