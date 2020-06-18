@@ -137,9 +137,10 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/down
 1. Edit the ***deployment*** to change the ***nodeSelectors*** from `kubernetes.io` to `beta.kubernetes.io`
 ~~~
 oc edit deployments metrics-server -n kube-system
-~~~
-~~~
-t":{"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000},"volumeMounts":[{"mountPath":"/tmp","name":"tmp-dir"}]}],"nodeSelector":{"beta.kubernetes.io/arch":"amd64","beta.kubernetes.io/os":"linux"},"serviceAccountName":"metrics-server","volumes":[{"emptyDir":{},"name":"tmp-dir"}]}}}}
+
+...
+
+{"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000},"volumeMounts":[{"mountPath":"/tmp","name":"tmp-dir"}]}],"nodeSelector":{"beta.kubernetes.io/arch":"amd64","beta.kubernetes.io/os":"linux"},"serviceAccountName":"metrics-server","volumes":[{"emptyDir":{},"name":"tmp-dir"}]}}}}
 
 ...
 
