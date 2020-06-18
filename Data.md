@@ -21,7 +21,7 @@
 - [Installing Analytics Engine (Spark Clusters)](#installing-analytics-engine-spark-clusters)
   * [Provision Analytics Engine instance](#provision-analytics-engine-instance)
 - [Installing Cognos Analytics](#installing-cognos-analytics)
-  * [Provision Congnos Analytics instance](#provision-cognos-analytics-instance)
+  * [Provision Cognos Analytics instance](#provision-cognos-analytics-instance)
 
 ## Provision the Control plane or lite assembly
 1. **Click** ***Catalog***
@@ -453,7 +453,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
 
     [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
-### Provision Cognos Analytics instance *
+### Provision Cognos Analytics instance
 
 ***coming soon***  
 
