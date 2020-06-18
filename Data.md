@@ -18,7 +18,9 @@
   * [Uninstalling DataStage.](#uninstalling-datastage)
 - [Installing Analytics Dashboards](#installing-analytics-dashboards)
 - [Installing Analytics Engine (Spark Clusters)](#installing-analytics-engine-spark-clusters)
+  * [Provision Analytics Engine instance](#provision-analytics-engine-instance)
 - [Installing Cognos Analytics](#installing-cognos-analytics)
+  * [Provision Congnos Analytics instance](#provision-cognos-analytics-instance)
 
 ## Provision the Control plane or lite assembly
 1. **Click** ***Catalog***
@@ -412,6 +414,9 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 
     [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
+### Provision Analytics Engine instance
+***coming soon***
+        [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 ## Installing Cognos Analytics
   Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)
     1. 1. Run `env` to verify that the following variables are exported
@@ -432,3 +437,6 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
     1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
         [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+### Provision Cognos Analytics instance
+        ***coming soon***  
+        [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
