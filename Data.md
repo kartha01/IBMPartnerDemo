@@ -6,6 +6,7 @@
 - [Set up Watson Studio or Watson Machine Learning](#set-up-watson-studio-or-watson-machine-learning)
   * [Increase the capacity or scale up your service](#increase-the-capacity-or-scale-up-your-service)
 - [Set up Watson OpenScale](#set-up-watson-openscale)
+- [Troubleshooting and managing Cloud Pak for Data through the console](#troubleshooting-and-managing-cloud-pak-for-data-through-the-console)
 - [Adding additional services](#adding-additional-services)
   * [To enable or disable the default admin users](#to-enable-or-disable-the-default-admin-users)
   * [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -120,6 +121,13 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dJV_ZqK-pvc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+
+## Troubleshooting and managing Cloud Pak for Data through the console
+
+***coming soon***  
+
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
+
 
 ## Adding additional services
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under **Installing the client environment**  You will have logged into the OpenShift cluster, set the project to ***zen*** already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.  If ***zen*** doesn't exist, then your probably went with ***default***.
