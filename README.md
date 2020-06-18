@@ -24,6 +24,7 @@
 ## Other options to think about
   - Blue Demos (need competency to view certain assets) - Currently no CPD partner facing VMs.
   - Quick ready-for environments with canned set of services.
+  - IBM Cloud to demonstrate product functionality
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
@@ -33,11 +34,12 @@ If you are looking for something you can personalized, isolated and persistent, 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ### Prerequisite steps to get entitlement to Cloud Pak software:
-1. Already an IBM PartnerWorld member and have purchased an IBM Partner Package.  Every package has the Software Access Catalog, so choose the right [Partner Package for your business](https://www.ibm.com/partnerworld/program/benefits/partner-package) **Note:** Must be logged in to PartnerWorld to see details
-1. Add employees to your IBM PartnerWorld Profile.  This will provide them with authorization to entitled software on premises or Cloud Container registry.
+1. Subscribe to an IBM Partner Package.  Every new package has the Software Access Catalog plus access to PartnerWorld Software developer to developer support, so choose the right [Partner Package for your business](https://www.ibm.com/partnerworld/program/benefits/partner-package) **Note:** Must be logged in to PartnerWorld to see details
+1. Add employees to your IBM PartnerWorld Profile.  This will provide them with authorization to entitled software on premises or Cloud Container registry.  **Note:**  This could take up to 24 hours to take hold.
 1. Verify that you have access to [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).  Click ***Library***, it should say `IBM SOFTWARE ACCESS 1 YEAR`
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+
 
 ### PartnerWorld Cloud Credits IBM Cloud account
 1. When you picked your **PartnerWorld Package**, an IBM Cloud account will be created for your company.   When this is available perform the following steps.
@@ -86,19 +88,18 @@ How do I request an account?  What qualifies? Can my VAD help here?
   1. Adjust your cluster name to your liking. **Example** CloudPakDataDemo-HealthCare
   1. Click **Create** on the right hand side blue button.  Just above this is your estimate.  Make sure that there is a line item for Cloud Pak entitlement with a negative value.
   1. This can take 30 mimutes to provision.
-<br>
-|Cloud Pak|Nodes|Size: Cores/RAM|
-|:---|:---:|:---:|
-|Apps|1|4/16|
-|Automation|3|8/32|
-|Data|3|16/64|
-|Integration|3|8/32|
-|Multi-Cloud Management|1|1/8|
-|Security|3|8/32|
-<br>
+  <br>
+  |Cloud Pak|Nodes|Size: Cores/RAM|
+  |:---|:---:|:---:|
+  |Apps|1|4/16|
+  |Automation|3|8/32|
+  |Data|3|16/64|
+  |Integration|3|8/32|
+  |Multi-Cloud Management|1|1/8|
+  |Security|3|8/32|
 
 <iframe width="600" height="322" src="https://www.youtube.com/embed/dDC9eqIMO8U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<br>
+
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
