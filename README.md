@@ -22,9 +22,10 @@
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Other options to think about
-  - Blue Demos (need competency to view certain assets) - Currently no CPD partner facing VMs.
-  - Quick ready-for environments with canned set of services.
+<!---  - Blue Demos (need competency to view certain assets) - Currently no CPD partner facing VMs. --->
+<!---  - Quick ready-for environments with canned set of services.  --->
   - IBM Cloud to demonstrate product functionality
+  - Build on your own hardware
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
