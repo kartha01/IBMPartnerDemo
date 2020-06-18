@@ -391,7 +391,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 
 ## Installing Analytics Engine (Spark Clusters)
 If you are using **Data Refinery** and you have to prep files larger than 100MB, then you will want to install the **Analytics Engine** to be able to select a different runtime than ***Data Refinery XS***.  This is the service to ***install*** if you want to use **Spark** with **Watson Studio**.
-1. 1. Run `env` to verify that the following variables are exported
+1. Run `env` to verify that the following variables are exported
    ~~~
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
@@ -414,25 +414,26 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 ***coming soon***
         [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 ## Installing Cognos Analytics
-  Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)
-    1. 1. Run `env` to verify that the following variables are exported
-       ~~~
-       export NAMESPACE=zen
-       export STORAGE_CLASS=ibmc-file-gold-gid
-       export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-       ~~~
-    1. Set the security aspects for Cognos to install properly
-      ~~~
-      ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ca
-      ~~~
-    1. Deploy DataStage by running the following:
-      ~~~
-      ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly ca
-      ~~~
-    1. You will need to tab to accept the license.
-    1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)  
+1. Run `env` to verify that the following variables are exported
+   ~~~
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   ~~~
+1. Set the security aspects for Cognos to install properly
+   ~~~
+   ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ca
+   ~~~
+1. Deploy DataStage by running the following:
+   ~~~
+   ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly ca
+   ~~~
+1. You will need to tab to accept the license.
+1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
-        [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+
 ### Provision Cognos Analytics instance
         ***coming soon***  
-        [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
+    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
