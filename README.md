@@ -49,6 +49,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ### POC account
+How do I request an account?  What qualifies? Can my VAD help here?
 ***Coming soon***
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
