@@ -138,7 +138,7 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/down
 ~~~
 oc edit deployments metrics-server -n kube-system
 ~~~
-~~~~
+~~~
 t":{"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000},"volumeMounts":[{"mountPath":"/tmp","name":"tmp-dir"}]}],"nodeSelector":{"beta.kubernetes.io/arch":"amd64","beta.kubernetes.io/os":"linux"},"serviceAccountName":"metrics-server","volumes":[{"emptyDir":{},"name":"tmp-dir"}]}}}}
 
 ...
@@ -146,7 +146,7 @@ t":{"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000},"volumeM
 nodeSelector:
    beta.kubernetes.io/arch: amd64
    beta.kubernetes.io/os: linux
-~~~~
+~~~
 1. Verify **Metric Server** pod is ***Running***
 ~~~
 Toms-MBP:bin tjm$ oc get pods -n kube-system | grep metric
