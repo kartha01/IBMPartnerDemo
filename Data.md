@@ -8,6 +8,10 @@
   * [Increase the capacity or scale up your service](#increase-the-capacity-or-scale-up-your-service)
 - [Set up Watson OpenScale](#set-up-watson-openscale)
 - [Troubleshooting and managing Cloud Pak for Data through the console](#troubleshooting-and-managing-cloud-pak-for-data-through-the-console)
+  * [Install Metric Server to collect usage stats](#install-metric-server-to-collect-usage-stats)
+  * [Manage Deployments](#manage-deployments)
+  * [Manage Users](#manage-users)
+  * [Viewing Logs](#viewing-logs)
 - [Adding additional services](#adding-additional-services)
   * [To enable or disable the default admin users](#to-enable-or-disable-the-default-admin-users)
   * [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -125,8 +129,42 @@
 
 ## Troubleshooting and managing Cloud Pak for Data through the console
 
-***coming soon***  
+### Install Metric Server to collect usage stats
+1. Install the **Metric Server** into the `kube-system` namespace.
+~~~
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml
+~~~
+1. Edit the ***deployment*** to change the ***nodeSelectors*** from `kubernetes.io` to `beta.kubernetes.io`
+~~~
+oc edit deployments metrics-server -n kube-system
+~~~
+~~~~
+t":{"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":1000},"volumeMounts":[{"mountPath":"/tmp","name":"tmp-dir"}]}],"nodeSelector":{"beta.kubernetes.io/arch":"amd64","beta.kubernetes.io/os":"linux"},"serviceAccountName":"metrics-server","volumes":[{"emptyDir":{},"name":"tmp-dir"}]}}}}
 
+...
+
+nodeSelector:
+   beta.kubernetes.io/arch: amd64
+   beta.kubernetes.io/os: linux
+~~~~
+1. Verify **Metric Server** pod is ***Running***
+~~~
+Toms-MBP:bin tjm$ oc get pods -n kube-system | grep metric
+metrics-server-56699fb88f-2kwqn                       1/1       Running   0          22m
+~~~
+**Note:**  This took about 5 minute being very careful.  2 minutes with experience.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GZLGv8i0dFQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+
+### Manage Deployments
+***coming soon***  
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
+### Manage Users
+***coming soon***  
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
+### Viewing logs
+***coming soon***  
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
 
 
