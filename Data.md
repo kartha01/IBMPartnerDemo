@@ -380,8 +380,9 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.
+
 **Note:** Actual time taken is 13 minutes.  
-<iframe width="560" height="315" src="https://www.youtube.com/embed/cs8-FbiYGM8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/cs8-FbiYGM8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
