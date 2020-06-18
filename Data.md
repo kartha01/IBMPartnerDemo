@@ -17,6 +17,7 @@
   * [Create a Transformation Project](#create-a-transformation-project)
   * [Uninstalling DataStage.](#uninstalling-datastage)
 - [Installing Analytics Dashboards](#installing-analytics-dashboards)
+  * [Uninstalling Analytics Dashboards](uninstalling-Analytics-Dashboards)
 - [Installing Analytics Engine (Spark Clusters)](#installing-analytics-engine-spark-clusters)
   * [Provision Analytics Engine instance](#provision-analytics-engine-instance)
 - [Installing Cognos Analytics](#installing-cognos-analytics)
@@ -385,6 +386,24 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
  <iframe width="560" height="315" src="https://www.youtube.com/embed/cs8-FbiYGM8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+
+### Uninstalling Analytics Dashboards
+1. From the command line:
+  - Set namespace.  My namespace is ***zen*** your may be different like ***default***
+  ~~~
+  export NAMESPACE=zen
+  ~~~  
+  - Do a dry run uninstall to check what will be taken off.
+  ~~~
+  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly cde --uninstall-dry-run
+  ~~~
+  - Run the uninstall
+  ~~~
+  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly cde
+  ~~~
+1.  Go to the **Services** catalog and verify that **Analytics Dashboards** is no longer ***enabled***.   
+
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 
 ## Installing Analytics Engine (Spark Clusters)
