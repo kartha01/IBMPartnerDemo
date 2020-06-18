@@ -113,12 +113,12 @@
 1. Let's provision OpenScale.
 1. You will be met with an ***auto setup*** to configure.  
 1. First step is accept the local WML instance.
-2. Enter connection details for a Db2 Database.  I am using a DB2 Warehouse that I installed later on.  You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section.
+1. Enter connection details for a Db2 Database.  I am using a DB2 Warehouse that I installed later on.  You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section.
 
 **Note:** Actual time taken is 18 minutes which included reviewing the sample.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dJV_ZqK-pvc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Adding additional services
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under **Installing the client environment**  You will have logged into the OpenShift cluster, set the project to ***zen*** already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.  If ***zen*** doesn't exist, then your probably went with ***default***.
@@ -175,7 +175,7 @@ oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | t
 ~~~
 **Note:** If you have lost or forgotten your CPD Admin password, you can log into OpenShift then execute the enable command which prompts you for a new password.
 
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### How can I patch a service or control plane
 From time to time any software needs a patch for security reasons, new feature or a bug fix.  How do you know that there is a patch for a specifica service, common services or the control plane.   Take a [look here for v2.5]( https://www.ibm.com/support/knowledgecenter/SSQNUZ_2.5.0/patch/avail-patches.html).  This document has a link to each of the service patches and any extra work that might be needed.   Most patches need a prerequisite patch for the common services.
@@ -197,7 +197,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 ~~~
 1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name**
 
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
@@ -242,11 +242,10 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh
   ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+ **Note:** Actual time taken is 16 minutes
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/943Gi4Z9vUo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/943Gi4Z9vUo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-**Note:** Actual time taken is 16 minutes
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### Provision a Database instance
 1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
@@ -267,13 +266,13 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 **Note** Total time took about 12 minutes  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VLxgR3CeOCg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### Create a Table  
 1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by ***admin***, via **SQL editor** by default will go under **Schema** ***user999***.
   - You can use the UI and select and create tables under certain schemas.
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### Uninstalling DB2 Warehouse.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
@@ -292,7 +291,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Installing DataStage service
 1. Verify you have enough resource capcity to run DataStage.  You many need to increase your work pool by a node.
@@ -313,10 +312,10 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+**Note:** Actual time taken is 11 minutes for the install.
 <iframe width="600" height="322" src="https://www.youtube.com/embed/HhBzRVBBanQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-    **Note:** Actual time taken is 11 minutes for the install.
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### Create a Transformation Project
 1. From the navigator **click** ***Organize > transform data***.  This will bring you into the Data Flow Designer in a projects view.
@@ -342,7 +341,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   1. Across the top, you should see another cog.  This allows you to add ***Smart Palatte*** to the options.  This will start prompting you with potential options.
   1.  Across the very top, is where you will add ***Connections***, ***Table Definitions***, ***Parameter Sets***, ***Jobs*** and the current ***Job_1*** that you were just creating.  
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### Uninstalling DataStage.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
@@ -361,7 +360,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
 1. Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
 
-   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Installing Analytics Dashboards
 **Analytics Dashboards** gives you a quick way to visualize your data.  This is not full blown **Cognos Analytics for Cloud Pak for Data*** nor **on premises** version.  Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)
