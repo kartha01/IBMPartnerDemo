@@ -150,7 +150,7 @@ Toms-MBP:bin tjm$ oc get pods -n kube-system | grep metric
 metrics-server-56699fb88f-2kwqn                       1/1       Running   0          22m
 ~~~
 **Note:**  This took about 5 minute being very careful.  2 minutes with experience.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/GZLGv8i0dFQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="600" height="322" src="https://www.youtube.com/embed/lZaAclebEys" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
