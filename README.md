@@ -12,7 +12,7 @@
 - [Using OpenShift console](#using-openshift-console)
 - [Installing the CLI environment](#installing-the-cli-environment)
   * [Quick run through of some OpenShift CLI commands](#quick-run-through-of-some-openshift-cli-commands)
-- [Install your Cloud Pak of Choice](#install-your-cloud-pak-of-choice)
+- [Install your Cloud Pak of Choice (currently only Data)](#install-your-cloud-pak-of-choice)
 
 
 ## Product demo (free) Good if limited customization needed
