@@ -342,7 +342,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   1. Across the top, you should see another cog.  This allows you to add ***Smart Palatte*** to the options.  This will start prompting you with potential options.
   1.  Across the very top, is where you will add ***Connections***, ***Table Definitions***, ***Parameter Sets***, ***Jobs*** and the current ***Job_1*** that you were just creating.  
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### Uninstalling DataStage.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
@@ -359,9 +359,9 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
   ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly ds
   ~~~
-1.  Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
+1. Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Installing Analytics Dashboards
 **Analytics Dashboards** gives you a quick way to visualize your data.  This is not full blown **Cognos Analytics for Cloud Pak for Data*** nor **on premises** version.  Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)
@@ -384,9 +384,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 **Note:** Actual time taken is 13 minutes.  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/cs8-FbiYGM8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-
-
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 
 ## Installing Analytics Engine (Spark Clusters)
@@ -412,7 +410,9 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 
 ### Provision Analytics Engine instance
 ***coming soon***
-        [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+
+    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+
 ## Installing Cognos Analytics
 Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)  
 1. Run `env` to verify that the following variables are exported
@@ -434,6 +434,8 @@ Understand the [current differences here](https://community.ibm.com/community/us
 
     [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
-### Provision Cognos Analytics instance
-        ***coming soon***  
+### Provision Cognos Analytics instance *
+
+***coming soon***  
+
     [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
