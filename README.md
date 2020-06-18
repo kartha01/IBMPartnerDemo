@@ -4,7 +4,7 @@
 - [Persistent Demo Environment (Cost)](#persistent-demo-environment-cost)
   * [Prerequisite steps to get entitlement to Cloud Pak software:](#prerequisite-steps-to-get-entitlement-to-cloud-pak-software)
   * [PartnerWorld Cloud Credits IBM Cloud account](#partnerworld-cloud-credits-ibm-cloud-account)
-  * [POC account](#poc-account)
+  * [Proof of Technolgy (POC) account](#proof-of-technolgy-poc-account)
   * [Creating an IBM Cloud account without credits.](#creating-an-ibm-cloud-account-without-credits)
 - [Add IBM Cloud Security instructions and best practices](#add-ibm-cloud-security-instructions-and-best-practices)
 - [Creating an Open Shift cluster](#creating-an-open-shift-cluster)
@@ -51,7 +51,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
-### POC account
+### Proof of Technolgy (POC) account
 How do I request an account?  What qualifies? Can my VAD help here?
 ***Coming soon***
 
