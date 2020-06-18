@@ -29,7 +29,7 @@
 1. **Click** on the ***Cloud Pak for Data*** tile.
 1. **Click** on the ***Readme*** tab to review what you can provision using ***Schematics*** (Terraform).
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Building the configuration
 1. On the ***create*** tab, this is where we will build the configuration of the Cloud Pak for Data clusters
@@ -47,7 +47,7 @@
 **Note:** This can take 4 hours to provision.
 <iframe width="600" height="322" src="https://www.youtube.com/embed/Ic0xnlci47o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Review Services installed
 1. From the Schematics workspace, **Click** `Offering dashboard`
@@ -61,7 +61,7 @@
 1. Some are set up automatically and some you need to provision.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vYS7xwk0fn8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Set up Data Virtualization
 1. **Click** on the ***Services*** icon to get to the services catalog.
@@ -81,12 +81,12 @@
 **Note:**  The total provision and assigning roles was 21 minutes.
 <iframe width="600" height="322" src="https://www.youtube.com/embed/ll40JJx5xyc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Set up Watson Studio or Watson Machine Learning
 1. If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take. You can proceed and create a project.
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### Increase the capacity or scale up your service
 1. To scale services, you will need to have the command line installed.  (Instruction under the ***Adding additional services*** section)
@@ -106,7 +106,7 @@
    ./cpd-linux scale -a wml -n zen --config small  --load-from ./cpd-linux-workspace
    ~~~
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Set up Watson OpenScale
 1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
@@ -118,7 +118,7 @@
 **Note:** Actual time taken is 18 minutes which included reviewing the sample.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dJV_ZqK-pvc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Adding additional services
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under **Installing the client environment**  You will have logged into the OpenShift cluster, set the project to ***zen*** already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.  If ***zen*** doesn't exist, then your probably went with ***default***.
@@ -158,7 +158,7 @@ fileservers:
 ~~~~
 **Note:**  While the documentation denotes Linux, using **cpd-linux**, the video uses **cdp-darwin** for Mac.  Currently, there is no Windows interface.
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### To enable or disable the default admin users
 1. It is suggested to connect your user repository to an LDAP system.  
@@ -175,7 +175,7 @@ oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | t
 ~~~
 **Note:** If you have lost or forgotten your CPD Admin password, you can log into OpenShift then execute the enable command which prompts you for a new password.
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### How can I patch a service or control plane
 From time to time any software needs a patch for security reasons, new feature or a bug fix.  How do you know that there is a patch for a specifica service, common services or the control plane.   Take a [look here for v2.5]( https://www.ibm.com/support/knowledgecenter/SSQNUZ_2.5.0/patch/avail-patches.html).  This document has a link to each of the service patches and any extra work that might be needed.   Most patches need a prerequisite patch for the common services.
@@ -197,7 +197,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 ~~~
 1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name**
 
-    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
@@ -361,7 +361,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
 1. Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Installing Analytics Dashboards
 **Analytics Dashboards** gives you a quick way to visualize your data.  This is not full blown **Cognos Analytics for Cloud Pak for Data*** nor **on premises** version.  Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)
