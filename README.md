@@ -72,23 +72,23 @@ How do I request an account?  What qualifies? Can my VAD help here?
 
 ## Creating an Open Shift cluster
 1. Log into [IBM Cloud](https://cloud.ibm.com/)
-1. Click on Catalog > Services
-1. Filter on Containers by checking the box on the left.
-1. Select Red Hat OpenShift on IBM Cloud
-1. On the right is a pane for estimated monthly cost, since the cost is based on hourly tiered Kubernetes Compute plus the 30 day OpenShift license.  If you are authenticated and authorized for PartnerWorld Software Access Catalog per above instructions, you are only responsible the hourly compute used.  This suggests that you can quiesce the virtual servers to pause the hourly charges, but not true.  You will be billed even if Compute resources are down.
+1. Click on **Catalog** > **Services**
+1. Filter on ***Containers*** by checking the box on the left.
+1. Select **Red Hat OpenShift on IBM Cloud**
+1. On the right is a pane for estimated monthly cost, since the cost is based on hourly tiered Kubernetes Compute plus the 30 day OpenShift license.  If you are authenticated and authorized for **PartnerWorld Software Access Catalog** per above instructions, you are only responsible the hourly compute used, however you will be billed even if Compute resources are down.
 1. On the left is where you will alter the version, license, type of compute and number of worker nodes. **Note:** You are only paying for Worker nodes no master or bastion nodes.  
 1. Going down the page:
-  1. First select the OpenShift version
-  1. OCP Entitlement;  Select ***Apply my Cloud Pak entitlement to this worker pool***
-  1. Select Resource Group - ***Default*** unless you created your own which is easier to organize later.
-  1. Pick your Geography
-  1. Pick your Availability ***Single zone***
-  1. Pick worker zone
-  1. Click Change Flavor to select the appropriate Flavor then click ***Done*** **Example** Cloud Pak for Data uses either 16 core/64GB RAM or 32 core/64GB RAM.   
-  1. Pick number of worker nodes **Example:** Cloud Pak for Data start with 3. ***suggestions on bare minimum in table below*** I am running all that is installed on 5 node - 16 core 64GB cluster.
-  1. Adjust your cluster name to your liking. **Example** CloudPakDataDemo-HealthCare
-  1. Click **Create** on the right hand side blue button.  Just above this is your estimate.  Make sure that there is a line item for Cloud Pak entitlement with a negative value.
-  1. This can take 30 mimutes to provision.
+  1. First select the ***OpenShift version***
+  1. **OpenShift Entitlement**;  Select ***Apply my Cloud Pak entitlement to this worker pool***
+  1. Select **Resource Group** - ***Default*** unless you created your own which is easier to organize later.
+  1. Pick your **Geography**
+  1. Pick your **Availability** ***Single zone***
+  1. Pick **Worker Zone**
+  1. Click **Change Flavor** to select the appropriate Flavor then click ***Done*** **Example** Cloud Pak for Data uses either 16 core/64GB RAM or 32 core/64GB RAM.   
+  1. Pick number of **worker nodes** **Example:** Cloud Pak for Data start with ***3***. ***suggestions on bare minimum in table below*** I am running **Cloud Pak for Data** plus all favorite ***Services*** all that is installed on 5 node - 16 core 64GB cluster.
+  1. Adjust your **cluster name** to your liking. **Example** ***CloudPakDataDemo-HealthCare***
+  1. Click **Create** on the right hand side blue button.  Just above this is your estimate.  Make sure that there is a line item for **Cloud Pak entitlement** with a ***negative*** value.
+  1. This can take ***30 minutes*** to provision.
 
   |Cloud Pak|Nodes|Size: Cores/RAM|
   |:---|:---:|:---:|
