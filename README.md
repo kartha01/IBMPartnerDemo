@@ -43,7 +43,7 @@ If you are looking for something you can personalized, isolated and persistent, 
 
 
 ### PartnerWorld Cloud Credits IBM Cloud account
-1. When you picked your **PartnerWorld Package**, an IBM Cloud account will be created for your company.   When this is available perform the following steps.
+1. You may be entitled to **Cloud Credits** ***free of charge*** based on your **PartnerWorld Program Status**, or may choose to ***purchase*** an [IBM Partner Package](https://www.ibm.com/partnerworld/program/benefits/partner-package) (with or without a [Booster Pack](https://www.ibm.com/partnerworld/program/benefits/partner-package-booster) to get more.  [Click here](https://www.ibm.com/partnerworld/program/benefits/cloud-credit) to learn about how many credits you can obtain and [request your credits to be activated via this form](https://www.ibm.com/partnerworld/wps/servlet/mem/ContentHandler/pw_frm_bam_mrb_ibm-cloud-credits-for-partner-package).   Once requested, the IBM PartnerWorld team will help set up an account with the credits loaded for you to use.
 1. Verify you can log into your companies account.
 1. If you need more cloud credits than your base Partner Package offers, you can also choose to purchase a Booster Pack to add more cloud credits to your account.  [Learn more and choose a Booster Pack here.](https://www.ibm.com/partnerworld/program/benefits/partner-package-booster)
 1. Best practices on [setting up your account](https://cloud.ibm.com/docs/account?topic=account-account_setup)
