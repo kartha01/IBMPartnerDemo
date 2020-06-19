@@ -43,11 +43,11 @@ If you are looking for something you can personalized, isolated and persistent, 
 
 
 ### PartnerWorld Cloud Credits IBM Cloud account
-1. You may be entitled to ***IBM Cloud credits free of charge*** based on your **PartnerWorld Program Status**, or may choose to ***purchase*** an [IBM Partner Package](https://www.ibm.com/partnerworld/program/benefits/partner-package) (with or without a [Booster Pack](https://www.ibm.com/partnerworld/program/benefits/partner-package-booster) to get more.  [Click here](https://www.ibm.com/partnerworld/program/benefits/cloud-credit) to learn about how many credits you can obtain and [request your credits to be activated via this form](https://www.ibm.com/partnerworld/wps/servlet/mem/ContentHandler/pw_frm_bam_mrb_ibm-cloud-credits-for-partner-package).   Once requested, the IBM PartnerWorld team will help set up an account with the credits loaded for you to use.
+1. You may be entitled to ***IBM Cloud credits free of charge*** based on your **PartnerWorld Program Status**, or may choose to ***purchase*** an [IBM Partner Package](https://www.ibm.com/partnerworld/program/benefits/partner-package) (with or without a [Booster Pack](https://www.ibm.com/partnerworld/program/benefits/partner-package-booster) to get more.  [Click here](https://www.ibm.com/partnerworld/program/benefits/cloud-credit) to learn about how many credits you can obtain and [request your credits to be activated via this form](https://www.ibm.com/partnerworld/wps/servlet/mem/ContentHandler/pw_frm_bam_mrb_ibm-cloud-credits-for-partner-package).   Once requested, the IBM PartnerWorld team will help set up an account with the IBM Cloud credits loaded for you to use.
 1. Verify you can log into your companies account.
 1. If you need more ***IBM Cloud credits*** than your base **Partner Package** offers, you can also choose to [purchase a Booster Pack](https://www.ibm.com/partnerworld/program/benefits/partner-package-booster) to add more ***IBM Cloud credits*** to your account.
 1. Best practices on [setting up your account](https://cloud.ibm.com/docs/account?topic=account-account_setup)
-1. Add additional people to the organization's cloud account.  Make sure these email ids are also listed in your companies PartnerWorld Profile.
+1. Add additional people to the organization's IBM Cloud account.  Make sure these email ids are also listed in your companies PartnerWorld Profile.
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
@@ -61,7 +61,7 @@ How do I request an account?  What qualifies? Can my VAD help here?
 1. Sign up for [IBM Cloud](https://cloud.ibm.com/).
 1. Add credit card information or contact IBM Sales for a subscription.  
 1. Best practices on [setting up your account](https://cloud.ibm.com/docs/account?topic=account-account_setup)
-1. Add additional people to the organization's cloud account.  Make sure these email ids are also listed in your companies PartnerWorld Profile.
+1. Add additional people to the organization's IBM Cloud account.  Make sure these email ids are also listed in your companies PartnerWorld Profile.
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
@@ -74,7 +74,7 @@ How do I request an account?  What qualifies? Can my VAD help here?
 1. Log into [IBM Cloud](https://cloud.ibm.com/)
 1. Click on Catalog > Services
 1. Filter on Containers by checking the box on the left.
-1. Select Red Hat OpenShift on IBM cloud
+1. Select Red Hat OpenShift on IBM Cloud
 1. On the right is a pane for estimated monthly cost, since the cost is based on hourly tiered Kubernetes Compute plus the 30 day OpenShift license.  If you are authenticated and authorized for PartnerWorld Software Access Catalog per above instructions, you are only responsible the hourly compute used.  This suggests that you can quiesce the virtual servers to pause the hourly charges, but not true.  You will be billed even if Compute resources are down.
 1. On the left is where you will alter the version, license, type of compute and number of worker nodes. **Note:** You are only paying for Worker nodes no master or bastion nodes.  
 1. Going down the page:
