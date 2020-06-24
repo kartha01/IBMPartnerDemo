@@ -280,7 +280,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    ~~~
 1. Set the security aspects for Db2 Warehouse to install properly
   ~~~
-  ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2wh`
+  ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2wh
   ~~~
 1. Deploy **Db2 Warehouse** by running the following:
   ~~~
