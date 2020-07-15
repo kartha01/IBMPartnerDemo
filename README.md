@@ -133,7 +133,8 @@ How do I request an account?  What qualifies? Can my VAD help here?
     - Add something for you knowledge to description. I'll leave mine blank.
   1. This is where you will install the Cloud Pak for Data Services.
   1. You can work with Deployments, jobs, volume claims and Pods later by accessing this space.
-  - OpenShift 3.11 UI Demo video
+
+- **OpenShift 3.11 UI Demo video**
 
   <iframe width="600" height="322" src="https://www.youtube.com/embed/TPgUJkIyQoY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
