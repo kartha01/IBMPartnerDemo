@@ -137,7 +137,7 @@ How do I request an account?  What qualifies? Can my VAD help here?
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Installing the CLI environment
-  1. Download the Client.  **NOte** This should match your server side.
+  1. Download the Client.  **Note** This should match your server side.
   - [3.x Client download](https://mirror.openshift.com/pub/openshift-v3/clients/)
   - [4.x Client download](https://mirror.openshift.com/pub/openshift-v4/clients/oc/)
   1. unzip and copy oc to your `/usr/local/bin` or include in PATH.
