@@ -142,18 +142,18 @@ How do I request an account?  What qualifies? Can my VAD help here?
   1. Execute oc version to check that everything is working.  
   1. Go back to the dashboard and in the upper right click the blue button/link for OpenShift Web Console.
   1. In the upper right hand corner, there should be a person icon, **click** the arrow and **click** ***Copy Login Command***.  
-  **OCP 3.11:** This will provide the login with your token in to your copy buffer.  **This token is renewed daily.**
-  **OCP 4.x:** This will launch a new page with a single URL ***Display Token***.  **Click** this URL.  **Copy** the contents of the ***Log in with this token*** gray area. **This token is renewed daily.**
+  - **OCP 3.11:** This will provide the login with your token in to your copy buffer.  **This token is renewed daily.**
+  - **OCP 4.x:** This will launch a new page with a single URL ***Display Token***.  **Click** this URL.  **Copy** the contents of the ***Log in with this token*** gray area. **This token is renewed daily.**
   1. Paste into your terminal window.  `oc login https://c106-e.us-south.containers.cloud.ibm.com:30783 --token=EAVMH6YNi0BA88H3VO90v_WidUoNNPOtF3u4Tg`
   1. Test out command line connectivity to underlying OpenShift infrastructure:  `oc version`  or `oc get pods` You can also do much of this through the OpenShift Console
   1. While you can install the Cloud Paks into the default project, it's a better idea to put it in its own project or namespace.  These terms are linked.  Let's create a new project.  I'll call mine `zen` from the terminal while logged in issue `oc new-project zen`  This will create a zen project and you will use this project name when creating the Cloud Pak.  
   1.  If you are going to customize the Cloud Pak cluster with other services your will need to create a Route to the internal container registry.  These are your two commands
 
-    ***OCP 3.11***
+  - ***OCP 3.11***
     - `oc create route reencrypt --service=docker-registry -n default`
     - `oc annotate route docker-registry --overwrite haproxy.router.openshift.io/balance=source -n default`
     - `oc get routes -n default`
-    ***OCP 4.x***
+  - ***OCP 4.x***
     - `oc get routes -n openshift-image-registry`
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
