@@ -149,12 +149,12 @@ How do I request an account?  What qualifies? Can my VAD help here?
   1. While you can install the Cloud Paks into the default project, it's a better idea to put it in its own project or namespace.  These terms are linked.  Let's create a new project.  I'll call mine `zen` from the terminal while logged in issue `oc new-project zen`  This will create a zen project and you will use this project name when creating the Cloud Pak.  
   1.  If you are going to customize the Cloud Pak cluster with other services your will need to create a Route to the internal container registry.  These are your two commands
 
-  ***OCP 3.11***
-  - `oc create route reencrypt --service=docker-registry -n default`
-  - `oc annotate route docker-registry --overwrite haproxy.router.openshift.io/balance=source -n default`
-  - `oc get routes -n default`
-  ***OCP 4.x***
-  - `oc get routes -n openshift-image-registry`
+    ***OCP 3.11***
+    - `oc create route reencrypt --service=docker-registry -n default`
+    - `oc annotate route docker-registry --overwrite haproxy.router.openshift.io/balance=source -n default`
+    - `oc get routes -n default`
+    ***OCP 4.x***
+    - `oc get routes -n openshift-image-registry`
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
