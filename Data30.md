@@ -129,7 +129,7 @@
 
 ## Troubleshooting and managing Cloud Pak for Data through the console
 
-### Install Metric Server to collect usage stats
+### Install Metric Server to collect usage stats ***(CPD 2.5 only, CPD 3.0 all preinstalled)***
 1. Install the **Metric Server** into the `kube-system` namespace.
 ~~~
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml
