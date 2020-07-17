@@ -101,7 +101,7 @@
    ~~~
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry  -o template=\{\{.spec.host\}\})
    ~~~
 1. Scale up **Watson Studio** or **Watson Machine Learning** by running the following (config sizes are small, medium and large):
    ~~~
@@ -202,7 +202,7 @@ From time to time any software needs a patch for security reasons, new feature o
 1. These commands will start to look familiar.  Set up the environment variables that you will use in the commands, this will lead to less errors later on.
 ~~~
 export NAMESPACE=zen
-export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
 ~~~
 1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-2.5.0.0-ccs-patch-6***.  This name will change after this writing. Note the assembly name can be `wkc` or `wsl`, why not `lite` for the control plane, I am not sure as of this writing.  
 ~~~
@@ -251,7 +251,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    ~~~
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
    ~~~
 1. Set the security aspects for Db2 Warehouse to install properly
   ~~~
@@ -320,7 +320,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    ~~~
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
    ~~~
 1. Set the security aspects for DataStage to install properly
   ~~~
@@ -388,7 +388,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    ~~~
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
    ~~~
 1. Set the security aspects for Analytics Dashboards to install properly
   ~~~
@@ -431,7 +431,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
    ~~~
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
    ~~~
 1. Set the security aspects for Analytics Engine to install properly
   ~~~
@@ -457,7 +457,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
    ~~~
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
    ~~~
 1. Set the security aspects for Cognos to install properly
    ~~~
