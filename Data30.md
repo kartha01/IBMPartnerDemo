@@ -128,7 +128,8 @@
    ~~~
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
-
+## Install Watson OpenScale
+ ***Coming soon***
 ## Set up Watson OpenScale
 1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
 1. Let's provision OpenScale.
