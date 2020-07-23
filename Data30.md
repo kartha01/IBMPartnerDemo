@@ -3,8 +3,11 @@
 - [Provision the Control plane or lite assembly](#provision-the-control-plane-or-lite-assembly)
 - [Building the configuration](#building-the-configuration)
 - [Review Services installed](#review-services-installed)
+- [Install Data Virtualization](#install-data-virtualization)
 - [Set up Data Virtualization](#set-up-data-virtualization)
-- [Set up Watson Studio or Watson Machine Learning](#set-up-watson-studio-or-watson-machine-learning)
+- [Watson Studio](#watson-studio)
+  * [Install](#install-watson-studio)
+  * [Set up Watson Studio](#set-up-watson-studio)
   * [Increase the capacity or scale up your service](#increase-the-capacity-or-scale-up-your-service)
 - [Install Watson OpenScale](#install-watson-openscale)
 - [Set up Watson OpenScale](#set-up-watson-openscale)
@@ -88,8 +91,8 @@
 **Note:** I have not yet tested this with ***Remote Data Connections*** aka  local file folders.
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
-
-## Install Watson Studio
+## Watson Studio
+### Install Watson Studio
 ***Coming Soon Need to add override file***
 1. Run env to verify that the following variables are exported
   - OpenShift 3.x
@@ -117,14 +120,14 @@
    ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wsl
    ~~~  
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
-## Set up Watson Studio
+### Set up Watson Studio
 1. If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take. You can proceed and create a project.
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
-### Increase the capacity or scale up your service
+### Increase the capacity or scale up
 1. To scale services, you will need to have the command line installed.  (Instruction under the ***Adding additional services*** section)
-1. You can scale **up** the services by executing these commands for either **wsl** or **wml**.  **Note:** There is currently no scale down function.
+1. You can scale **up** the services by executing these commands for either **wsl**.  **Note:** There is currently no scale down function.
 1. Run env to verify that the following variables are exported
   - OpenShift 3.x
    ~~~
@@ -142,19 +145,18 @@
    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
    export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
    ~~~
-1. Scale up **Watson Studio** or **Watson Machine Learning** by running the following (config sizes are small, medium and large):
+1. Scale up **Watson Studio** by running the following (config sizes are small, medium and large):
    ~~~
    ./cpd-${OS_NAME} scale -n $NAMESPACE --config medium  --load-from ./cpd-${OS_NAME}-workspace  -a wsl
-   ./cpd-${OS_NAME} scale -n $NAMESPACE --config medium  --load-from ./cpd-${OS_NAME}-workspace  -a wml
    ~~~
-1. Scale down **Watson Studio** or **Watson Machine Learning** by running the following (config sizes are small, medium and large):
+1. Scale down **Watson Studio** by running the following (config sizes are small, medium and large):
    ~~~
-   ./cpd-${OS_NAME} scale -n zen --config small  --load-from ./cpd-${OS_NAME}-workspace -a wml
    ./cpd-${OS_NAME} scale -n zen --config small  --load-from ./cpd-${OS_NAME}-workspace -a wsl
    ~~~
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
-## Install Watson Machine Learning
+### Watson Machine Learning
+### Install Watson Machine Learning
    ***Coming Soon Need to add override file***
    1. Run env to verify that the following variables are exported
      - OpenShift 3.x
@@ -183,17 +185,47 @@
       ~~~  
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
-## Install Watson OpenScale
- ***Coming soon***
-## Set up Watson OpenScale
-1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
-1. Let's provision OpenScale.
-1. You will be met with an ***auto setup*** to configure.  
-1. First step is accept the local WML instance.
-1. Enter connection details for a Db2 Database.  I am using a DB2 Warehouse that I installed later on.  You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section.
+### Increase the capacity or scale up your service
+   1. To scale services, you will need to have the command line installed.  (Instruction under the ***Adding additional services*** section)
+   1. You can scale **up** the services by executing these commands for either **wsl** or **wml**.  **Note:** There is currently no scale down function.
+   1. Run env to verify that the following variables are exported,**Pick one no brackets Example** ***export OS_NAME=darwin***
+    - OpenShift 3.x
+    ~~~
+    export OS_NAME=[darwin, linux, win]
+    export NAMESPACE=zen
+    export STORAGE_CLASS=ibmc-file-gold-gid
+    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+    export LOCAL_REGISTRY=docker-registry.default.svc:5000
+    ~~~
+   - OpenShift 4.x
+    ~~~
+    export OS_NAME=[darwin, linux, win]
+    export NAMESPACE=zen
+    export STORAGE_CLASS=ibmc-file-gold-gid
+    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+    export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+    ~~~
+  1. Scale up **Watson Machine Learning** by running the following (config sizes are small, medium and large):
+    ~~~
+    ./cpd-${OS_NAME} scale -n $NAMESPACE --config medium  --load-from ./cpd-${OS_NAME}-workspace  -a wml
+    ~~~
+  1. Scale down **Watson Machine Learning** by running the following (config sizes are small, medium and large):
+    ~~~
+    ./cpd-${OS_NAME} scale -n zen --config small  --load-from ./cpd-${OS_NAME}-workspace -a wml
+    ~~~
 
-**Note:** Actual time taken is 18 minutes which included reviewing the sample.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dJV_ZqK-pvc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+## Watson OpenScale
+### Install Watson OpenScale
+ ***Coming soon***
+### Set up Watson OpenScale
+ 1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
+ 1. Let's provision OpenScale.
+ 1. You will be met with an ***auto setup*** to configure.  
+ 1. First step is accept the local WML instance.
+ 1. Enter connection details for a Db2 Database.  I am using a DB2 Warehouse that I installed later on.  You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section.
+
+
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
