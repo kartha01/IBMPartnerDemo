@@ -6,6 +6,7 @@
 - [Set up Data Virtualization](#set-up-data-virtualization)
 - [Set up Watson Studio or Watson Machine Learning](#set-up-watson-studio-or-watson-machine-learning)
   * [Increase the capacity or scale up your service](#increase-the-capacity-or-scale-up-your-service)
+- [Install Watson OpenScale](#install-watson-openscale)
 - [Set up Watson OpenScale](#set-up-watson-openscale)
 - [Troubleshooting and managing Cloud Pak for Data through the console](#troubleshooting-and-managing-cloud-pak-for-data-through-the-console)
   * [Manage Deployments](#manage-deployments)
@@ -89,7 +90,32 @@
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ## Install Watson Studio
-
+***Coming Soon Need to add override file***
+1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
+   ~~~
+   export OS_NAME=[darwin, linux, win]
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=docker-registry.default.svc:5000
+   ~~~
+  - OpenShift 4.x
+   ~~~
+   export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+   ~~~
+ 1. Set the security aspects for Watson Studio to install properly
+   ~~~
+   ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wsl
+   ~~~
+ 1. Deploy **Db2 Warehouse** by running the following:
+   ~~~
+   ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wsl
+   ~~~  
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 ## Set up Watson Studio
 1. If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take. You can proceed and create a project.
@@ -128,6 +154,35 @@
    ~~~
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+## Install Watson Machine Learning
+   ***Coming Soon Need to add override file***
+   1. Run env to verify that the following variables are exported
+     - OpenShift 3.x
+      ~~~
+      export OS_NAME=[darwin, linux, win]
+      export NAMESPACE=zen
+      export STORAGE_CLASS=ibmc-file-gold-gid
+      export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+      export LOCAL_REGISTRY=docker-registry.default.svc:5000
+      ~~~
+     - OpenShift 4.x
+      ~~~
+      export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+      export NAMESPACE=zen
+      export STORAGE_CLASS=ibmc-file-gold-gid
+      export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+      export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+      ~~~
+    1. Set the security aspects for Watson Machine Learning to install properly
+      ~~~
+      ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wml
+      ~~~
+    1. Deploy **Db2 Warehouse** by running the following:
+      ~~~
+      ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wml
+      ~~~  
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+
 ## Install Watson OpenScale
  ***Coming soon***
 ## Set up Watson OpenScale
