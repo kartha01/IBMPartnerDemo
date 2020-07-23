@@ -52,8 +52,6 @@
 1. On the right, you should see your entitlements and a yellow box, which will turn green after you run the script below.
 1. **Check the box** and to ***accept the license***.   
 
-**Note:** This can take 4 hours to provision.
-<iframe width="600" height="322" src="https://www.youtube.com/embed/Ic0xnlci47o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
@@ -71,6 +69,8 @@
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
+## Install Data Virtualization
+***Coming Soon***
 ## Set up Data Virtualization
 1. **Click** on the ***Services*** icon to get to the services catalog.
 1. Go to the Data Virtualization tile, you see to "Provision Instance".
@@ -86,12 +86,12 @@
 1. Once complete, you will see **Data Virtualization** under the **Collect** area on the left table of contents.  From here you can add data sources or pointers to file folders.
 **Note:** I have not yet tested this with ***Remote Data Connections*** aka  local file folders.
 
-**Note:**  The total provision and assigning roles was 21 minutes.
-<iframe width="600" height="322" src="https://www.youtube.com/embed/ll40JJx5xyc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
-## Set up Watson Studio or Watson Machine Learning
+## Install Watson Studio
+
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+## Set up Watson Studio
 1. If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take. You can proceed and create a project.
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
@@ -100,18 +100,31 @@
 1. To scale services, you will need to have the command line installed.  (Instruction under the ***Adding additional services*** section)
 1. You can scale **up** the services by executing these commands for either **wsl** or **wml**.  **Note:** There is currently no scale down function.
 1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
    ~~~
+   export OS_NAME=[darwin, linux, win]
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry  -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=docker-registry.default.svc:5000
+   ~~~
+  - OpenShift 4.x
+   ~~~
+   export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
    ~~~
 1. Scale up **Watson Studio** or **Watson Machine Learning** by running the following (config sizes are small, medium and large):
    ~~~
-   ./cpd-linux scale -a wml -n zen --config medium  --load-from ./cpd-linux-workspace
+   ./cpd-${OS_NAME} scale -n $NAMESPACE --config medium  --load-from ./cpd-${OS_NAME}-workspace  -a wsl
+   ./cpd-${OS_NAME} scale -n $NAMESPACE --config medium  --load-from ./cpd-${OS_NAME}-workspace  -a wml
    ~~~
 1. Scale down **Watson Studio** or **Watson Machine Learning** by running the following (config sizes are small, medium and large):
    ~~~
-   ./cpd-linux scale -a wml -n zen --config small  --load-from ./cpd-linux-workspace
+   ./cpd-${OS_NAME} scale -n zen --config small  --load-from ./cpd-${OS_NAME}-workspace -a wml
+   ./cpd-${OS_NAME} scale -n zen --config small  --load-from ./cpd-${OS_NAME}-workspace -a wsl
    ~~~
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
@@ -201,14 +214,26 @@ oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | t
 
 ### How can I patch a service or control plane
 From time to time any software needs a patch for security reasons, new feature or a bug fix.  How do you know that there is a patch for a specifica service, common services or the control plane.   Take a [look here for v2.5]( https://www.ibm.com/support/knowledgecenter/SSQNUZ_2.5.0/patch/avail-patches.html).  This document has a link to each of the service patches and any extra work that might be needed.   Most patches need a prerequisite patch for the common services.
-1. These commands will start to look familiar.  Set up the environment variables that you will use in the commands, this will lead to less errors later on.
-~~~
-export NAMESPACE=zen
-export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
-~~~
+1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
+   ~~~
+   export OS_NAME=[darwin, linux, win]
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=docker-registry.default.svc:5000
+   ~~~
+  - OpenShift 4.x
+   ~~~
+   export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+   ~~~
 1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-2.5.0.0-ccs-patch-6***.  This name will change after this writing. Note the assembly name can be `wkc` or `wsl`, why not `lite` for the control plane, I am not sure as of this writing.  
 ~~~
-./cpd-linux patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-registry.openshift-image-registry.svc:5000/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly wkc  --patch-name cpd-2.5.0.0-ccs-patch-6
+./cpd-${OS_NAME} patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly wkc  --patch-name cpd-2.5.0.0-ccs-patch-6
 ~~~
 1. Verify that the patch has been applied.
 ~~~
@@ -311,16 +336,26 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
 1. From the command line:
   - Set namespace.  My namespace is ***zen*** your may be different like ***default***
-  ~~~
-  export NAMESPACE=zen
-  ~~~  
+  - Run env to verify that the following variables are exported
+    - OpenShift 3.x
+     ~~~
+     export OS_NAME=[darwin, linux, win]
+     export NAMESPACE=zen
+     export LOCAL_REGISTRY=docker-registry.default.svc:5000
+     ~~~
+    - OpenShift 4.x
+     ~~~
+     export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+     export NAMESPACE=zen
+     export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+     ~~~
   - Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo image-registry.openshift-image-registry.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly db2wh --uninstall-dry-run
   ~~~
   - Run the uninstall
   ~~~
-  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo image-registry.openshift-image-registry.svc:5000/${NAMESPACE}  --assembly db2wh
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly db2wh
   ~~~
 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
@@ -329,24 +364,34 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 ## Installing DataStage service
 1. Verify you have enough resource capcity to run DataStage.  You many need to increase your work pool by a node.
 1. Create a [ds.yaml](ds.yaml) file to override and set certain storage classes. On ROKS we will be using the default storage classes, but defining them no the less.
-1. Run `env` to verify that the following variables are exported
+1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
    ~~~
+   export OS_NAME=darwin or linux
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=docker-registry.default.svc:5000
    ~~~
+   - OpenShift 4.x
+    ~~~
+    export OS_NAME=darwin or linux or win
+    export NAMESPACE=zen
+    export STORAGE_CLASS=ibmc-file-gold-gid
+    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+    export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+    ~~~
 1. Set the security aspects for DataStage to install properly
   ~~~
-  ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ds
+  ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ds
   ~~~
 1. Deploy DataStage by running the following:
   ~~~
-  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix image-registry.openshift-image-registry.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly ds --override=ds.yaml
+  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly ds --override=ds.yaml
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
-**Note:** Actual time taken is 11 minutes for the install.
-<iframe width="600" height="322" src="https://www.youtube.com/embed/HhBzRVBBanQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
@@ -379,17 +424,27 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 ### Uninstalling DataStage.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
 1. From the command line:
-  - Set **namespace**.  My namespace is ***zen*** your may be different like ***default***
-  ~~~
-  export NAMESPACE=zen
-  ~~~  
+  - Set namespace.  My namespace is ***zen*** your may be different like ***default***
+  - Run env to verify that the following variables are exported
+    - OpenShift 3.x
+     ~~~
+     export OS_NAME=[darwin, linux, win]
+     export NAMESPACE=zen
+     export LOCAL_REGISTRY=docker-registry.default.svc:5000
+     ~~~
+    - OpenShift 4.x
+     ~~~
+     export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+     export NAMESPACE=zen
+     export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+     ~~~
   - Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo image-registry.openshift-image-registry.svc:5000/${NAMESPACE}  --assembly ds --uninstall-dry-run
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly ds --uninstall-dry-run
   ~~~
   - Run the uninstall
   ~~~
-  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo image-registry.openshift-image-registry.svc:5000/${NAMESPACE}  --assembly ds
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly ds
   ~~~
 1. Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
 
@@ -397,41 +452,60 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 
 ## Installing Analytics Dashboards
 **Analytics Dashboards** gives you a quick way to visualize your data.  This is not full blown **Cognos Analytics for Cloud Pak for Data*** nor **on premises** version.  Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)
-1. Run `env` to verify that the following variables are exported
+1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
    ~~~
+   export OS_NAME=darwin or linux
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=docker-registry.default.svc:5000
    ~~~
+   - OpenShift 4.x
+    ~~~
+    export OS_NAME=darwin or linux or win
+    export NAMESPACE=zen
+    export STORAGE_CLASS=ibmc-file-gold-gid
+    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+    export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+    ~~~
 1. Set the security aspects for Analytics Dashboards to install properly
   ~~~
-  ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly cde
+  ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly cde
   ~~~
 1. Deploy Analytics Dashboards by running the following:
   ~~~
-  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix image-registry.openshift-image-registry.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly cde
+  ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly cde
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.
 
-**Note:** Actual time taken is 13 minutes.  
- <iframe width="560" height="315" src="https://www.youtube.com/embed/cs8-FbiYGM8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### Uninstalling Analytics Dashboards
 1. From the command line:
   - Set namespace.  My namespace is ***zen*** your may be different like ***default***
-  ~~~
-  export NAMESPACE=zen
-  ~~~  
+  - Run env to verify that the following variables are exported
+    - OpenShift 3.x
+     ~~~
+     export OS_NAME=[darwin, linux, win]
+     export NAMESPACE=zen
+     export LOCAL_REGISTRY=docker-registry.default.svc:5000
+     ~~~
+    - OpenShift 4.x
+     ~~~
+     export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+     export NAMESPACE=zen
+     export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+     ~~~
   - Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo image-registry.openshift-image-registry.svc:5000/${NAMESPACE}  --assembly cde --uninstall-dry-run
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly cde --uninstall-dry-run
   ~~~
   - Run the uninstall
   ~~~
-  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo image-registry.openshift-image-registry.svc:5000/${NAMESPACE}  --assembly cde
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly cde
   ~~~
 1.  Go to the **Services** catalog and verify that **Analytics Dashboards** is no longer ***enabled***.   
 
@@ -440,19 +514,30 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 
 ## Installing Analytics Engine (Spark Clusters)
 If you are using **Data Refinery** and you have to prep files larger than 100MB, then you will want to install the **Analytics Engine** to be able to select a different runtime than ***Data Refinery XS***.  This is the service to ***install*** if you want to use **Spark** with **Watson Studio**.
-1. Run `env` to verify that the following variables are exported
+1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
    ~~~
+   export OS_NAME=darwin or linux
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=docker-registry.default.svc:5000
    ~~~
+   - OpenShift 4.x
+    ~~~
+    export OS_NAME=darwin or linux or win
+    export NAMESPACE=zen
+    export STORAGE_CLASS=ibmc-file-gold-gid
+    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+    export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+    ~~~
 1. Set the security aspects for Analytics Engine to install properly
   ~~~
-  ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly spark
+  ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly spark
   ~~~
 1. Deploy Analytics Engine by running the following:
   ~~~
-  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix image-registry.openshift-image-registry.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly spark
+  ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly spark
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
