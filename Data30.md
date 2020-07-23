@@ -491,7 +491,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
    ~~~
    oc label node <node name or IP Address> icp4data=database-db2oltp
    ~~~
- 1. Run env to verify that the following variables are exported.   For ***OS_NAME*** Pick one no brackets **Example:** `export ***OS_NAME=linux`***
+ 1. Run env to verify that the following variables are exported.   For ***OS_NAME*** Pick one no brackets **Example:** `export OS_NAME=linux`
    - OpenShift 3.x
     ~~~
     export OS_NAME=[darwin, linux, win]
@@ -522,7 +522,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
-### Provision Db2 Advanced instance
+### Provision Db2 Advanced Edition instance
 1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
 1. On the services page, **Click** the left side filter to go to ***Catagory*** ***>*** ***Datasources*** to get to **Db2 Advanced Edition** tile.  
 1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
@@ -543,7 +543,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
 ## Installing Cognos Analytics
 Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)  
-1. Run env to verify that the following variables are exported.   For ***OS_NAME*** Pick one no brackets **Example:** `export ***OS_NAME=linux`***
+1. Run env to verify that the following variables are exported.   For ***OS_NAME*** Pick one no brackets **Example:** `export OS_NAME=linux`
   - OpenShift 3.x
    ~~~
    export OS_NAME=[darwin, linux, win]
