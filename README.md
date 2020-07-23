@@ -84,8 +84,9 @@ How do I request an account?  What qualifies? Can my VAD help here?
   1. Pick your **Geography**
   1. Pick your **Availability** ***Single zone***
   1. Pick **Worker Zone**
-  1. Click **Change Flavor** to select the appropriate Flavor then click ***Done*** **Example** Cloud Pak for Data uses either 16 core/64GB RAM or 32 core/64GB RAM.   
-  1. Pick number of **worker nodes** **Example:** Cloud Pak for Data start with ***3***. ***suggestions on bare minimum in table below*** I am running **Cloud Pak for Data** plus all favorite ***Services*** all that is installed on 5 node - 16 core 64GB cluster.
+  1. Click **Change Flavor** to select the appropriate Flavor then click ***Done***
+    **Example** Cloud Pak for Data uses either 16 core/64GB RAM or 32 core/64GB RAM.   
+  1. Pick number of **worker nodes** **Example:** Cloud Pak for Data start with ***3***. ***suggestions on bare minimum in table below*** I am running **Cloud Pak for Data** plus all favorite ***Services*** all that is installed on 7 node - 16 core 64GB cluster.  I tryed 32 core and 64GB Ram, but It didn't seem to buy me much around deployment.  With ROKS, it is easy to add or subtract from your worker pool.
   1. Adjust your **cluster name** to your liking. **Example** ***CloudPakDataDemo-HealthCare***
   1. Click **Create** on the right hand side blue button.  Just above this is your estimate.  Make sure that there is a line item for **Cloud Pak entitlement** with a ***negative*** value.
   1. This can take ***30 minutes*** to provision.
