@@ -7,10 +7,15 @@
 - [Set up Data Virtualization](#set-up-data-virtualization)
 - [Watson Studio](#watson-studio)
   * [Install](#install-watson-studio)
-  * [Set up Watson Studio](#set-up-watson-studio)
+  * [Set up](#set-up-watson-studio)
   * [Increase the capacity or scale up your service](#increase-the-capacity-or-scale-up-your-service)
-- [Install Watson OpenScale](#install-watson-openscale)
-- [Set up Watson OpenScale](#set-up-watson-openscale)
+- [Watson Machine Learning](#watson-machine-learning)
+  * [Install](#install-watson-machine-learning)
+  * [Set up](#set-up-watson-machine-learning)
+  * [Increase the capacity or scale up your service](#increase-the-capacity-or-scale-up-your-service)  
+- [Watson OpenScale](#watson-openscale)
+  * [Install Watson OpenScale](#install-watson-openscale)
+  * [Set up Watson OpenScale](#set-up-watson-openscale)
 - [Troubleshooting and managing Cloud Pak for Data through the console](#troubleshooting-and-managing-cloud-pak-for-data-through-the-console)
   * [Manage Deployments](#manage-deployments)
   * [Manage Users](#manage-users)
@@ -72,23 +77,23 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vYS7xwk0fn8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
-
-## Install Data Virtualization
-***Coming Soon***
-## Set up Data Virtualization
-1. **Click** on the ***Services*** icon to get to the services catalog.
-1. Go to the Data Virtualization tile, you see to "Provision Instance".
-1. **Click** on ***Provision Instance***.
-1. Then **Click** ***Configure***. **Note:** for this Cloud Pak for Data on ROKS, the semaphores are already configured, so make sure to ***uncheck*** the box to the left of `Set up semaphore parameters for Data Virtualization automatically`, otherwise the provision can fail.
-1. **Click** ***Configure***.
-1. Select the number of nodes and cores to allocate.  For a demo system defaults are enough.  **Note:** Depending on how many node you have in your worker pool, this could fail provisioning with a not enough resource message.  If you configure a default 3 16/64 workers and install all of the services, this message can appear.  Resizing your worker pool to 4 will get you around this.
-1. Make sure your change the storage classes from `default` to `ibmc-file-gold-gid`.  Choosing default could cause a failure.
-1. Once provisioned, set some users to have ***Data Engineer*** role.
-   - Go to the Navigator on the left and scroll down to ***Administer***  **Click** on ***Manage Users***.
-   - On the right of the list of users, you will see a pencil, which indicates ***edit***.  **Click** the pencil for the user you desire to edit. If you pick ***admin***, you will see this is a new role added based on the Data Virtualization service.  
-1. Go to ***My Instance***   
-1. Once complete, you will see **Data Virtualization** under the **Collect** area on the left table of contents.  From here you can add data sources or pointers to file folders.
-**Note:** I have not yet tested this with ***Remote Data Connections*** aka  local file folders.
+## Data Virtualization
+### Install Data Virtualization
+  ***Coming Soon***
+### Set up Data Virtualization
+  1. **Click** on the ***Services*** icon to get to the services catalog.
+  1. Go to the Data Virtualization tile, you see to "Provision Instance".
+  1. **Click** on ***Provision Instance***.
+  1. Then **Click** ***Configure***. **Note:** for this Cloud Pak for Data on ROKS, the semaphores are already configured, so make sure to ***uncheck*** the box to the left of `Set up semaphore parameters for Data Virtualization automatically`, otherwise the provision can fail.
+  1. **Click** ***Configure***.
+  1. Select the number of nodes and cores to allocate.  For a demo system defaults are enough.  **Note:** Depending on how many node you have in your worker pool, this could fail provisioning with a not enough resource message.  If you configure a default 3 16/64 workers and install all of the services, this message can appear.  Resizing your worker pool to 4 will get you around this.
+  1. Make sure your change the storage classes from `default` to `ibmc-file-gold-gid`.  Choosing default could cause a failure.
+  1. Once provisioned, set some users to have ***Data Engineer*** role.
+    - Go to the Navigator on the left and scroll down to ***Administer***  **Click** on ***Manage Users***.
+    - On the right of the list of users, you will see a pencil, which indicates ***edit***.  **Click** the pencil for the user you desire to edit. If you pick ***admin***, you will see this is a new role added based on the Data Virtualization service.  
+  1. Go to ***My Instance***   
+  1. Once complete, you will see **Data Virtualization** under the **Collect** area on the left table of contents.  From here you can add data sources or pointers to file folders.
+  **Note:** I have not yet tested this with ***Remote Data Connections*** aka  local file folders.
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 ## Watson Studio
@@ -155,7 +160,7 @@
    ~~~
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
-### Watson Machine Learning
+## Watson Machine Learning
 ### Install Watson Machine Learning
    ***Coming Soon Need to add override file***
    1. Run env to verify that the following variables are exported
@@ -183,11 +188,12 @@
       ~~~
       ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wml
       ~~~  
+      
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
-### Increase the capacity or scale up your service
+### Increase the capacity or scale up your Watson Machine Learning service
    1. To scale services, you will need to have the command line installed.  (Instruction under the ***Adding additional services*** section)
-   1. You can scale **up** the services by executing these commands for either **wsl** or **wml**.  **Note:** There is currently no scale down function.
+   1. You can scale **up** the services by executing these commands for either **wml**.  **Note:** There is currently no scale down function.
    1. Run env to verify that the following variables are exported,**Pick one no brackets Example** ***export OS_NAME=darwin***
     - OpenShift 3.x
     ~~~
