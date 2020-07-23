@@ -25,6 +25,8 @@
   * [Uninstalling Analytics Dashboards](#uninstalling-analytics-dashboards)
 - [Installing Analytics Engine (Spark Clusters)](#installing-analytics-engine-spark-clusters)
   * [Provision Analytics Engine instance](#provision-analytics-engine-instance)
+- [Installing Db2 Advanced Edition](#installing-db2-advanced-edition)
+  * [Provision Db2 Advanced Edition instance](#provision-db2-advanced-edition-instance)
 - [Installing Cognos Analytics](#installing-cognos-analytics)
   * [Provision Cognos Analytics instance](#provision-cognos-analytics-instance)
 
@@ -462,7 +464,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
-## Installing Db2 Advanced
+## Installing Db2 Advanced Edition
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
    1. Run: `oc get nodes`   This will produce a list of nodes.
    1. Run `oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '` Review the output and find the node with the least amount of resources allocated   You will be setting a ***label*** to create **Node Affinity**.  **Db2 Advanced** pods will be installed to this particular node.  Database will also be provisioned to this node.   Sometimes you may need to resize your OpenShift worker pool size to increase capacity. Base on review I will pick node `10.95.7.49` as it has the least amount of resources allocated right now.
