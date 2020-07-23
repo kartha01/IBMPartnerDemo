@@ -41,7 +41,7 @@
 1. **Click** on the ***Cloud Pak for Data*** tile.
 1. **Click** on the ***Readme*** tab to review what you can provision using ***Schematics*** (Terraform).
 
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ## Building the configuration
 1. On the ***create*** tab, this is where we will build the configuration of the Cloud Pak for Data clusters
@@ -57,7 +57,7 @@
 1. **Check the box** and to ***accept the license***.   
 
 
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ## Review Services installed
 1. From the Schematics workspace, **Click** `Offering dashboard`
@@ -71,7 +71,7 @@
 1. Some are set up automatically and some you need to provision.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vYS7xwk0fn8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
 
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ## Install Data Virtualization
 ***Coming Soon***
@@ -90,7 +90,7 @@
 1. Once complete, you will see **Data Virtualization** under the **Collect** area on the left table of contents.  From here you can add data sources or pointers to file folders.
 **Note:** I have not yet tested this with ***Remote Data Connections*** aka  local file folders.
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 ## Watson Studio
 ### Install Watson Studio
 ***Coming Soon Need to add override file***
@@ -119,11 +119,11 @@
    ~~~
    ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wsl
    ~~~  
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 ### Set up Watson Studio
 1. If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take. You can proceed and create a project.
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Increase the capacity or scale up
 1. To scale services, you will need to have the command line installed.  (Instruction under the ***Adding additional services*** section)
@@ -154,7 +154,7 @@
    ./cpd-${OS_NAME} scale -n zen --config small  --load-from ./cpd-${OS_NAME}-workspace -a wsl
    ~~~
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 ### Watson Machine Learning
 ### Install Watson Machine Learning
    ***Coming Soon Need to add override file***
@@ -183,7 +183,7 @@
       ~~~
       ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wml
       ~~~  
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Increase the capacity or scale up your service
    1. To scale services, you will need to have the command line installed.  (Instruction under the ***Adding additional services*** section)
@@ -214,7 +214,7 @@
     ./cpd-${OS_NAME} scale -n zen --config small  --load-from ./cpd-${OS_NAME}-workspace -a wml
     ~~~
 
-   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 ## Watson OpenScale
 ### Install Watson OpenScale
  ***Coming soon***
@@ -227,20 +227,20 @@
 
 
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ## Troubleshooting and managing Cloud Pak for Data through the console
 
 
 ### Manage Deployments
 ***coming soon***  
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
 ### Manage Users
 ***coming soon***  
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
 ### Viewing logs
 ***coming soon***  
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
 
 
 ## Adding additional services
@@ -281,7 +281,7 @@ fileservers:
 ~~~~
 **Note:**  While the documentation denotes Linux, using **cpd-linux**, the video uses **cdp-darwin** for Mac.  Currently, there is no Windows interface.
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### To enable or disable the default admin users
 1. It is suggested to connect your user repository to an LDAP system.  
@@ -298,7 +298,7 @@ oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | t
 ~~~
 **Note:** If you have lost or forgotten your CPD Admin password, you can log into OpenShift then execute the enable command which prompts you for a new password.
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### How can I patch a service or control plane
 From time to time any software needs a patch for security reasons, new feature or a bug fix.  How do you know that there is a patch for a specifica service, common services or the control plane.   Take a [look here for v2.5]( https://www.ibm.com/support/knowledgecenter/SSQNUZ_2.5.0/patch/avail-patches.html).  This document has a link to each of the service patches and any extra work that might be needed.   Most patches need a prerequisite patch for the common services.
@@ -332,7 +332,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 ~~~
 1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name**
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ## Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
@@ -391,7 +391,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
  **Note:** Actual time taken is 16 minutes
  <iframe width="560" height="315" src="https://www.youtube.com/embed/943Gi4Z9vUo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Provision a Database instance
 1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
@@ -412,13 +412,13 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 **Note** Total time took about 12 minutes  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VLxgR3CeOCg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Create a Table  
 1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by ***admin***, via **SQL editor** by default will go under **Schema** ***user999***.
   - You can use the UI and select and create tables under certain schemas.
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Uninstalling DB2 Warehouse.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
@@ -447,7 +447,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ## Installing DataStage service
 1. Verify you have enough resource capcity to run DataStage.  You many need to increase your work pool by a node.
@@ -481,7 +481,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Create a Transformation Project
 1. From the navigator **click** ***Organize > transform data***.  This will bring you into the Data Flow Designer in a projects view.
@@ -507,7 +507,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   1. Across the top, you should see another cog.  This allows you to add ***Smart Palatte*** to the options.  This will start prompting you with potential options.
   1.  Across the very top, is where you will add ***Connections***, ***Table Definitions***, ***Parameter Sets***, ***Jobs*** and the current ***Job_1*** that you were just creating.  
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Uninstalling DataStage.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
@@ -536,7 +536,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
 1. Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ## Installing Analytics Dashboards
 **Analytics Dashboards** gives you a quick way to visualize your data.  This is not full blown **Cognos Analytics for Cloud Pak for Data*** nor **on premises** version.  Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)
@@ -569,7 +569,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.
 
 
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Uninstalling Analytics Dashboards
 1. From the command line:
@@ -597,7 +597,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
 1.  Go to the **Services** catalog and verify that **Analytics Dashboards** is no longer ***enabled***.   
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 
 ## Installing Analytics Engine (Spark Clusters)
@@ -630,12 +630,12 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Provision Analytics Engine  instance
 ***coming soon***
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ## Installing Db2 Advanced Edition
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
@@ -693,7 +693,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
  1. You will need to tab to accept the license.
  1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Provision Db2 Advanced Edition instance
 1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
@@ -713,7 +713,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
   - ***Delete*** This will delete this particular instance.
 
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
 ## Installing Cognos Analytics
 Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)  
 1. Run env to verify that the following variables are exported.   For ***OS_NAME*** Pick one no brackets **Example:** `export OS_NAME=linux`
@@ -744,7 +744,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Provision Cognos Analytics instance
 1. Preparing Db2 Advanced Database to make a connection that Cognos can used
@@ -787,4 +787,4 @@ Understand the [current differences here](https://community.ibm.com/community/us
   ~~~
 1. Create a connection that will be used for cognos
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
