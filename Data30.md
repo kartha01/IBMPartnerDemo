@@ -206,7 +206,7 @@ export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-
 ~~~
 1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-2.5.0.0-ccs-patch-6***.  This name will change after this writing. Note the assembly name can be `wkc` or `wsl`, why not `lite` for the control plane, I am not sure as of this writing.  
 ~~~
-./cpd-linux patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly wkc  --patch-name cpd-2.5.0.0-ccs-patch-6
+./cpd-linux patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-registry.openshift-image-registry.svc:5000/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly wkc  --patch-name cpd-2.5.0.0-ccs-patch-6
 ~~~
 1. Verify that the patch has been applied.
 ~~~
@@ -248,18 +248,29 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    ~~~
    **Note:**  If you resize your OpenShift cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you label another node and restart the `db2wh` pods, so they start on the same node.  Do not try to label 2 nodes as you will get an ***anti-affinity*** error in the `db2u-0` and unified-console pods,  They will stay in a state of `pending`.  
 1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
    ~~~
+   export OS_NAME=darwin or linux
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=docker-registry.default.svc:5000
    ~~~
+   - OpenShift 4.x
+    ~~~
+    export OS_NAME=darwin or linux or win
+    export NAMESPACE=zen
+    export STORAGE_CLASS=ibmc-file-gold-gid
+    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+    export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+    ~~~
 1. Set the security aspects for Db2 Warehouse to install properly
   ~~~
-  ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2wh
+  ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2wh
   ~~~
 1. Deploy **Db2 Warehouse** by running the following:
   ~~~
-  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh
+  ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh
   ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
  **Note:** Actual time taken is 16 minutes
@@ -303,11 +314,11 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~  
   - Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run
+  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo image-registry.openshift-image-registry.svc:5000/${NAMESPACE}  --assembly db2wh --uninstall-dry-run
   ~~~
   - Run the uninstall
   ~~~
-  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly db2wh
+  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo image-registry.openshift-image-registry.svc:5000/${NAMESPACE}  --assembly db2wh
   ~~~
 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
@@ -328,7 +339,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
 1. Deploy DataStage by running the following:
   ~~~
-  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly ds --override=ds.yaml
+  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix image-registry.openshift-image-registry.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly ds --override=ds.yaml
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
@@ -372,11 +383,11 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~  
   - Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly ds --uninstall-dry-run
+  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo image-registry.openshift-image-registry.svc:5000/${NAMESPACE}  --assembly ds --uninstall-dry-run
   ~~~
   - Run the uninstall
   ~~~
-  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly ds
+  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo image-registry.openshift-image-registry.svc:5000/${NAMESPACE}  --assembly ds
   ~~~
 1. Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
 
@@ -396,7 +407,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
 1. Deploy Analytics Dashboards by running the following:
   ~~~
-  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly cde
+  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix image-registry.openshift-image-registry.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly cde
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.
@@ -414,11 +425,11 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~  
   - Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly cde --uninstall-dry-run
+  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo image-registry.openshift-image-registry.svc:5000/${NAMESPACE}  --assembly cde --uninstall-dry-run
   ~~~
   - Run the uninstall
   ~~~
-  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo docker-registry.default.svc:5000/${NAMESPACE}  --assembly cde
+  ./cpd-linux uninstall --namespace ${NAMESPACE} --repo image-registry.openshift-image-registry.svc:5000/${NAMESPACE}  --assembly cde
   ~~~
 1.  Go to the **Services** catalog and verify that **Analytics Dashboards** is no longer ***enabled***.   
 
@@ -439,33 +450,121 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
   ~~~
 1. Deploy Analytics Engine by running the following:
   ~~~
-  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly spark
+  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix image-registry.openshift-image-registry.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly spark
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
-### Provision Analytics Engine instance
+### Provision Analytics Engine  instance
 ***coming soon***
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
+## Installing Db2 Advanced
+1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
+   1. Run: `oc get nodes`   This will produce a list of nodes.
+   1. Run `oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '` Review the output and find the node with the least amount of resources allocated   You will be setting a ***label*** to create **Node Affinity**.  **Db2 Advanced** pods will be installed to this particular node.  Database will also be provisioned to this node.   Sometimes you may need to resize your OpenShift worker pool size to increase capacity. Base on review I will pick node `10.95.7.49` as it has the least amount of resources allocated right now.
+   ~~~
+   Toms-MBP:bin tjm$ oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '
+    MemoryPressure   False   Wed, 10 Jun 2020 16:21:28 -0400   Mon, 08 Jun 2020 10:19:26 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
+    Hostname:    10.95.7.21
+    cpu       14941m (94%)      63645m (400%)
+    memory    44715538Ki (74%)  150095560704 (244%)
+    MemoryPressure   False   Wed, 10 Jun 2020 16:21:29 -0400   Mon, 08 Jun 2020 10:19:13 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
+    Hostname:    10.95.7.23
+    cpu       13960m (87%)      39825m (250%)
+    memory    42889746Ki (71%)  106114088960 (172%)
+    MemoryPressure   False   Wed, 10 Jun 2020 16:21:32 -0400   Mon, 08 Jun 2020 10:16:15 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
+    Hostname:    10.95.7.49
+    cpu       10718m (67%)      33863m (213%)
+    memory    24435218Ki (40%)  85963040Ki (143%)
+    MemoryPressure   False   Wed, 10 Jun 2020 16:21:35 -0400   Mon, 08 Jun 2020 10:21:40 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
+    Hostname:    10.95.7.6
+    cpu       11970m (75%)      49570m (312%)
+    memory    30833170Ki (51%)  87313121280 (142%)
+   ~~~
+   1. Bind Db2 Warehouse and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2oltp` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
+   ~~~
+   oc label node <node name or IP Address> icp4data=database-db2oltp
+   ~~~
+ 1. Run env to verify that the following variables are exported.   For ***OS_NAME*** Pick one no brackets **Example:** `export ***OS_NAME=linux`***
+   - OpenShift 3.x
+    ~~~
+    export OS_NAME=[darwin, linux, win]
+    export NAMESPACE=zen
+    export STORAGE_CLASS=ibmc-file-gold-gid
+    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+    export LOCAL_REGISTRY=docker-registry.default.svc:5000
+    ~~~
+    - OpenShift 4.x
+     ~~~
+     export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+     export NAMESPACE=zen
+     export STORAGE_CLASS=ibmc-file-gold-gid
+     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+     export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+     ~~~
+ 1. Set the security aspects for Db2 Advanced to install properly
+    ~~~
+    ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2oltp
+    ~~~
+
+ 1. Deploy Db2 Advanced by running the following:
+    ~~~
+    ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2oltp
+    ~~~
+ 1. You will need to tab to accept the license.
+ 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
+
+### Provision Db2 Advanced instance
+1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
+1. On the services page, **Click** the left side filter to go to ***Catagory*** ***>*** ***Datasources*** to get to **Db2 Advanced Edition** tile.  
+1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
+1. On the ***Configure*** page keep defaults or adjust if you know you need more.  **Click** ***Next***.
+1. On the ***Storage*** page, Select ***Create new storage***; Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
+1. **Click** ***Next***
+1. Review the settings. Here you can change the **Display name** to something more memorable. **Click** ***Create***.
+1. Your instance is being created and will be accessible from the **Services > Db2 Advanced Edition** tile.  Also accessed from the Left menu ***My Instance*** then **Click** ***Provisioned instances***
+1. From ***Provision Instances*** on the left you will see 3 horizontal dots. From this view, you can watch the steps of the provision, just incase it fails based on insufficient resources.
+**Note:** You can see a red triangle that states Failed. This is temporary and is most likely the Cloud provision service waiting on a storage volume to come online and available to mount as a persistent volume to map the persistent volume claim.
+1. **Click** this and see the options.
+  - ***Open*** will open the DB2 Warehouse instance for use.
+  - ***View details*** will provide you the details including ***user*** ; ***password*** ; ***jdbc url***
+  - ***Manage Access*** let you add ***user ids*** and assign them ***Admin*** or ***User*** roles.
+  - ***Delete*** This will delete this particular instance.
+
+
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
 ## Installing Cognos Analytics
 Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)  
-1. Run `env` to verify that the following variables are exported
+1. Run env to verify that the following variables are exported.   For ***OS_NAME*** Pick one no brackets **Example:** `export ***OS_NAME=linux`***
+  - OpenShift 3.x
    ~~~
+   export OS_NAME=[darwin, linux, win]
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=docker-registry.default.svc:5000
    ~~~
+   - OpenShift 4.x
+    ~~~
+    export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+    export NAMESPACE=zen
+    export STORAGE_CLASS=ibmc-file-gold-gid
+    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+    export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+    ~~~
 1. Set the security aspects for Cognos to install properly
    ~~~
-   ./cpd-linux adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ca
+   ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ca
    ~~~
 1. Deploy Cognos Analytics by running the following:
    ~~~
-   ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix docker-registry.default.svc:5000/${NAMESPACE} --insecure-skip-tls-verify --assembly ca
+   ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly ca
    ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
@@ -473,7 +572,44 @@ Understand the [current differences here](https://community.ibm.com/community/us
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)
 
 ### Provision Cognos Analytics instance
-
-***coming soon***  
+1. Preparing Db2 Advanced Database to make a connection that Cognos can used
+1. Collect the details of the provisioned database. This will be used for the environment variables
+  ~~~
+  Deployment iddb2oltp-xxxxxxxxxxxxx
+  Username userxxx
+  Password xxxxxxxxxxxxxxxxxxxxxx
+  JDBC URLjdbc:db2://HOST:PORT/BLUDB
+  ~~~
+1. From a terminal window. Run the following to set up the environment to execute the Database updates.
+  ~~~
+  export NAMESPACE=<Namespace of your CPD Installation>
+  export DB2USERNAME=<USERNAME>
+  export DB2PASSWORD=<PASSWORD>
+  export DB2DEPLOYMENTID=<DEPLOYMENTID>
+  ~~~
+1. Connect to the DB2 pods
+  ~~~
+  export CMD="env DB2USERNAME=$DB2USERNAME DB2PASSWORD=$DB2PASSWORD  bash"
+  oc  exec -ti $DB2DEPLOYMENTID-db2u-0 -n $NAMESPACE -- $CMD
+  ~~~   
+1.  Run the following command to update the data base values from within the pod.
+  ~~~
+  cd /mnt/blumeta0/home/db2inst1/sqllib
+  . ./db2profile   
+  ~~~  
+  ~~~
+  db2 CONNECT to BLUDB user $DB2USERNAME using  $DB2PASSWORD;
+  db2 UPDATE DATABASE CONFIGURATION USING APPLHEAPSZ 1024 DEFERRED;
+  db2 UPDATE DATABASE CONFIGURATION USING LOCKTIMEOUT 240 DEFERRED;
+  db2 CREATE BUFFERPOOL CMDB_08KBP IMMEDIATE SIZE 1000 PAGESIZE 8K;
+  db2 CREATE BUFFERPOOL CMDB_32KBP IMMEDIATE SIZE 1000 PAGESIZE 32K;
+  db2 CREATE SYSTEM TEMPORARY TABLESPACE TSN_SYS_CMDB IN DATABASE PARTITION GROUP IBMTEMPGROUP PAGESIZE 32K BUFFERPOOL CMDB_32KBP;
+  db2 CREATE USER TEMPORARY TABLESPACE TSN_USR_CMDB IN DATABASE PARTITION GROUP IBMDEFAULTGROUP PAGESIZE 8K BUFFERPOOL CMDB_08KBP;
+  db2 CREATE REGULAR TABLESPACE TSN_REG_CMDB IN DATABASE PARTITION GROUP IBMDEFAULTGROUP PAGESIZE 8K BUFFERPOOL CMDB_08KBP;
+  db2 DROP TABLESPACE USERSPACE1;
+  db2 CREATE SCHEMA db2COGNOS AUTHORIZATION $DB2USERNAME;
+  db2 ALTER BUFFERPOOL ibmdefaultbp size 49800;
+  ~~~
+1. Create a connection that will be used for cognos
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data.html)    
