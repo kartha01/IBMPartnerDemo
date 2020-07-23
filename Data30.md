@@ -577,7 +577,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
 1. Preparing Db2 Advanced Database to make a connection that Cognos can used
 1. Collect the details of the provisioned database. This will be used for the environment variables
   ~~~
-  Deployment iddb2oltp-xxxxxxxxxxxxx
+  Deployment id db2oltp-xxxxxxxxxxxxx
   Username userxxx
   Password xxxxxxxxxxxxxxxxxxxxxx
   JDBC URLjdbc:db2://HOST:PORT/BLUDB
