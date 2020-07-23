@@ -584,7 +584,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
   ~~~
 1. From a terminal window. Run the following to set up the environment to execute the Database updates.
   ~~~
-  export NAMESPACE=<Namespace of your CPD Installation>
+  export NAMESPACE=zen
   export DB2USERNAME=<USERNAME>
   export DB2PASSWORD=<PASSWORD>
   export DB2DEPLOYMENTID=<DEPLOYMENTID>
