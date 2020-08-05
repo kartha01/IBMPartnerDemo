@@ -3,8 +3,10 @@
 - [Provision the Control plane or lite assembly](#provision-the-control-plane-or-lite-assembly)
 - [Building the configuration](#building-the-configuration)
 - [Review Services installed](#review-services-installed)
-- [Install Data Virtualization](#install-data-virtualization)
-- [Set up Data Virtualization](#set-up-data-virtualization)
+-[Data Virtualization](#data-virtualization)
+  * [Install Data Virtualization](#install-data-virtualization)
+  * [Set up Data Virtualization](#set-up-data-virtualization)
+  * [What can be done with Data Virtualization and Watson Knowledge Catalog](#what-can-be-done-with-data-virtualization-and-watson-knowledge-catalog)
 - [Watson Studio](#watson-studio)
   * [Install](#install-watson-studio)
   * [Set up](#set-up-watson-studio)
@@ -23,10 +25,16 @@
 - [Adding additional services](#adding-additional-services)
   * [To enable or disable the default admin users](#to-enable-or-disable-the-default-admin-users)
   * [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
-- [Install Db2 Warehouse (SMP)](#install-db2-warehouse-smp)
+- [Db2 Warehouse](#db2-warehouse)  
+  * [Install Db2 Warehouse (SMP)](#install-db2-warehouse-smp)
   * [Provision a Database instance](#provision-a-database-instance)
   * [Create a Table](#create-a-table)
   * [Uninstalling DB2 Warehouse.](#uninstalling-db2-warehouse)
+- [Db2 OLTP](#db2-oltp)  
+  * [Install Db2 OLTP (SMP)](#install-db2-oltp)
+  * [Provision a Database instance](#provision-an-oltp-database-instance)
+  * [Create a Table](#create-a-table)
+  * [Uninstalling DB2 OLTP](#uninstalling-db2-warehouse)
 - [Installing DataStage service](#installing-datastage-service)
   * [Create a Transformation Project](#create-a-transformation-project)
   * [Uninstalling DataStage.](#uninstalling-datastage)
@@ -124,7 +132,7 @@
    ~~~
    ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wsl
    ~~~
- 1. Deploy **Db2 Warehouse** by running the following:
+ 1. Deploy **Watson Studio** by running the following:
    ~~~
    ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wsl
    ~~~  
@@ -188,7 +196,7 @@
       ~~~
       ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wml
       ~~~
-    1. Deploy **Db2 Warehouse** by running the following:
+    1. Deploy **Watson Machine Learning** by running the following:
       ~~~
       ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wml
       ~~~  
@@ -227,6 +235,13 @@
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 ## Watson OpenScale
 ### Install Watson OpenScale
+ 1. When setting up OpenScale, there are 2 pre-prerequisites.
+   - Watson Machine Learning (Local or remote)
+    - [Local then install](#watson-machine-learning)
+    - Remote then document the following paramters:
+   - Db2 Database (Db2 OLTP or DB2 Warehouse Local or remote)
+    - Local then install [Db2 OLTP]() or [Db2 Warehouse]()
+
  ***Coming soon***
 ### Set up Watson OpenScale
  1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
@@ -344,8 +359,8 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name**
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
-
-## Install Db2 Warehouse (SMP)
+## Db2 Warehouse
+### Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
    1. Run: `oc get nodes`   This will produce a list of nodes.
    1. Run `oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '` Review the output and find the node with the least amount of resources allocated   You will be setting a ***label*** to create **Node Affinity**.  **Db2 Warehouse** pods will be installed to this particular node.  Database will also be provisioned to this node.   Sometimes you may need to resize your OpenShift worker pool size to increase capacity. Base on review I will pick node `10.95.7.49` as it has the least amount of resources allocated right now.
@@ -459,6 +474,122 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
+## Db2 OLTP
+### Install Db2 OLTP
+ 1. The first thing you will want to do is to pick one node that will house Db2 OLTP and add a label.
+    1. Run: `oc get nodes`   This will produce a list of nodes.
+    1. Run `oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '` Review the output and find the node with the least amount of resources allocated   You will be setting a ***label*** to create **Node Affinity**.  **Db2 OLTP** pods will be installed to this particular node.  Database will also be provisioned to this node.   Sometimes you may need to resize your OpenShift worker pool size to increase capacity. Base on review I will pick node `10.95.7.49` as it has the least amount of resources allocated right now.
+    ~~~
+    Toms-MBP:bin tjm$ oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '
+     MemoryPressure   False   Wed, 10 Jun 2020 16:21:28 -0400   Mon, 08 Jun 2020 10:19:26 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
+     Hostname:    10.95.7.21
+     cpu       14941m (94%)      63645m (400%)
+     memory    44715538Ki (74%)  150095560704 (244%)
+     MemoryPressure   False   Wed, 10 Jun 2020 16:21:29 -0400   Mon, 08 Jun 2020 10:19:13 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
+     Hostname:    10.95.7.23
+     cpu       13960m (87%)      39825m (250%)
+     memory    42889746Ki (71%)  106114088960 (172%)
+     MemoryPressure   False   Wed, 10 Jun 2020 16:21:32 -0400   Mon, 08 Jun 2020 10:16:15 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
+     Hostname:    10.95.7.49
+     cpu       10718m (67%)      33863m (213%)
+     memory    24435218Ki (40%)  85963040Ki (143%)
+     MemoryPressure   False   Wed, 10 Jun 2020 16:21:35 -0400   Mon, 08 Jun 2020 10:21:40 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
+     Hostname:    10.95.7.6
+     cpu       11970m (75%)      49570m (312%)
+     memory    30833170Ki (51%)  87313121280 (142%)
+    ~~~
+    1. Bind Db2 OLTP and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2-oltp` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
+    ~~~
+    oc label node <node name or IP Address> icp4data=database-oltp
+    ~~~
+    **Note:**  If you resize your OpenShift cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you label another node and restart the `db2oltp` pods, so they start on the same node.  Do not try to label 2 nodes as you will get an ***anti-affinity*** error in the `db2u-0` and unified-console pods,  They will stay in a state of `pending`.  
+ 1. Run env to verify that the following variables are exported
+   - OpenShift 3.x
+    ~~~
+    export OS_NAME=darwin or linux
+    export NAMESPACE=zen
+    export STORAGE_CLASS=ibmc-file-gold-gid
+    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+    export LOCAL_REGISTRY=docker-registry.default.svc:5000
+    ~~~
+    - OpenShift 4.x
+     ~~~
+     export OS_NAME=darwin or linux or win
+     export NAMESPACE=zen
+     export STORAGE_CLASS=ibmc-file-gold-gid
+     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+     export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+     ~~~
+ 1. Set the security aspects for Db2 Warehouse to install properly
+   ~~~
+   ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2oltp
+   ~~~
+ 1. Deploy **Db2 Warehouse** by running the following:
+   ~~~
+   ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2oltp
+   ~~~
+ 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+  **Note:** Actual time taken is 16 minutes
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/943Gi4Z9vUo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
+### Provision an OLPT Database instance
+ 1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
+ 1. On the services page, **Click** the left side filter to go to ***Datasources*** to get to **Db2 Warehouse** tile.  
+ 1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
+ 1. On the ***Configure*** page keep defaults or adjust if you know you need more.  **Click** ***Next***.
+ 1. On the ***Storage*** page, Select ***Create new storage***; Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
+ 1. **Click** ***Next***
+ 1. Review the settings. Here you can change the **Display name** to something more memorable. **Click** ***Create***.
+ 1. Your instance is being created and will be accessible from the **Services > Db2 Warehouse tile.**  Also accessed from the Left menu ***My Instance*** then **Click** ***Provisioned instances***
+ 1. From ***Provision Instances*** on the left you will see 3 horizontal dots. From this view, you can watch the steps of the provision, just incase it fails based on insufficient resources.
+ **Note:** You can see a red triangle that states Failed. This is temporary and is most likely the Cloud provision service waiting on a storage volume to come online and available to mount as a persistent volume to map the persistent volume claim.
+ 1. **Click** this and see the options.
+   - ***Open*** will open the DB2 Warehouse instance for use.
+   - ***View details*** will provide you the details including ***user*** ; ***password*** ; ***jdbc url***
+   - ***Manage Access*** let you add ***user ids*** and assign them ***Admin*** or ***User*** roles.
+   - ***Delete*** This will delete this particular instance.
+ **Note** Total time took about 12 minutes  
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/VLxgR3CeOCg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
+ ### Create a Table  
+ 1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by ***admin***, via **SQL editor** by default will go under **Schema** ***user999***.
+   - You can use the UI and select and create tables under certain schemas.
+
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
+ ### Uninstalling DB2 Warehouse.
+ 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
+ 1. From the command line:
+   - Set namespace.  My namespace is ***zen*** your may be different like ***default***
+   - Run env to verify that the following variables are exported
+     - OpenShift 3.x
+      ~~~
+      export OS_NAME=[darwin, linux, win]
+      export NAMESPACE=zen
+      export LOCAL_REGISTRY=docker-registry.default.svc:5000
+      ~~~
+     - OpenShift 4.x
+      ~~~
+      export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+      export NAMESPACE=zen
+      export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+      ~~~
+   - Do a dry run uninstall to check what will be taken off.
+   ~~~
+   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly db2wh --uninstall-dry-run
+   ~~~
+   - Run the uninstall
+   ~~~
+   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly db2wh
+   ~~~
+ 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
+
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ## Installing DataStage service
 1. Verify you have enough resource capcity to run DataStage.  You many need to increase your work pool by a node.
