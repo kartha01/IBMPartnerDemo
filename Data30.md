@@ -38,7 +38,8 @@
   * [Provision Db2 Advanced Edition instance](#provision-db2-advanced-edition-instance)
 - [Installing Cognos Analytics](#installing-cognos-analytics)
   * [Provision Cognos Analytics instance](#provision-cognos-analytics-instance)
-
+## The AI Ladder and how Cloud Pak for Data h
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pN_cZq-ov6Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ## Provision the Control plane or lite assembly
 1. **Click** ***Catalog***
 1. **Click** ***Software***
@@ -95,7 +96,7 @@
   1. Go to ***My Instance***   
   1. Once complete, you will see **Data Virtualization** under the **Collect** area on the left table of contents.  From here you can add data sources or pointers to file folders.
   **Note:** I have not yet tested this with ***Remote Data Connections*** aka  local file folders.
-### What can be done with Data Virtualization
+### What can be done with Data Virtualization and Watson Knowledge Catalog
 <iframe width="600" height="322" src="https://www.youtube.com/embed/SU0aRs8wpgc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
