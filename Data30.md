@@ -62,6 +62,7 @@
 1. **Check the box** and to ***accept the license***.   
 
 
+
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ## Review Services installed
@@ -94,6 +95,8 @@
   1. Go to ***My Instance***   
   1. Once complete, you will see **Data Virtualization** under the **Collect** area on the left table of contents.  From here you can add data sources or pointers to file folders.
   **Note:** I have not yet tested this with ***Remote Data Connections*** aka  local file folders.
+### What can be done with Data Virtualization
+<iframe width="600" height="322" src="https://www.youtube.com/embed/SU0aRs8wpgc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 ## Watson Studio
