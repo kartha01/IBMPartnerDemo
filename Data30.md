@@ -503,7 +503,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
     ~~~
     oc label node <node name or IP Address> icp4data=database-oltp
     ~~~
-    **Note:**  If you resize your OpenShift cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you label another node and restart the `db2oltp` pods, so they start on the same node.  Do not try to label 2 nodes as you will get an ***anti-affinity*** error in the `db2u-0` and unified-console pods,  They will stay in a state of `pending`.  
+    1. You can dedicate one or more [worker nodes to your Db2® database service](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/svc/dbs/aese-dednodes.html#aese-dednodes).  Do this before installing the service. 
  1. Run env to verify that the following variables are exported
    - OpenShift 3.x
     ~~~
@@ -550,18 +550,17 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    - ***View details*** will provide you the details including ***user*** ; ***password*** ; ***jdbc url***
    - ***Manage Access*** let you add ***user ids*** and assign them ***Admin*** or ***User*** roles.
    - ***Delete*** This will delete this particular instance.
- **Note** Total time took about 12 minutes  
- <iframe width="560" height="315" src="https://www.youtube.com/embed/VLxgR3CeOCg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
- ### Create a Table  
+### Create a Table  
  1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by ***admin***, via **SQL editor** by default will go under **Schema** ***user999***.
    - You can use the UI and select and create tables under certain schemas.
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
- ### Uninstalling DB2 Warehouse.
+### Uninstalling DB2 Warehouse.
  1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
  1. From the command line:
    - Set namespace.  My namespace is ***zen*** your may be different like ***default***
