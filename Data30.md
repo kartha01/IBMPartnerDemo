@@ -521,21 +521,20 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
      export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
      export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
      ~~~
- 1. Set the security aspects for Db2 Warehouse to install properly
+ 1. Set the security aspects for Db2 Advanced to install properly
    ~~~
    ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2oltp
    ~~~
- 1. Deploy **Db2 Warehouse** by running the following:
+ 1. Deploy **Db2 Advanced** by running the following:
    ~~~
    ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2oltp
    ~~~
  1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
-  **Note:** Actual time taken is 16 minutes
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/943Gi4Z9vUo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
-### Provision an OLPT Database instance
+### Provision an OLTP Database instance (Need to test instructions)
  1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
  1. On the services page, **Click** the left side filter to go to ***Datasources*** to get to **Db2 Warehouse** tile.  
  1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
