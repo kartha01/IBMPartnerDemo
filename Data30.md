@@ -773,7 +773,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
-### Provision Analytics Engine  instance
+### Provision Analytics Engine instance
 ***coming soon***
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
