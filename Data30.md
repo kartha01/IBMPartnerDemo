@@ -503,7 +503,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
     ~~~
     oc label node <node name or IP Address> icp4data=database-oltp
     ~~~
-    1. You can dedicate one or more [worker nodes to your Db2® database service](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/svc/dbs/aese-dednodes.html#aese-dednodes).  Do this before installing the service. 
+    1. You can dedicate one or more [worker nodes to your Db2® database service](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/svc/dbs/aese-dednodes.html#aese-dednodes).  Do this before installing the service.
  1. Run env to verify that the following variables are exported
    - OpenShift 3.x
     ~~~
@@ -530,19 +530,29 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2oltp
    ~~~
  1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+ 1. The deployed service will look like this from `oc get pods`.  The completed pod is a load job which can be deleted.
+    ~~~
+    db2oltp-catalog-11530-6c488d895f-jddzn   1/1       Running     0          5m11s
+    db2oltp-catalog-11530-uploadjob-hcsqr    0/1       Completed   0          5m11s
+    ~~~
 
 
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Provision an OLTP Database instance (Need to test instructions)
- 1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
- 1. On the services page, **Click** the left side filter to go to ***Datasources*** to get to **Db2 Warehouse** tile.  
+ 1. Once installed and the `db2oltp-catalog-11530` pod is running or the service tile is marked as available , you can go to the service catalog page with the square with petals icon in upper right.  
+ 1. On the services page, **Click** the left side filter to go to ***Datasources*** to get to **Db2 Advanced** tile.  
  1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
- 1. On the ***Configure*** page keep defaults or adjust if you know you need more.  **Click** ***Next***.
- 1. On the ***Storage*** page, Select ***Create new storage***; Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
+ 1. On the ***Configure*** page keep defaults or adjust if you know you need more.  **Click** ***Next***.  **NOTE** Make sure the ***Value for node label*** matches what was set above.
+ 1. On the ***System Storage*** page, Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
+ 1. **Click** ***Next***
+ 1. On the ***User Storage*** page, Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
+ 1. **Click** ***Next***
+ 1. On the ***Backup Storage*** page, Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
  1. **Click** ***Next***
  1. Review the settings. Here you can change the **Display name** to something more memorable. **Click** ***Create***.
- 1. Your instance is being created and will be accessible from the **Services > Db2 Warehouse tile.**  Also accessed from the Left menu ***My Instance*** then **Click** ***Provisioned instances***
+ 
+ 1. Your instance is being created and will be accessible from the **Services > Db2 Advanced tile.**  Also accessed from the Left menu ***My Instance*** then **Click** ***Provisioned instances***
  1. From ***Provision Instances*** on the left you will see 3 horizontal dots. From this view, you can watch the steps of the provision, just incase it fails based on insufficient resources.
  **Note:** You can see a red triangle that states Failed. This is temporary and is most likely the Cloud provision service waiting on a storage volume to come online and available to mount as a persistent volume to map the persistent volume claim.
  1. **Click** this and see the options.
