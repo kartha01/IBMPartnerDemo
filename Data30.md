@@ -801,7 +801,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
     cpu       11970m (75%)      49570m (312%)
     memory    30833170Ki (51%)  87313121280 (142%)
    ~~~
-   1. Bind Db2 Warehouse and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2oltp` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
+   1. Bind **Db2 Advanced** and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2oltp` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
    ~~~
    oc label node <node name or IP Address> icp4data=database-db2oltp
    ~~~
@@ -837,17 +837,17 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Provision Db2 Advanced Edition instance
-1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
-1. On the services page, **Click** the left side filter to go to ***Catagory*** ***>*** ***Datasources*** to get to **Db2 Advanced Edition** tile.  
-1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
-1. On the ***Configure*** page keep defaults or adjust if you know you need more.  **Click** ***Next***.
-1. On the ***Storage*** page, Select ***Create new storage***; Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
-1. **Click** ***Next***
-1. Review the settings. Here you can change the **Display name** to something more memorable. **Click** ***Create***.
-1. Your instance is being created and will be accessible from the **Services > Db2 Advanced Edition** tile.  Also accessed from the Left menu ***My Instance*** then **Click** ***Provisioned instances***
-1. From ***Provision Instances*** on the left you will see 3 horizontal dots. From this view, you can watch the steps of the provision, just incase it fails based on insufficient resources.
+ 1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
+ 1. On the services page, **Click** the left side filter to go to ***Catagory*** ***>*** ***Datasources*** to get to **Db2 Advanced Edition** tile.  
+ 1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
+ 1. On the ***Configure*** page keep defaults or adjust if you know you need more.  **Click** ***Next***.
+ 1. On the ***Storage*** page, Select ***Create new storage***; Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
+ 1. **Click** ***Next***
+ 1. Review the settings. Here you can change the **Display name** to something more memorable. **Click** ***Create***.
+ 1. Your instance is being created and will be accessible from the **Services > Db2 Advanced Edition** tile.  Also accessed from the Left menu ***My Instance*** then **Click** ***Provisioned instances***
+ 1. From ***Provision Instances*** on the left you will see 3 horizontal dots. From this view, you can watch the steps of the provision, just incase it fails based on insufficient resources.
 **Note:** You can see a red triangle that states Failed. This is temporary and is most likely the Cloud provision service waiting on a storage volume to come online and available to mount as a persistent volume to map the persistent volume claim.
-1. **Click** this and see the options.
+ 1. **Click** this and see the options.
   - ***Open*** will open the DB2 Warehouse instance for use.
   - ***View details*** will provide you the details including ***user*** ; ***password*** ; ***jdbc url***
   - ***Manage Access*** let you add ***user ids*** and assign them ***Admin*** or ***User*** roles.
