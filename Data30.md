@@ -539,7 +539,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
-### Provision an OLTP Database instance (Need to test instructions)
+### Provision an OLTP Database instance 
  1. Once installed and the `db2oltp-catalog-11530` pod is running or the service tile is marked as available , you can go to the service catalog page with the square with petals icon in upper right.  
  1. On the services page, **Click** the left side filter to go to ***Datasources*** to get to **Db2 Advanced** tile.  
  1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
@@ -551,14 +551,13 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
  1. On the ***Backup Storage*** page, Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
  1. **Click** ***Next***
  1. Review the settings. Here you can change the **Display name** to something more memorable. **Click** ***Create***.
- 
+
  1. Your instance is being created and will be accessible from the **Services > Db2 Advanced tile.**  Also accessed from the Left menu ***My Instance*** then **Click** ***Provisioned instances***
- 1. From ***Provision Instances*** on the left you will see 3 horizontal dots. From this view, you can watch the steps of the provision, just incase it fails based on insufficient resources.
+ 1. From ***Provision Instances*** , you will see a list of instances.   If you left the defaults, the name will be something like ***Db2 Advanced Edition-1***.   To get details **Click** on the instance name.  In my case ***Db2 Advanced Edition-1***.
  **Note:** You can see a red triangle that states Failed. This is temporary and is most likely the Cloud provision service waiting on a storage volume to come online and available to mount as a persistent volume to map the persistent volume claim.
- 1. **Click** this and see the options.
-   - ***Open*** will open the DB2 Warehouse instance for use.
-   - ***View details*** will provide you the details including ***user*** ; ***password*** ; ***jdbc url***
-   - ***Manage Access*** let you add ***user ids*** and assign them ***Admin*** or ***User*** roles.
+ 1. **Click** the horizontal 3 "." on the right and see the options.
+   - ***Open*** This will open the UI to allow you to work on the database
+   - ***Manage Access*** This lets you control high level ACLs to the database.  
    - ***Delete*** This will delete this particular instance.
 
 
