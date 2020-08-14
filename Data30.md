@@ -46,7 +46,10 @@
   * [Provision Db2 Advanced Edition instance](#provision-db2-advanced-edition-instance)
 - [Installing Cognos Analytics](#installing-cognos-analytics)
   * [Provision Cognos Analytics instance](#provision-cognos-analytics-instance)
-## The AI Ladder and how Cloud Pak for Data h
+- [Watson Knowledge Catalog](#watson-knowledge-catalog)
+  * [Installing Watson Knowledge Catalog service](#installing-watson-knowledge-catalog-service)  
+
+## The AI Ladder and how Cloud Pak for Data
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pN_cZq-ov6Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ## Provision the Control plane or lite assembly
 1. **Click** ***Catalog***
@@ -539,7 +542,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
-### Provision an OLTP Database instance 
+### Provision an OLTP Database instance
  1. Once installed and the `db2oltp-catalog-11530` pod is running or the service tile is marked as available , you can go to the service catalog page with the square with petals icon in upper right.  
  1. On the services page, **Click** the left side filter to go to ***Datasources*** to get to **Db2 Advanced** tile.  
  1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
@@ -937,3 +940,42 @@ Understand the [current differences here](https://community.ibm.com/community/us
 1. Create a connection that will be used for cognos
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
+
+## Watson Knowledge Catalog
+### Installing Watson Knowledge Catalog service
+ 1. Verify you have enough resource capacity to run DataStage.  You many need to increase your work pool by a node.
+ 1. Run oc create -f [wkc-tune-43.yaml](wkc-tune-43.yaml) command to tune the kernel parameters.  
+ 1. **NOTE:** THERE ARE OTHER [CONFIGS TO BE CONSIDER](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/cpd/install/node-settings.html),  LOOKING FOR GUIDANCE AS I DON'T HAVE "MACHINECONFIG" OR HAPROXY.
+ 1. Run env to verify that the following variables are exported
+   - OpenShift 3.x
+    ~~~
+    export OS_NAME=darwin or linux
+    export NAMESPACE=zen
+    export STORAGE_CLASS=ibmc-file-gold-gid
+    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+    export LOCAL_REGISTRY=docker-registry.default.svc:5000
+    ~~~
+    - OpenShift 4.x
+     ~~~
+     export OS_NAME=darwin or linux or win
+     export NAMESPACE=zen
+     export STORAGE_CLASS=ibmc-file-gold-gid
+     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+     export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+     ~~~
+ 1. Set the security aspects for Watson Knowledge Catalog to install properly
+   ~~~
+   ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wkc
+   ~~~
+ 1. Deploy Watson Knowledge Catalog by running the following:
+   ~~~
+   ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wkc
+   ~~~
+ 1. You will need to tab to accept the license.
+ 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+
+
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+### Post install tasks  (To Do's for Tom to validate)
+1. [Setting up your default catalog](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/wsj/catalog/set-up-first.html)
+1. [Optional tasks](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/wsj/install/postinstall-wkc.html)
