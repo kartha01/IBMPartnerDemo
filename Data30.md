@@ -48,6 +48,7 @@
   * [Provision Cognos Analytics instance](#provision-cognos-analytics-instance)
 - [Watson Knowledge Catalog](#watson-knowledge-catalog)
   * [Installing Watson Knowledge Catalog service](#installing-watson-knowledge-catalog-service)  
+  * [Uninstalling Watson Knowledge Catalog](uninstalling-watson-knowledge-catalog)
 
 ## The AI Ladder and how Cloud Pak for Data
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pN_cZq-ov6Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
