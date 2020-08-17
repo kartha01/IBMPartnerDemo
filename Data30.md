@@ -458,21 +458,19 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
      ~~~
      export OS_NAME=[darwin, linux, win]
      export NAMESPACE=zen
-     export LOCAL_REGISTRY=docker-registry.default.svc:5000
      ~~~
     - OpenShift 4.x
      ~~~
      export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
-     export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
      ~~~
   - Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly db2wh --uninstall-dry-run
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly db2wh --uninstall-dry-run
   ~~~
   - Run the uninstall
   ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly db2wh
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh
   ~~~
 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
@@ -581,21 +579,19 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
       ~~~
       export OS_NAME=[darwin, linux, win]
       export NAMESPACE=zen
-      export LOCAL_REGISTRY=docker-registry.default.svc:5000
       ~~~
      - OpenShift 4.x
       ~~~
       export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
       export NAMESPACE=zen
-      export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
       ~~~
    - Do a dry run uninstall to check what will be taken off.
    ~~~
-   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly db2wh --uninstall-dry-run
+   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh --uninstall-dry-run
    ~~~
    - Run the uninstall
    ~~~
-   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly db2wh
+   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh
    ~~~
  1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
@@ -670,21 +666,19 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
      ~~~
      export OS_NAME=[darwin, linux, win]
      export NAMESPACE=zen
-     export LOCAL_REGISTRY=docker-registry.default.svc:5000
      ~~~
     - OpenShift 4.x
      ~~~
      export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
-     export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
      ~~~
   - Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly ds --uninstall-dry-run
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly ds --uninstall-dry-run
   ~~~
   - Run the uninstall
   ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly ds
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly ds
   ~~~
 1. Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
 
@@ -731,21 +725,19 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
      ~~~
      export OS_NAME=[darwin, linux, win]
      export NAMESPACE=zen
-     export LOCAL_REGISTRY=docker-registry.default.svc:5000
      ~~~
     - OpenShift 4.x
      ~~~
      export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
-     export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
      ~~~
   - Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly cde --uninstall-dry-run
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly cde --uninstall-dry-run
   ~~~
   - Run the uninstall
   ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --repo ${LOCAL_REGISTRY}/${NAMESPACE}  --assembly cde
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly cde
   ~~~
 1.  Go to the **Services** catalog and verify that **Analytics Dashboards** is no longer ***enabled***.   
 
