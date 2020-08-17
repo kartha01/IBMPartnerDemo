@@ -936,6 +936,10 @@ Understand the [current differences here](https://community.ibm.com/community/us
 ## Watson Knowledge Catalog
 ### Installing Watson Knowledge Catalog service
  1. Verify you have enough resource capacity to run Watson Knowledge Catalog.  You many need to increase your work pool by a node.
+ 1. Create a secret in the kube-system project or namespace for the norootsquash.yaml will execute properly.  **Note: **All norootsquash pods in Kube-system namespace will restart using the new parameters.
+    - `oc project kube-system`
+    -  Get the apikey from the repo.yaml file and use your accounts email address.
+    - `oc create secret docker-registry cpregistrysecret --docker-username=cp --docker-password= API KEY used in repl.yaml  --docker-server=cp.icr.io/cp/cpd --docker-email= your email address`
  1. Adjust the kernel parameters.  Save the files to the directory with `cpd-<os>` command prior to executing or running the command.
     - Run ***oc create -f [wkc-tune-43.yaml](wkc-tune-43.yaml)*** command to tune the kernel parameters.  
     - Run ***oc apply -f [setkernelparameters.yaml](setkernelparameters.yaml) -n kube-system***
