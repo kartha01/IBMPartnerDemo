@@ -935,9 +935,11 @@ Understand the [current differences here](https://community.ibm.com/community/us
 
 ## Watson Knowledge Catalog
 ### Installing Watson Knowledge Catalog service
- 1. Verify you have enough resource capacity to run DataStage.  You many need to increase your work pool by a node.
- 1. Run oc create -f [wkc-tune-43.yaml](wkc-tune-43.yaml) command to tune the kernel parameters.  
- 1. **NOTE:** THERE ARE OTHER [CONFIGS TO BE CONSIDER](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/cpd/install/node-settings.html),  LOOKING FOR GUIDANCE AS I DON'T HAVE "MACHINECONFIG" OR HAPROXY.
+ 1. Verify you have enough resource capacity to run Watson Knowledge Catalog.  You many need to increase your work pool by a node.
+ 1. Adjust the kernel parameters.  Save the files to the directory with `cpd-<os>` command prior to executing or running the command.
+    - Run ***oc create -f [wkc-tune-43.yaml](wkc-tune-43.yaml)*** command to tune the kernel parameters.  
+    - Run ***oc apply -f [setkernelparameters.yaml](setkernelparameters.yaml) -n kube-system***
+    - Run ***oc apply -f [norootsquash.yaml](norootsquash.yaml) -n kube-system***
  1. Run env to verify that the following variables are exported
    - OpenShift 3.x
     ~~~
