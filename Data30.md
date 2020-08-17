@@ -971,5 +971,5 @@ Understand the [current differences here](https://community.ibm.com/community/us
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 ### Post install tasks  (To Do's for Tom to validate)
-1. [Setting up your default catalog](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/wsj/catalog/set-up-first.html)
-1. [Optional tasks](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/wsj/install/postinstall-wkc.html)
+1. [Setting up your default catalog](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/wsj/catalog/set-up-first.html)
+1. [Optional tasks](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/wsj/install/postinstall-wkc.html)
