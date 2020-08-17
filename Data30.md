@@ -959,9 +959,9 @@ Understand the [current differences here](https://community.ibm.com/community/us
    ~~~
    ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wkc
    ~~~
- 1. Deploy Watson Knowledge Catalog by running the following:
+ 1. Deploy Watson Knowledge Catalog by running the following: Download the [override-nginx.yaml](override-nginx.yaml) file for use in the install command.
    ~~~
-   ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --override [override-nginx.yaml](override-nginx.yaml) --assembly wkc
+   ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --override override-nginx.yaml --assembly wkc
    ~~~
  1. You will need to tab to accept the license.
  1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
