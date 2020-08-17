@@ -52,6 +52,7 @@
 
 ## The AI Ladder and how Cloud Pak for Data
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pN_cZq-ov6Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Provision the Control plane or lite assembly
 1. **Click** ***Catalog***
 1. **Click** ***Software***
@@ -983,24 +984,23 @@ Understand the [current differences here](https://community.ibm.com/community/us
 1. From the command line:
   - Set namespace.  My namespace is ***zen*** your may be different like ***default***
   - Run env to verify that the following variables are exported
-    - OpenShift 3.x
+     - OpenShift 3.x
      ~~~
      export OS_NAME=[darwin, linux, win]
      export NAMESPACE=zen
      ~~~
-    - OpenShift 4.x
+     - OpenShift 4.x
      ~~~
      export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
+     ~~~  
+     - Do a dry run uninstall to check what will be taken off.
      ~~~
-  - Do a dry run uninstall to check what will be taken off.
-  ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc --uninstall-dry-run
-  ~~~
+     ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc --uninstall-dry-run
+     ~~~
   - Run the uninstall
-  ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc
-  ~~~
-
+    ~~~
+    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc
+    ~~~
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
