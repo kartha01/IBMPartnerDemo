@@ -977,3 +977,29 @@ Understand the [current differences here](https://community.ibm.com/community/us
 ### Post install tasks  (To Do's for Tom to validate)
 1. [Setting up your default catalog](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/wsj/catalog/set-up-first.html)
 1. [Optional tasks](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/wsj/install/postinstall-wkc.html)
+
+### Uninstalling Watson Knowledge Catalog
+1. From the command line:
+  - Set namespace.  My namespace is ***zen*** your may be different like ***default***
+  - Run env to verify that the following variables are exported
+    - OpenShift 3.x
+     ~~~
+     export OS_NAME=[darwin, linux, win]
+     export NAMESPACE=zen
+     ~~~
+    - OpenShift 4.x
+     ~~~
+     export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+     export NAMESPACE=zen
+     ~~~
+  - Do a dry run uninstall to check what will be taken off.
+  ~~~
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc --uninstall-dry-run
+  ~~~
+  - Run the uninstall
+  ~~~
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc
+  ~~~
+
+
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
