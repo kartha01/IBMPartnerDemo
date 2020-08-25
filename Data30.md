@@ -2,7 +2,15 @@
 - [Provision OpenShift](https://tjmcmanus.github.io/IBMPartnerDemo/#creating-an-open-shift-cluster)
 - [Provision the Control plane or lite assembly](#provision-the-control-plane-or-lite-assembly)
 - [Building the configuration](#building-the-configuration)
+- [Setting up the Cloud Pak for Data Client](#adding-additional-services)
+  * [To enable or disable the default admin users](#to-enable-or-disable-the-default-admin-users)
+  * [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
+- [Troubleshooting and managing Cloud Pak for Data through the console](#troubleshooting-and-managing-cloud-pak-for-data-through-the-console)
+  * [Manage Deployments](#manage-deployments)
+  * [Manage Users](#manage-users)
+  * [Viewing Logs](#viewing-logs)  
 - [Review Services installed](#review-services-installed)
+
 -[Data Virtualization](#data-virtualization)
   * [Install Data Virtualization](#install-data-virtualization)
   * [Set up Data Virtualization](#set-up-data-virtualization)
@@ -18,13 +26,6 @@
 - [Watson OpenScale](#watson-openscale)
   * [Install Watson OpenScale](#install-watson-openscale)
   * [Set up Watson OpenScale](#set-up-watson-openscale)
-- [Troubleshooting and managing Cloud Pak for Data through the console](#troubleshooting-and-managing-cloud-pak-for-data-through-the-console)
-  * [Manage Deployments](#manage-deployments)
-  * [Manage Users](#manage-users)
-  * [Viewing Logs](#viewing-logs)
-- [Adding additional services](#adding-additional-services)
-  * [To enable or disable the default admin users](#to-enable-or-disable-the-default-admin-users)
-  * [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 - [Db2 Warehouse](#db2-warehouse)  
   * [Install Db2 Warehouse (SMP)](#install-db2-warehouse-smp)
   * [Provision a Database instance](#provision-a-database-instance)
@@ -76,8 +77,115 @@
 1. **Check the box** and to ***accept the license***.   
 
 
-
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
+
+## Setting up the Cloud Pak for Data Client
+1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under **Installing the client environment**  You will have logged into the OpenShift cluster, set the project to ***zen*** already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.  If ***zen*** doesn't exist, then your probably went with ***default***.
+1. Here is a link to the [knowledge center for Cloud Pak for Data](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/install/installation-files.html) installation instructions.  The next steps are a sequential version for this environment.  
+1. How do I get the installer? Click the [CPD Github](https://github.com/IBM/cpd-cli/releases) to download the **Enterprise Edition**.  Named ***cloudpak4data-ee-3.0.1.tgz***.  File is about 128MB.
+1. Unarchive the client bits.   You should find the following.
+  - repo.yaml
+  - bin
+  - LICENSES
+1. Find the file called `repo.yaml`  This is a simple file, but key. Here is where you will add the `apikey` to get access to the container registry for the additional Services.   
+1. In a web browser, **Login** and access [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).  **Click** ***Get entitlement key*** on the left side above Library.  Either ***Generate a key*** or ***Copy the existing key***.  This will populate your scratchpad where you can paste it into the `repo.yaml` file.
+1.  **Paste** the ***apikey*** into the Yaml file to the right of the `apikey:`  After you paste, it should something like this only longer.
+  ~~~
+  registry:
+    - url: cp.icr.io/cp/cpd
+      username: cp
+      apikey: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJ
+      name: base-registry
+  fileservers:
+    - url: https://raw.github.com/IBM/cloud-pak/master/repo/cpd3
+  ~~~~
+  **Note:**  While the documentation denotes Linux, using **cpd-linux**, the video uses **cdp-darwin** for Mac, **cpd-windows.exe** for windows.  
+1. Move to the bin directory, this is where all the tools will be located for command line control of Cloud Pak for Data 3.0.x:
+~~~
+cd bin
+~~~
+1. List the directory to see the command available.  I denoted the platform names in ( ).  I usualy delete the other platforms to not confuse myself.
+~~~
+cpd-darwin  (Mac)
+cpd-linux  (Linux)
+cpd-windows.exe (Windows)
+cpd-ppc64le (Power)
+cpd-s390x (zOS)
+~~~
+1. Run the client command to verify that it works.   On Mac you will need to verify the command by launching it from finder.  
+~~~
+./cpd-darwin
+~~~
+1. You will notice in the rest of the documentation, I reference the command as `./cpd-${OS_NAME}`  I also tell you to set and environment variable called `OS_NAME` which corresponds to the previous steps OS.  So if you were running linux, you would `export OS_NAME=linux`.  I mention this in each section, just in case.   Maybe overkill, but better than messing it up.
+
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
+## Troubleshooting and managing Cloud Pak for Data through the console
+
+
+### Manage Deployments
+ ***coming soon***  
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
+### Manage Users
+ ***coming soon***  
+ <iframe width="600" height="322" src="https://www.youtube.com/embed/8D-IOawofAo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
+### Viewing logs
+ ***coming soon***  
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)  
+
+### To enable or disable the default admin users
+1. It is suggested to connect your user repository to an LDAP system.  
+1. Once connected to LDAP, you should ***disable*** the default **admin** user.
+1. To do this you will run a script in the user management pod.
+~~~
+export NAMESPACE=zen
+oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | tail -1 | cut -f1 -d\ ) -- bash -c "/usr/src/server-src/scripts/manage-user.sh --disable-user admin"
+~~~
+1. To reenable **admin** user run the following, which will prompt you for a new password:
+~~~
+export NAMESPACE=zen
+oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | tail -1 | cut -f1 -d\ ) -- bash -c "/usr/src/server-src/scripts/manage-user.sh --enable-user admin"
+~~~
+**Note:** If you have lost or forgotten your CPD Admin password, you can log into OpenShift then execute the enable command which prompts you for a new password.
+
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
+### How can I patch a service or control plane
+From time to time any software needs a patch for security reasons, new feature or a bug fix.  How do you know that there is a patch for a specifica service, common services or the control plane.   Take a [look here for v2.5]( https://www.ibm.com/support/knowledgecenter/SSQNUZ_2.5.0/patch/avail-patches.html).  This document has a link to each of the service patches and any extra work that might be needed.   Most patches need a prerequisite patch for the common services.
+1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
+   ~~~
+   export OS_NAME=[darwin, linux, win]
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=docker-registry.default.svc:5000
+   ~~~
+  - OpenShift 4.x
+   ~~~
+   export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+   ~~~
+1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-2.5.0.0-ccs-patch-6***.  This name will change after this writing. Note the assembly name can be `wkc` or `wsl`, why not `lite` for the control plane, I am not sure as of this writing.  
+~~~
+./cpd-${OS_NAME} patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly wkc  --patch-name cpd-2.5.0.0-ccs-patch-6
+~~~
+1. Verify that the patch has been applied.
+~~~
+Toms-MBP:~ tjm$ oc project zen
+Already on project "zen" on server "https://c106-e.us-south.containers.cloud.ibm.com:31432".
+Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort | uniq | cut -d: -f2
+       cpd-2.5.0.0-ccs-patch-6
+~~~
+1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name**
+
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
 
 ## Review Services installed
 1. From the Schematics workspace, **Click** `Offering dashboard`
@@ -259,111 +367,7 @@
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
-## Troubleshooting and managing Cloud Pak for Data through the console
 
-
-### Manage Deployments
-***coming soon***  
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
-### Manage Users
-***coming soon***  
-<iframe width="600" height="322" src="https://www.youtube.com/embed/8D-IOawofAo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
-### Viewing logs
-***coming soon***  
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
-
-
-## Adding additional services
-1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under **Installing the client environment**  You will have logged into the OpenShift cluster, set the project to ***zen*** already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.  If ***zen*** doesn't exist, then your probably went with ***default***.
-1. How do I get the installer? Good question.  You work for an ***IBM Business Partner*** with ***Software Access Catalog subscription***.  Your **IBM Cloud ID** is listed in your companies PartnerWorld Profile.  This provides access to [Software Access Catalog](https://www.ibm.com/partnerworld/program/benefits/software-access-catalog)  
-  **Note:** There is not a Windows install and the `.bin` file in PartnerWorld Software Access Catalog doesn't download properly on Mac.  Make sure you have access to a Linux system to get the `.tar.gz` file.
-1. Access the catalog
-1. **Log in** using your ***IBM ID*** (linked to partnerWorld profile).
-1. Scroll to the bottom and **Click** ***I Agree***
-1. **Click** in the edit box under **Find by Part Number**.  Enter `CC3Y1ML`.  **Click** ***Search***.
-1. ***Download Director*** will be pre selected, change to ***HTTP***.
-1. **Click** the radio button for ***IBM Cloud Pak for Data Enterprise Edition V2.5 - Installer Linux x86 Multilingual (CC3Y1ML)***
-1. **Click** the ***I agree*** radio button and **Click** ***Download Now***
-1. Locate the `CP4D_EE_Installer_V2.5.bin` file. (probably in the downloads directory)
-1. Move to a Linux system and execute:
-~~~
-chmod +x CP4D_EE_Installer_V2.5.bin
-~~~
-1. Exceute the command, which will download the installer for linux and Mac (darwin) in a tar file `cloudpak4data-ee-v2.5.0.0.tar.gz`
-~~~
-./CP4D_EE_Installer_V2.5.bin
-~~~
-1. Extract the tar file.
-~~~
-tar -xvf cloudpak4data-ee-v2.5.0.0
-~~~
-1. Find a file called `repo.yaml`  This is a simple file, but key. Here is where you will add the `apikey` to get access to the container registry for the additional Services.   
-1. In a web browser, **Login** and access [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).  **Click** ***Get entitlement key*** on the left side above Library.  Either ***Generate a key*** or ***Copy the existing key***.  This will populate your scratchpad where you can paste it into the `repo.yaml` file.
-1.  **Paste** the ***apikey*** into the Yaml file to the right of the `apikey:`  After you paste, it should something like this only longer.
-~~~
-registry:
-  - url: cp.icr.
-    username: cp
-    apikey: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJ
-    name: base-registry
-fileservers:
- - url: https://raw.
-~~~~
-**Note:**  While the documentation denotes Linux, using **cpd-linux**, the video uses **cdp-darwin** for Mac.  Currently, there is no Windows interface.
-
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
-
-### To enable or disable the default admin users
-1. It is suggested to connect your user repository to an LDAP system.  
-1. Once connected to LDAP, you should ***disable*** the default **admin** user.
-1. To do this you will run a script in the user management pod.
-~~~
-export NAMESPACE=zen
-oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | tail -1 | cut -f1 -d\ ) -- bash -c "/usr/src/server-src/scripts/manage-user.sh --disable-user admin"
-~~~
-1. To reenable **admin** user run the following, which will prompt you for a new password:
-~~~
-export NAMESPACE=zen
-oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | tail -1 | cut -f1 -d\ ) -- bash -c "/usr/src/server-src/scripts/manage-user.sh --enable-user admin"
-~~~
-**Note:** If you have lost or forgotten your CPD Admin password, you can log into OpenShift then execute the enable command which prompts you for a new password.
-
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
-
-### How can I patch a service or control plane
-From time to time any software needs a patch for security reasons, new feature or a bug fix.  How do you know that there is a patch for a specifica service, common services or the control plane.   Take a [look here for v2.5]( https://www.ibm.com/support/knowledgecenter/SSQNUZ_2.5.0/patch/avail-patches.html).  This document has a link to each of the service patches and any extra work that might be needed.   Most patches need a prerequisite patch for the common services.
-1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-   ~~~
-   export OS_NAME=[darwin, linux, win]
-   export NAMESPACE=zen
-   export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-   export LOCAL_REGISTRY=docker-registry.default.svc:5000
-   ~~~
-  - OpenShift 4.x
-   ~~~
-   export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
-   export NAMESPACE=zen
-   export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
-   export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
-   ~~~
-1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-2.5.0.0-ccs-patch-6***.  This name will change after this writing. Note the assembly name can be `wkc` or `wsl`, why not `lite` for the control plane, I am not sure as of this writing.  
-~~~
-./cpd-${OS_NAME} patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly wkc  --patch-name cpd-2.5.0.0-ccs-patch-6
-~~~
-1. Verify that the patch has been applied.
-~~~
-Toms-MBP:~ tjm$ oc project zen
-Already on project "zen" on server "https://c106-e.us-south.containers.cloud.ibm.com:31432".
-Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort | uniq | cut -d: -f2
-       cpd-2.5.0.0-ccs-patch-6
-~~~
-1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name**
-
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 ## Db2 Warehouse
 ### Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
