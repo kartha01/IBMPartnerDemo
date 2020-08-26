@@ -1,8 +1,9 @@
 # Install instructions for Cloud Pak for Data (work in progress)
 - [Provision OpenShift](https://tjmcmanus.github.io/IBMPartnerDemo/#creating-an-open-shift-cluster)
-- [Provision the Control plane or lite assembly](#provision-the-control-plane-or-lite-assembly)
-- [Building the configuration](#building-the-configuration)
-- [Setting up the Cloud Pak for Data Client](#adding-additional-services)
+- [Provision the Control plane using IBM Cloud tile](#provision-the-control-plane-using-ibm-cloud-tile)
+  * [Building the configuration](#building-the-configuration)
+- [Setting up the Cloud Pak for Data Client](#setting-up-the-cloud-pak-for-data-client)
+  * [Installing the Cloud Pak for Data Control Plane by command line](#installing-the-cloud-pak-for-data-control-plane-by-command-line)
   * [To enable or disable the default admin users](#to-enable-or-disable-the-default-admin-users)
   * [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 - [Troubleshooting and managing Cloud Pak for Data through the console](#troubleshooting-and-managing-cloud-pak-for-data-through-the-console)
@@ -54,7 +55,7 @@
 ## The AI Ladder and how Cloud Pak for Data
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pN_cZq-ov6Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Provision the Control plane or lite assembly
+## Provision the Control plane using IBM Cloud tile
 1. **Click** ***Catalog***
 1. **Click** ***Software***
 1. **Filter** on ***Analytics*** or In the search box **enter** ***Cloud Pak*** and press **enter**.  This should list the available Cloud Paks that can be provisioned. In these instructions, you are going to install ***Cloud Pak for Data***.
@@ -63,7 +64,7 @@
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
-## Building the configuration
+### Building the configuration
 1. On the ***create*** tab, this is where we will build the configuration of the Cloud Pak for Data clusters
 1. First section describes the bare minimum configuration.  For Cloud Pak for Data it is as follows.  `Each cluster must meet a set of minimum requirements: 3 nodes with 16 cores, 64GB memory, and 25GB disk per node.`  As I know I want to add Db2 Warehouse and provision a Data Virtualization instance, I will start with 4 node OpenShift cluster.  As I add more features, I am needing more capacity when I provision the instance.
 1. Select the cluster that was previously created.  Where you created project `zen`.
@@ -121,6 +122,14 @@ cpd-s390x (zOS)
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
+## Installing the Cloud Pak for Data Control Plane by command line
+https://tjmcmanus.github.io/IBMPartnerDemo/
+
+1. Follow the instructions in [Setting up the Cloud Pak for Data Client](#adding-additional-services)
+1. Login into OpenShift
+
+[Retrieving the token to log into OpenShift on IBM Cloud](#Retrieving-the-token-to-log-into-openshift-on-ibm-cloud)
+
 ## Troubleshooting and managing Cloud Pak for Data through the console
 
 
@@ -153,7 +162,7 @@ oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | t
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### How can I patch a service or control plane
-From time to time any software needs a patch for security reasons, new feature or a bug fix.  How do you know that there is a patch for a specifica service, common services or the control plane.   Take a [look here for v2.5]( https://www.ibm.com/support/knowledgecenter/SSQNUZ_2.5.0/patch/avail-patches.html).  This document has a link to each of the service patches and any extra work that might be needed.   Most patches need a prerequisite patch for the common services.
+From time to time any software needs a patch for security reasons, new feature or a bug fix.  How do you know that there is a patch for a specifica service, common services or the control plane.   Take a [look here for v3.0.x](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/patch/avail-patches.html).  This document has a link to each of the service patches and any extra work that might be needed.   Most patches need a prerequisite patch for the common services.
 1. Run env to verify that the following variables are exported
   - OpenShift 3.x
    ~~~
