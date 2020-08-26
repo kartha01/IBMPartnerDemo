@@ -2,15 +2,15 @@
 - [Provision OpenShift](https://tjmcmanus.github.io/IBMPartnerDemo/#creating-an-open-shift-cluster)
 - [Provision the Control plane using IBM Cloud tile](#provision-the-control-plane-using-ibm-cloud-tile)
   * [Building the configuration](#building-the-configuration)
+  * [Review Services installed](#review-services-installed)
+  - [Troubleshooting and managing Cloud Pak for Data through the console](#troubleshooting-and-managing-cloud-pak-for-data-through-the-console)
+    * [Manage Deployments](#manage-deployments)
+    * [Manage Users](#manage-users)
+    * [Viewing Logs](#viewing-logs)    
 - [Setting up the Cloud Pak for Data Client](#setting-up-the-cloud-pak-for-data-client)
   * [Installing the Cloud Pak for Data Control Plane by command line](#installing-the-cloud-pak-for-data-control-plane-by-command-line)
   * [To enable or disable the default admin users](#to-enable-or-disable-the-default-admin-users)
   * [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
-- [Troubleshooting and managing Cloud Pak for Data through the console](#troubleshooting-and-managing-cloud-pak-for-data-through-the-console)
-  * [Manage Deployments](#manage-deployments)
-  * [Manage Users](#manage-users)
-  * [Viewing Logs](#viewing-logs)  
-- [Review Services installed](#review-services-installed)
 - [Data Virtualization](#data-virtualization)
   * [Install Data Virtualization](#install-data-virtualization)
   * [Set up Data Virtualization](#set-up-data-virtualization)
@@ -80,6 +80,32 @@
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
+### Review Services installed
+1. From the Schematics workspace, **Click** `Offering dashboard`
+1. Depending on your browser, you will need to accept the certificate.  General path is Advanced then accept risk.  This will bring you to the login page. Bookmark this for future usage.
+1. **Login** using default credentials as seen in video.
+1. Along the black menu bar at the top the icon to the right on the magnifying glass is `Services`.  **Click** on this link.  
+1. Take a look at the services that are `enabled`.   These have been installed or deployed.   You should see 5 services.  
+  - **AI** (Watson Studio, Watson Machine Learning, Watson OpenScale)
+  - **Data Governance** (Watson Knowledge Catalog)
+  - **Data Sources** (Data Virtualization).  
+1. Some are set up automatically and some you need to provision.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vYS7xwk0fn8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
+
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
+## Troubleshooting and managing Cloud Pak for Data through the console
+
+### Manage Deployments
+ ***coming soon***  
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
+### Manage Users
+ ***coming soon***  
+ <iframe width="600" height="322" src="https://www.youtube.com/embed/8D-IOawofAo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
+### Viewing logs
+ ***coming soon***  
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)  
 
 ## Setting up the Cloud Pak for Data Client
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under **Installing the client environment**  You will have logged into the OpenShift cluster, set the project to ***zen*** already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.  If ***zen*** doesn't exist, then your probably went with ***default***.
@@ -161,19 +187,6 @@
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
-## Troubleshooting and managing Cloud Pak for Data through the console
-
-
-### Manage Deployments
- ***coming soon***  
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
-### Manage Users
- ***coming soon***  
- <iframe width="600" height="322" src="https://www.youtube.com/embed/8D-IOawofAo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
-### Viewing logs
- ***coming soon***  
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)  
 
 ### To enable or disable the default admin users
 1. It is suggested to connect your user repository to an LDAP system.  
@@ -231,19 +244,6 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 
-## Review Services installed
-1. From the Schematics workspace, **Click** `Offering dashboard`
-1. Depending on your browser, you will need to accept the certificate.  General path is Advanced then accept risk.  This will bring you to the login page. Bookmark this for future usage.
-1. **Login** using default credentials as seen in video.
-1. Along the black menu bar at the top the icon to the right on the magnifying glass is `Services`.  **Click** on this link.  
-1. Take a look at the services that are `enabled`.   These have been installed or deployed.   You should see 5 services.  
-  - **AI** (Watson Studio, Watson Machine Learning, Watson OpenScale)
-  - **Data Governance** (Watson Knowledge Catalog)
-  - **Data Sources** (Data Virtualization).  
-1. Some are set up automatically and some you need to provision.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/vYS7xwk0fn8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
-
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 ## Data Virtualization
 ### Install Data Virtualization
   ***Coming Soon***
