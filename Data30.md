@@ -11,8 +11,7 @@
   * [Manage Users](#manage-users)
   * [Viewing Logs](#viewing-logs)  
 - [Review Services installed](#review-services-installed)
-
--[Data Virtualization](#data-virtualization)
+- [Data Virtualization](#data-virtualization)
   * [Install Data Virtualization](#install-data-virtualization)
   * [Set up Data Virtualization](#set-up-data-virtualization)
   * [What can be done with Data Virtualization and Watson Knowledge Catalog](#what-can-be-done-with-data-virtualization-and-watson-knowledge-catalog)
