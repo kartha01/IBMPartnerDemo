@@ -224,7 +224,7 @@ From time to time any software needs a patch for security reasons, new feature o
 Toms-MBP:~ tjm$ oc project zen
 Already on project "zen" on server "https://c106-e.us-south.containers.cloud.ibm.com:31432".
 Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort | uniq | cut -d: -f2
-       cpd-2.5.0.0-ccs-patch-6
+       cpd-3.0.1-lite-patch-5
 ~~~
 1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name**
 
