@@ -11,6 +11,7 @@
 - [Checking OpenShift was created and working properly](#checking-openshift-was-created-and-working-properly)
 - [Using OpenShift console](#using-openshift-console)
 - [Installing the CLI environment](#installing-the-cli-environment)
+  * [Retrieving the token to log into OpenShift on IBM Cloud](#Retrieving-the-token-to-log-into-openshift-on-ibm-cloud)
   * [Quick run through of some OpenShift CLI commands](#quick-run-through-of-some-openshift-cli-commands)
 - [Install your Cloud Pak of Choice (currently only Data)](#install-your-cloud-pak-of-choice)
 
@@ -147,12 +148,7 @@ How do I request an account?  What qualifies? Can my VAD help here?
   - [4.x Client download](https://mirror.openshift.com/pub/openshift-v4/clients/oc/)
   1. unzip and copy oc to your `/usr/local/bin` or include in PATH.
   1. Execute oc version to check that everything is working.  
-  1. Go back to the dashboard and in the upper right click the blue button/link for OpenShift Web Console.
-  1. In the upper right hand corner, there should be a person icon, **click** the arrow and **click** ***Copy Login Command***.  
-  - **OCP 3.11:** This will provide the login with your token in to your copy buffer.  **This token is renewed daily.**
-  - **OCP 4.x:** This will launch a new page with a single URL ***Display Token***.  **Click** this URL.  **Copy** the contents of the ***Log in with this token*** gray area. **This token is renewed daily.**
-  1. Paste into your terminal window.  `oc login https://c106-e.us-south.containers.cloud.ibm.com:30783 --token=EAVMH6YNi0BA88H3VO90v_WidUoNNPOtF3u4Tg`
-  1. Test out command line connectivity to underlying OpenShift infrastructure:  `oc version`  or `oc get pods` You can also do much of this through the OpenShift Console
+  1. [Retrieving the token to log into OpenShift on IBM Cloud](#Retrieving-the-token-to-log-into-openshift-on-ibm-cloud)
   1. While you can install the Cloud Paks into the default project, it's a better idea to put it in its own project or namespace.  These terms are linked.  Let's create a new project.  I'll call mine `zen` from the terminal while logged in issue `oc new-project zen`  This will create a zen project and you will use this project name when creating the Cloud Pak.  
   1.  If you are going to customize the Cloud Pak cluster with other services your will need to create a Route to the internal container registry.  These are your two commands
 
@@ -162,6 +158,16 @@ How do I request an account?  What qualifies? Can my VAD help here?
     - `oc get routes -n default`
   - ***OCP 4.x***
     - `oc get routes -n openshift-image-registry`
+
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+
+### Retrieving the token to log into OpenShift on IBM Cloud
+ 1. Go to the dashboard and in the upper right click the blue button/link for OpenShift Web Console.
+ 1. In the upper right hand corner, there should be a person icon, **click** the arrow and **click** ***Copy Login Command***.  
+ - **OCP 3.11:** This will provide the login with your token in to your copy buffer.  **This token is renewed daily.**
+ - **OCP 4.x:** This will launch a new page with a single URL ***Display Token***.  **Click** this URL.  **Copy** the contents of the ***Log in with this token*** gray area. **This token is renewed daily.**
+ 1. Paste into your terminal window.  `oc login https://c106-e.us-south.containers.cloud.ibm.com:30783 --token=EAVMH6YNi0BA88H3VO90v_WidUoNNPOtF3u4Tg`
+ 1. Test out command line connectivity to underlying OpenShift infrastructure:  `oc version`  or `oc get pods` You can also do much of this through the OpenShift Console
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
