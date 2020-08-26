@@ -75,6 +75,7 @@
 1. Scroll down and select the services that you desire to add to Cloud Pak for Data. **Note:** This is a first time set up action only. Currently, Once provisioned, toggling true then false will lead to no further action.  You will need to uninstall or install again, which will be shown later.
 1. On the right, you should see your entitlements and a yellow box, which will turn green after you run the script below.
 1. **Check the box** and to ***accept the license***.   
+1. Once install is complete, you may need to [check for and apply patches](#how-can-i-patch-a-service-or-control-plane).  Hopefully in the future you will always pull the latest from the container registry.
 
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
@@ -102,32 +103,63 @@
   ~~~~
   **Note:**  While the documentation denotes Linux, using **cpd-linux**, the video uses **cdp-darwin** for Mac, **cpd-windows.exe** for windows.  
 1. Move to the bin directory, this is where all the tools will be located for command line control of Cloud Pak for Data 3.0.x:
-~~~
-cd bin
-~~~
+ ~~~
+ cd bin
+ ~~~
 1. List the directory to see the command available.  I denoted the platform names in ( ).  I usualy delete the other platforms to not confuse myself.
-~~~
-cpd-darwin  (Mac)
-cpd-linux  (Linux)
-cpd-windows.exe (Windows)
-cpd-ppc64le (Power)
-cpd-s390x (zOS)
-~~~
+ ~~~
+ cpd-darwin  (Mac)
+ cpd-linux  (Linux)
+ cpd-windows.exe (Windows)
+ cpd-ppc64le (Power)
+ cpd-s390x (zOS)
+ ~~~
 1. Run the client command to verify that it works.   On Mac you will need to verify the command by launching it from finder.  
-~~~
-./cpd-darwin
-~~~
+ ~~~
+ ./cpd-darwin
+ ~~~
 1. You will notice in the rest of the documentation, I reference the command as `./cpd-${OS_NAME}`  I also tell you to set and environment variable called `OS_NAME` which corresponds to the previous steps OS.  So if you were running linux, you would `export OS_NAME=linux`.  I mention this in each section, just in case.   Maybe overkill, but better than messing it up.
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ## Installing the Cloud Pak for Data Control Plane by command line
-https://tjmcmanus.github.io/IBMPartnerDemo/
-
+**Note:** This is not a recommended option on IBM Cloud. Since possible, I am documenting.
 1. Follow the instructions in [Setting up the Cloud Pak for Data Client](#adding-additional-services)
-1. Login into OpenShift
-
-[Retrieving the token to log into OpenShift on IBM Cloud](#Retrieving-the-token-to-log-into-openshift-on-ibm-cloud)
+1. Follow the instructions in [Retrieving the token to log into OpenShift on IBM Cloud](#retrieving-the-token-to-log-into-openshift-on-ibm-cloud)
+1. Create your OpenShift namespace or project that you will install Cloud Pak for Data.
+  - Example: `oc project zen`
+1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
+  ~~~
+  export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
+  export NAMESPACE=zen
+  export STORAGE_CLASS=ibmc-file-gold-gid
+  export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+  export LOCAL_REGISTRY=docker-registry.default.svc:5000
+  ~~~
+  - OpenShift 4.x
+  ~~~
+  export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
+  export NAMESPACE=zen
+  export STORAGE_CLASS=ibmc-file-gold-gid
+  export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+  export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+  ~~~
+1. Make sure all the [node settings](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/install/node-settings.html) are set on the worker nodes. All this is done for you [Provision the Control plane using IBM Cloud tile](#provision-the-control-plane-using-ibm-cloud-tile)
+1. Install the control plane or the ***lite*** assembly
+  ~~~
+  ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly lite
+  ~~~
+1. Verify the installation  
+  ~~~
+  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly lite
+  ~~~
+1. Check for patches
+  ~~~
+  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite
+  ~~~
+1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+  - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
 ## Troubleshooting and managing Cloud Pak for Data through the console
 
@@ -179,9 +211,13 @@ From time to time any software needs a patch for security reasons, new feature o
    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
    export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
    ~~~
-1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-2.5.0.0-ccs-patch-6***.  This name will change after this writing. Note the assembly name can be `wkc` or `wsl`, why not `lite` for the control plane, I am not sure as of this writing.  
+1. Check for patches
+  ~~~
+  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite
+  ~~~
+1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-3.0.1-lite-patch-5***.  This name will change after this writing. Note the assembly name can be `lite`, `wkc` or `wsl`.  
 ~~~
-./cpd-${OS_NAME} patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly wkc  --patch-name cpd-2.5.0.0-ccs-patch-6
+./cpd-${OS_NAME} patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly lite  --patch-name cpd-3.0.1-lite-patch-5
 ~~~
 1. Verify that the patch has been applied.
 ~~~
