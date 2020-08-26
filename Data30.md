@@ -73,6 +73,10 @@
 1. You can tag your environment for easy search.  This is not required.
 1. Scroll down and select ***Run Script*** if you do not have permissions, you can share a link and have an administrator execute this.
 1. Scroll down and select the services that you desire to add to Cloud Pak for Data. **Note:** This is a first time set up action only. Currently, Once provisioned, toggling true then false will lead to no further action.  You will need to uninstall or install again, which will be shown later.
+- **AI** (Apache Spark, IBM Streams, RStudio Server, Watson Studio, Watson Machine Learning, Watson OpenScale)
+- **Dashboarding** (Analytic Dashboards)
+- **Data Governance** (Watson Knowledge Catalog, Open Source Management)
+- **Data Sources** (Data Virtualization, Db2 Warehouse).  
 1. On the right, you should see your entitlements and a yellow box, which will turn green after you run the script below.
 1. **Check the box** and to ***accept the license***.   
 1. Once install is complete, you may need to [check for and apply patches](#how-can-i-patch-a-service-or-control-plane).  Hopefully in the future you will always pull the latest from the container registry.
@@ -85,10 +89,11 @@
 1. Depending on your browser, you will need to accept the certificate.  General path is Advanced then accept risk.  This will bring you to the login page. Bookmark this for future usage.
 1. **Login** using default credentials as seen in video.
 1. Along the black menu bar at the top the icon to the right on the magnifying glass is `Services`.  **Click** on this link.  
-1. Take a look at the services that are `enabled`.   These have been installed or deployed.   You should see 5 services.  
-  - **AI** (Watson Studio, Watson Machine Learning, Watson OpenScale)
-  - **Data Governance** (Watson Knowledge Catalog)
-  - **Data Sources** (Data Virtualization).  
+1. Take a look at the services that are `enabled`.   These have been installed or deployed. Depending on what was selected any of these could be `available` or `enabled`.  
+  - **AI** (Apache Spark, IBM Streams, RStudio Server, Watson Studio, Watson Machine Learning, Watson OpenScale)
+  - **Dashboarding** (Analytic Dashboards)
+  - **Data Governance** (Watson Knowledge Catalog, Open Source Management)
+  - **Data Sources** (Data Virtualization, Db2 Warehouse).  
 1. Some are set up automatically and some you need to provision.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vYS7xwk0fn8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
 
@@ -293,7 +298,19 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    ~~~
    ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wsl
    ~~~  
+1. Verify the installation  
+   ~~~
+  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+  ~~~
+   1. Check for patches
+     ~~~
+     ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+     ~~~
+   1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
+
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
 ### Set up Watson Studio
 1. If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take. You can proceed and create a project.
 
@@ -357,6 +374,16 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
       ~~~
       ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wml
       ~~~  
+    1. Verify the installation  
+      ~~~
+      ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+      ~~~
+    1. Check for patches
+      ~~~
+      ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+      ~~~
+    1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+           - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
@@ -395,20 +422,55 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
  1. When setting up OpenScale, there are 2 pre-prerequisites.
    - Watson Machine Learning (Local or remote)
     - [Local then install](#watson-machine-learning)
-    - Remote then document the following paramters:
+    - Remote then document the following parameters:
    - Db2 Database (Db2 OLTP or DB2 Warehouse Local or remote)
-    - Local then install [Db2 OLTP]() or [Db2 Warehouse]()
+    - If no remote Db2 instance available, then install either [Db2 OLTP](#db2-oltp) or [Db2 Warehouse](#db2-warehouse)
+1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
+  ~~~
+  export OS_NAME=[darwin, linux, win]
+  export NAMESPACE=zen
+  export STORAGE_CLASS=ibmc-file-gold-gid
+  export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+  export LOCAL_REGISTRY=docker-registry.default.svc:5000
+  ~~~
+ - OpenShift 4.x
+  ~~~
+  export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+  export NAMESPACE=zen
+  export STORAGE_CLASS=ibmc-file-gold-gid
+  export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+  export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+  ~~~
+  1. Set the security aspects for Watson Machine Learning to install properly
+  ~~~
+  ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly aiopenscale
+  ~~~
+  1. Deploy **Watson OpenScale** by running the following:
+  ~~~
+  ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly aiopenscale
+  ~~~  
+  1. Verify the installation  
+     ~~~
+    ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+    ~~~
+  1. Check for patches
+    ~~~
+    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+    ~~~
+  1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+    - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
- ***Coming soon***
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
+
 ### Set up Watson OpenScale
  1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
  1. Let's provision OpenScale.
  1. You will be met with an ***auto setup*** to configure.  
  1. First step is accept the local WML instance.
  1. Enter connection details for a Db2 Database.  I am using a DB2 Warehouse that I installed later on.  You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section.
-
-
-
+***Coming soon***
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 
@@ -467,6 +529,17 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh
   ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+1. Verify the installation  
+   ~~~
+  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+  ~~~
+1. Check for patches
+  ~~~
+  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+  ~~~
+1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+    - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
+
  **Note:** Actual time taken is 16 minutes
  <iframe width="560" height="315" src="https://www.youtube.com/embed/943Gi4Z9vUo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -586,7 +659,16 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
     db2oltp-catalog-11530-6c488d895f-jddzn   1/1       Running     0          5m11s
     db2oltp-catalog-11530-uploadjob-hcsqr    0/1       Completed   0          5m11s
     ~~~
-
+ 1. Verify the installation  
+   ~~~
+   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+   ~~~
+ 1. Check for patches
+   ~~~
+   ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+   ~~~
+  1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+    - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
@@ -677,7 +759,16 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
-
+1. Verify the installation  
+  ~~~
+  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+  ~~~
+1. Check for patches
+  ~~~
+  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+  ~~~
+1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+  - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
@@ -763,7 +854,16 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.
-
+1. Verify the installation  
+   ~~~
+  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+  ~~~
+1. Check for patches
+  ~~~
+  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+  ~~~
+1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+  - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
@@ -823,6 +923,16 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+1. Verify the installation  
+   ~~~
+   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+   ~~~
+ 1. Check for patches
+    ~~~
+    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+     ~~~
+ 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:    
+  - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
@@ -886,6 +996,16 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
     ~~~
  1. You will need to tab to accept the license.
  1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+ 1. Verify the installation  
+    ~~~
+    ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+    ~~~
+ 1. Check for patches
+    ~~~
+    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+    ~~~
+  1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+    - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
@@ -937,7 +1057,16 @@ Understand the [current differences here](https://community.ibm.com/community/us
    ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
-
+1. Verify the installation  
+   ~~~
+  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+   ~~~
+1. Check for patches
+  ~~~
+  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+  ~~~
+1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Provision Cognos Analytics instance
@@ -1021,7 +1150,16 @@ Understand the [current differences here](https://community.ibm.com/community/us
    ~~~
  1. You will need to tab to accept the license.
  1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
-
+ 1. Verify the installation  
+    ~~~
+    ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+    ~~~
+ 1. Check for patches
+    ~~~
+    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+    ~~~
+  1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+      - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 ### Post install tasks  (To Do's for Tom to validate)
