@@ -11,7 +11,7 @@
 - [Checking OpenShift was created and working properly](#checking-openshift-was-created-and-working-properly)
 - [Using OpenShift console](#using-openshift-console)
 - [Installing the CLI environment](#installing-the-cli-environment)
-  * [Retrieving the token to log into OpenShift on IBM Cloud](#Retrieving-the-token-to-log-into-openshift-on-ibm-cloud)
+  * [Retrieving the token to log into OpenShift on IBM Cloud](#retrieving-the-token-to-log-into-openshift-on-ibm-cloud)
   * [Quick run through of some OpenShift CLI commands](#quick-run-through-of-some-openshift-cli-commands)
 - [Install your Cloud Pak of Choice (currently only Data)](#install-your-cloud-pak-of-choice)
 
@@ -148,7 +148,7 @@ How do I request an account?  What qualifies? Can my VAD help here?
   - [4.x Client download](https://mirror.openshift.com/pub/openshift-v4/clients/oc/)
   1. unzip and copy oc to your `/usr/local/bin` or include in PATH.
   1. Execute oc version to check that everything is working.  
-  1. [Retrieving the token to log into OpenShift on IBM Cloud](#Retrieving-the-token-to-log-into-openshift-on-ibm-cloud)
+  1. [Retrieving the token to log into OpenShift on IBM Cloud](#retrieving-the-token-to-log-into-openshift-on-ibm-cloud)
   1. While you can install the Cloud Paks into the default project, it's a better idea to put it in its own project or namespace.  These terms are linked.  Let's create a new project.  I'll call mine `zen` from the terminal while logged in issue `oc new-project zen`  This will create a zen project and you will use this project name when creating the Cloud Pak.  
   1.  If you are going to customize the Cloud Pak cluster with other services your will need to create a Route to the internal container registry.  These are your two commands
 
