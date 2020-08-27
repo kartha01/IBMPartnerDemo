@@ -814,13 +814,13 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
      export NAMESPACE=zen
      ~~~
   - Do a dry run uninstall to check what will be taken off.
-  ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly ds --uninstall-dry-run
-  ~~~
+   ~~~
+   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly ds --uninstall-dry-run
+   ~~~
   - Run the uninstall
-  ~~~
+   ~~~
   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly ds
-  ~~~
+   ~~~
 1. Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
