@@ -819,7 +819,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    ~~~
   - Run the uninstall
    ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly ds
+   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly ds
    ~~~
 1. Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
 
@@ -855,7 +855,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.
 1. Verify the installation  
-   ~~~
+  ~~~
   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
   ~~~
 1. Check for patches
@@ -882,13 +882,13 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
      export NAMESPACE=zen
      ~~~
   - Do a dry run uninstall to check what will be taken off.
-  ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly cde --uninstall-dry-run
-  ~~~
+   ~~~
+   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly cde --uninstall-dry-run
+   ~~~
   - Run the uninstall
-  ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly cde
-  ~~~
+   ~~~
+   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly cde
+   ~~~
 1.  Go to the **Services** catalog and verify that **Analytics Dashboards** is no longer ***enabled***.   
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
@@ -924,14 +924,14 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
-   ~~~
+  ~~~
    ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
-   ~~~
- 1. Check for patches
-    ~~~
-    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
-     ~~~
- 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:    
+  ~~~
+1. Check for patches
+  ~~~
+  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+  ~~~
+1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:    
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
@@ -1180,13 +1180,13 @@ Understand the [current differences here](https://community.ibm.com/community/us
      export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
      ~~~  
-     - Do a dry run uninstall to check what will be taken off.
-     ~~~
-     ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc --uninstall-dry-run
-     ~~~
+  - Do a dry run uninstall to check what will be taken off.
+   ~~~
+   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc --uninstall-dry-run
+   ~~~
   - Run the uninstall
-    ~~~
-    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc
-    ~~~
+   ~~~
+   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc
+   ~~~
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
