@@ -282,7 +282,7 @@ Events:
 
 ## Install your Cloud Pak of Choice
 <!---  [Cloud Pak for Apps](apps.md) [Cloud pak for Automation](automation.md) --->
-  - [Cloud Pak for Data 2.5](Data2.5.md)
+  - [Cloud Pak for Data 2.5](Data25.md)
   - [Cloud Pak for Data 3.0](Data30.md)
 <!---  [Cloud Pak for Integration](integration.md)[Cloud Pak for Mult-Cloud Manager](mcm.md) --->
 
