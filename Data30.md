@@ -215,7 +215,7 @@ From time to time any software needs a patch for security reasons, new feature o
 1. Run env to verify that the following variables are exported
   - OpenShift 3.x
    ~~~
-   export OS_NAME=[darwin, linux, win]
+   export OS_NAME=[darwin, linux]
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
@@ -223,7 +223,7 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
   - OpenShift 4.x
    ~~~
-   export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+   export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -276,7 +276,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 1. Run env to verify that the following variables are exported
   - OpenShift 3.x
    ~~~
-   export OS_NAME=[darwin, linux, win]
+   export OS_NAME=[darwin, linux]
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
@@ -284,7 +284,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    ~~~
   - OpenShift 4.x
    ~~~
-   export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+   export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -322,7 +322,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 1. Run env to verify that the following variables are exported
   - OpenShift 3.x
    ~~~
-   export OS_NAME=[darwin, linux, win]
+   export OS_NAME=[darwin, linux]
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
@@ -330,7 +330,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    ~~~
   - OpenShift 4.x
    ~~~
-   export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+   export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -352,7 +352,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    1. Run env to verify that the following variables are exported
      - OpenShift 3.x
       ~~~
-      export OS_NAME=[darwin, linux, win]
+      export OS_NAME=[darwin, linux]
       export NAMESPACE=zen
       export STORAGE_CLASS=ibmc-file-gold-gid
       export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
@@ -360,7 +360,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
       ~~~
      - OpenShift 4.x
       ~~~
-      export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+      export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
       export NAMESPACE=zen
       export STORAGE_CLASS=ibmc-file-gold-gid
       export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -393,7 +393,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    1. Run env to verify that the following variables are exported,**Pick one no brackets Example** ***export OS_NAME=darwin***
     - OpenShift 3.x
     ~~~
-    export OS_NAME=[darwin, linux, win]
+    export OS_NAME=[darwin, linux]
     export NAMESPACE=zen
     export STORAGE_CLASS=ibmc-file-gold-gid
     export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
@@ -401,7 +401,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
     ~~~
    - OpenShift 4.x
     ~~~
-    export OS_NAME=[darwin, linux, win]
+    export OS_NAME=[darwin, linux]
     export NAMESPACE=zen
     export STORAGE_CLASS=ibmc-file-gold-gid
     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -428,7 +428,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 1. Run env to verify that the following variables are exported
   - OpenShift 3.x
   ~~~
-  export OS_NAME=[darwin, linux, win]
+  export OS_NAME=[darwin, linux]
   export NAMESPACE=zen
   export STORAGE_CLASS=ibmc-file-gold-gid
   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
@@ -436,7 +436,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   ~~~
  - OpenShift 4.x
   ~~~
-  export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+  export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
   export NAMESPACE=zen
   export STORAGE_CLASS=ibmc-file-gold-gid
   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -579,12 +579,12 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   - Run env to verify that the following variables are exported
     - OpenShift 3.x
      ~~~
-     export OS_NAME=[darwin, linux, win]
+     export OS_NAME=[darwin, linux]
      export NAMESPACE=zen
      ~~~
     - OpenShift 4.x
      ~~~
-     export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+     export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
      ~~~
   - Do a dry run uninstall to check what will be taken off.
@@ -709,12 +709,12 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    - Run env to verify that the following variables are exported
      - OpenShift 3.x
       ~~~
-      export OS_NAME=[darwin, linux, win]
+      export OS_NAME=[darwin, linux]
       export NAMESPACE=zen
       ~~~
      - OpenShift 4.x
       ~~~
-      export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+      export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
       export NAMESPACE=zen
       ~~~
    - Do a dry run uninstall to check what will be taken off.
@@ -805,12 +805,12 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   - Run env to verify that the following variables are exported
     - OpenShift 3.x
      ~~~
-     export OS_NAME=[darwin, linux, win]
+     export OS_NAME=[darwin, linux]
      export NAMESPACE=zen
      ~~~
     - OpenShift 4.x
      ~~~
-     export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+     export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
      ~~~
   - Do a dry run uninstall to check what will be taken off.
@@ -873,12 +873,12 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   - Run env to verify that the following variables are exported
     - OpenShift 3.x
      ~~~
-     export OS_NAME=[darwin, linux, win]
+     export OS_NAME=[darwin, linux]
      export NAMESPACE=zen
      ~~~
     - OpenShift 4.x
      ~~~
-     export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+     export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
      ~~~
   - Do a dry run uninstall to check what will be taken off.
@@ -971,7 +971,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
  1. Run env to verify that the following variables are exported.   For ***OS_NAME*** Pick one no brackets **Example:** `export OS_NAME=linux`
    - OpenShift 3.x
     ~~~
-    export OS_NAME=[darwin, linux, win]
+    export OS_NAME=[darwin, linux]
     export NAMESPACE=zen
     export STORAGE_CLASS=ibmc-file-gold-gid
     export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
@@ -979,7 +979,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
     ~~~
     - OpenShift 4.x
      ~~~
-     export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+     export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
      export STORAGE_CLASS=ibmc-file-gold-gid
      export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -1033,7 +1033,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
 1. Run env to verify that the following variables are exported.   For ***OS_NAME*** Pick one no brackets **Example:** `export OS_NAME=linux`
   - OpenShift 3.x
    ~~~
-   export OS_NAME=[darwin, linux, win]
+   export OS_NAME=[darwin, linux]
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
@@ -1041,7 +1041,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
    ~~~
    - OpenShift 4.x
     ~~~
-    export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+    export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
     export NAMESPACE=zen
     export STORAGE_CLASS=ibmc-file-gold-gid
     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -1172,12 +1172,12 @@ Understand the [current differences here](https://community.ibm.com/community/us
   - Run env to verify that the following variables are exported
      - OpenShift 3.x
      ~~~
-     export OS_NAME=[darwin, linux, win]
+     export OS_NAME=[darwin, linux]
      export NAMESPACE=zen
      ~~~
      - OpenShift 4.x
      ~~~
-     export OS_NAME=[darwin, linux, win] **Pick one no brackets Example export OS_NAME=darwin**
+     export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
      ~~~  
      - Do a dry run uninstall to check what will be taken off.
