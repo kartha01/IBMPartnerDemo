@@ -117,7 +117,7 @@ How do I request an account?  What qualifies? Can my VAD help here?
   |:---|:---:|:---:|
   |Apps|1|4/16|
   |Automation|3|8/32|
-  |Data|3|16/64|
+  |Data|4|16/64|
   |Integration|3|8/32|
   |Multi-Cloud Management|1|1/8|
   |Security|3|8/32|
