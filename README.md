@@ -67,7 +67,28 @@ How do I request an account?  What qualifies? Can my VAD help here?
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Add IBM Cloud Security instructions and best practices
-***Coming soon***
+1. Once you have access to the account, it is best to create a Resource group and Access Group in IAM.
+1. Read [Best practices for organizing resources and assigning access](https://cloud.ibm.com/docs/account?topic=account-account_setup)
+1. Go to the [Access (IAM) dashboard](https://cloud.ibm.com/iam/overview), **Click** ***Resource Groups***.  This will make it easier to contain access.
+1. **Click** the ***Create***  then **enter** a value for your resource group.  I will pick ***CPD***.
+1. From the Console go to [Manage>Access(IAM)>Groups](https://cloud.ibm.com/iam/groups)
+1. **Click** ***Create***  add you group name here.
+1. **Click** the ***Users*** tab then **Add Users**. This will produce a list of users that can be added. Always good to add yourself
+1. **Click** the ***Access Policies*** tab and select the following services and appropriate permissions.
+  - Cloud Object Storage  (Administrator or Editor)
+  - Infrastructure Services (Administrator or Editor)
+  - Cloud Foundry Enterprise Environment (Administrator or Writer)
+  - Container Registry (Manager or Writer)
+  - Kubernetes Service (Manager or Writer)
+  - Certificate Manager (Manager or Writer)
+  - User Management (Editor)
+  - IAM Access Groups Service (Editor)
+  - Internet Services (Administrator)
+  - DNS Services (Administrator)
+  - Add appropriate controls for your resource group
+
+**Note:** For further reading on [Access Management on IBM Cloud](https://cloud.ibm.com/docs/account?topic=account-cloudaccess)  
+
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
