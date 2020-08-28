@@ -97,7 +97,7 @@ How do I request an account?  What qualifies? Can my VAD help here?
 1. Click on **Catalog** > **Services**
 1. Filter on ***Containers*** by checking the box on the left.
 1. Select **Red Hat OpenShift on IBM Cloud**
-1. On the right is a pane for estimated monthly cost, since the cost is based on hourly tiered Kubernetes Compute plus the 30 day OpenShift license.  If you are authenticated and authorized for **PartnerWorld Software Access Catalog** per above instructions, you are only responsible the hourly compute used, however you will be billed even if Compute resources are down.
+1. On the right is a pane for estimated monthly cost, since the cost is based on hourly tiered Kubernetes Compute plus the 30 day OpenShift license.  If you are authenticated and authorized for **PartnerWorld Software Access Catalog** per above instructions, you are only responsible the hourly compute used, however you will be billed even if Compute resources are down.  **This service does not have suspendible billing.**
 1. On the left is where you will alter the version, license, type of compute and number of worker nodes. **Note:** You are only paying for Worker nodes no master or bastion nodes.  
 1. Going down the page:
   1. First select the ***OpenShift version***
