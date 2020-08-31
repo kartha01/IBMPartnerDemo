@@ -271,7 +271,9 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 <iframe width="600" height="322" src="https://www.youtube.com/embed/SU0aRs8wpgc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
 ## Watson Studio
+
 ### Install Watson Studio
 ***Coming Soon Need to add override file***
 1. Run env to verify that the following variables are exported
