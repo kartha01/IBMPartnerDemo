@@ -43,6 +43,7 @@
   * [Uninstalling Analytics Dashboards](#uninstalling-analytics-dashboards)
 - [Installing Analytics Engine (Spark Clusters)](#installing-analytics-engine-spark-clusters)
   * [Provision Analytics Engine instance](#provision-analytics-engine-instance)
+  * [Resource constraints](#resource-constraints)
   * [Uninstalling Analytics Engine.](#uninstalling-analytics-engine)
 - [Installing Cognos Analytics](#installing-cognos-analytics)
   * [Provision Cognos Analytics instance](#provision-cognos-analytics-instance)
@@ -939,8 +940,13 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 
 ### Provision Analytics Engine instance
 ***coming soon***
+  [Provision the instance](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/wsj/spark/spark-provision.html)
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
+### Resource constraints  
+***coming soon***
+  [Governing the about of resources in an instance](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/wsj/spark/spark-resource-quota.html)
 
 ### Uninstalling Analytics Engine
  1. From the command line:
