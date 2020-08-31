@@ -31,11 +31,11 @@
   * [Provision a Database instance](#provision-a-database-instance)
   * [Create a Table](#create-a-table)
   * [Uninstalling DB2 Warehouse.](#uninstalling-db2-warehouse)
-- [Db2 OLTP](#db2-oltp)  
-  * [Install Db2 OLTP (SMP)](#install-db2-oltp)
-  * [Provision a Database instance](#provision-an-oltp-database-instance)
+- [Db2 Advanced](#db2-advanced)  
+  * [Install Db2 Advanced (SMP)](#install-db2-advanced)
+  * [Provision a Database instance](#provision-an-advanced-database-instance)
   * [Create a Table](#create-a-table)
-  * [Uninstalling DB2 OLTP](#uninstalling-db2-warehouse)
+  * [Uninstalling DB2 Advanced](#uninstalling-db2-advanced)
 - [Installing DataStage service](#installing-datastage-service)
   * [Create a Transformation Project](#create-a-transformation-project)
   * [Uninstalling DataStage.](#uninstalling-datastage)
@@ -423,8 +423,8 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    - Watson Machine Learning (Local or remote)
     - [Local then install](#watson-machine-learning)
     - Remote then document the following parameters:
-   - Db2 Database (Db2 OLTP or DB2 Warehouse Local or remote)
-    - If no remote Db2 instance available, then install either [Db2 OLTP](#db2-oltp) or [Db2 Warehouse](#db2-warehouse)
+   - Db2 Database (Db2 Advanced or DB2 Warehouse Local or remote)
+    - If no remote Db2 instance available, then install either [Db2 Advanced](#db2-advanced) or [Db2 Warehouse](#db2-warehouse)
 1. Run env to verify that the following variables are exported
   - OpenShift 3.x
   ~~~
@@ -599,9 +599,9 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
-## Db2 OLTP
-### Install Db2 OLTP
- 1. The first thing you will want to do is to pick one node that will house Db2 OLTP and add a label.
+## Db2 Advanced
+### Install Db2 Advanced
+ 1. The first thing you will want to do is to pick one node that will house Db2 Advanced and add a label.
     1. Run: `oc get nodes`   This will produce a list of nodes.
     1. Run `oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '` Review the output and find the node with the least amount of resources allocated   You will be setting a ***label*** to create **Node Affinity**.  **Db2 OLTP** pods will be installed to this particular node.  Database will also be provisioned to this node.   Sometimes you may need to resize your OpenShift worker pool size to increase capacity. Base on review I will pick node `10.95.7.49` as it has the least amount of resources allocated right now.
     ~~~
@@ -623,7 +623,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
      cpu       11970m (75%)      49570m (312%)
      memory    30833170Ki (51%)  87313121280 (142%)
     ~~~
-    1. Bind Db2 OLTP and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2-oltp` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
+    1. Bind Db2 Advanced and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2-oltp` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
     ~~~
     oc label node <node name or IP Address> icp4data=database-oltp
     ~~~
@@ -917,19 +917,20 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
   ~~~
   ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly spark
   ~~~
+1. You will need an when installing the Spark assembly on a OCP 4.3 cluster. This is not needed for 3.11.  Use this [spark-ocp43-override.yaml](spark-ocp43-override.yaml)
 1. Deploy Analytics Engine by running the following:
   ~~~
-  ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly spark
+  ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly spark --override spark-ocp43-override.yaml
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
   ~~~
-   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly spark
   ~~~
 1. Check for patches
   ~~~
-  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly spark
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:    
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -941,94 +942,34 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
-## Installing Db2 Advanced Edition
-1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
-   1. Run: `oc get nodes`   This will produce a list of nodes.
-   1. Run `oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '` Review the output and find the node with the least amount of resources allocated   You will be setting a ***label*** to create **Node Affinity**.  **Db2 Advanced** pods will be installed to this particular node.  Database will also be provisioned to this node.   Sometimes you may need to resize your OpenShift worker pool size to increase capacity. Base on review I will pick node `10.95.7.49` as it has the least amount of resources allocated right now.
-   ~~~
-   Toms-MBP:bin tjm$ oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '
-    MemoryPressure   False   Wed, 10 Jun 2020 16:21:28 -0400   Mon, 08 Jun 2020 10:19:26 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
-    Hostname:    10.95.7.21
-    cpu       14941m (94%)      63645m (400%)
-    memory    44715538Ki (74%)  150095560704 (244%)
-    MemoryPressure   False   Wed, 10 Jun 2020 16:21:29 -0400   Mon, 08 Jun 2020 10:19:13 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
-    Hostname:    10.95.7.23
-    cpu       13960m (87%)      39825m (250%)
-    memory    42889746Ki (71%)  106114088960 (172%)
-    MemoryPressure   False   Wed, 10 Jun 2020 16:21:32 -0400   Mon, 08 Jun 2020 10:16:15 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
-    Hostname:    10.95.7.49
-    cpu       10718m (67%)      33863m (213%)
-    memory    24435218Ki (40%)  85963040Ki (143%)
-    MemoryPressure   False   Wed, 10 Jun 2020 16:21:35 -0400   Mon, 08 Jun 2020 10:21:40 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
-    Hostname:    10.95.7.6
-    cpu       11970m (75%)      49570m (312%)
-    memory    30833170Ki (51%)  87313121280 (142%)
-   ~~~
-   1. Bind **Db2 Advanced** and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2oltp` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
-   ~~~
-   oc label node <node name or IP Address> icp4data=database-db2oltp
-   ~~~
- 1. Run env to verify that the following variables are exported.   For ***OS_NAME*** Pick one no brackets **Example:** `export OS_NAME=linux`
-   - OpenShift 3.x
+### Uninstalling Analytics Engine
+ 1. From the command line:
+   - Set namespace.  My namespace is ***zen*** your may be different like ***default***
+   - Run env to verify that the following variables are exported
+     - OpenShift 3.x
+      ~~~
+      export OS_NAME=[darwin, linux]
+      export NAMESPACE=zen
+      ~~~
+     - OpenShift 4.x
+      ~~~
+      export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
+      export NAMESPACE=zen
+      ~~~
+   - Do a dry run uninstall to check what will be taken off.
     ~~~
-    export OS_NAME=[darwin, linux]
-    export NAMESPACE=zen
-    export STORAGE_CLASS=ibmc-file-gold-gid
-    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-    export LOCAL_REGISTRY=docker-registry.default.svc:5000
+    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly spark --uninstall-dry-run
     ~~~
-    - OpenShift 4.x
-     ~~~
-     export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
-     export NAMESPACE=zen
-     export STORAGE_CLASS=ibmc-file-gold-gid
-     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
-     export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
-     ~~~
- 1. Set the security aspects for Db2 Advanced to install properly
+   - Run the uninstall
     ~~~
-    ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2oltp
+    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly spark
     ~~~
+ 1.  Go to the **Services** catalog and verify that **Analytics Engine** is no longer ***enabled***.   
 
- 1. Deploy Db2 Advanced by running the following:
-    ~~~
-    ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2oltp
-    ~~~
- 1. You will need to tab to accept the license.
- 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
- 1. Verify the installation  
-    ~~~
-    ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
-    ~~~
- 1. Check for patches
-    ~~~
-    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
-    ~~~
-  1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
-    - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)  
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
-
-### Provision Db2 Advanced Edition instance
- 1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
- 1. On the services page, **Click** the left side filter to go to ***Catagory*** ***>*** ***Datasources*** to get to **Db2 Advanced Edition** tile.  
- 1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
- 1. On the ***Configure*** page keep defaults or adjust if you know you need more.  **Click** ***Next***.
- 1. On the ***Storage*** page, Select ***Create new storage***; Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
- 1. **Click** ***Next***
- 1. Review the settings. Here you can change the **Display name** to something more memorable. **Click** ***Create***.
- 1. Your instance is being created and will be accessible from the **Services > Db2 Advanced Edition** tile.  Also accessed from the Left menu ***My Instance*** then **Click** ***Provisioned instances***
- 1. From ***Provision Instances*** on the left you will see 3 horizontal dots. From this view, you can watch the steps of the provision, just incase it fails based on insufficient resources.
-**Note:** You can see a red triangle that states Failed. This is temporary and is most likely the Cloud provision service waiting on a storage volume to come online and available to mount as a persistent volume to map the persistent volume claim.
- 1. **Click** this and see the options.
-  - ***Open*** will open the DB2 Warehouse instance for use.
-  - ***View details*** will provide you the details including ***user*** ; ***password*** ; ***jdbc url***
-  - ***Manage Access*** let you add ***user ids*** and assign them ***Admin*** or ***User*** roles.
-  - ***Delete*** This will delete this particular instance.
-
-
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
-## Installing Cognos Analytics
+##Cognos Analytics  
+### Installing Cognos Analytics
 Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)  
 1. Run env to verify that the following variables are exported.   For ***OS_NAME*** Pick one no brackets **Example:** `export OS_NAME=linux`
   - OpenShift 3.x
@@ -1110,10 +1051,38 @@ Understand the [current differences here](https://community.ibm.com/community/us
   ~~~
 1. Create a connection that will be used for cognos
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)   
+
+### Uninstalling Cognos Analytics
+  1. From the command line:
+    - Set namespace.  My namespace is ***zen*** your may be different like ***default***
+    - Run env to verify that the following variables are exported
+      - OpenShift 3.x
+       ~~~
+       export OS_NAME=[darwin, linux]
+       export NAMESPACE=zen
+       ~~~
+      - OpenShift 4.x
+       ~~~
+       export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
+       export NAMESPACE=zen
+       ~~~
+    - Do a dry run uninstall to check what will be taken off.
+     ~~~
+     ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly ca --uninstall-dry-run
+     ~~~
+    - Run the uninstall
+     ~~~
+     ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly ca
+     ~~~
+  1.  Go to the **Services** catalog and verify that **Cognos Analytics** is no longer ***enabled***.   
+
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
 
 ## Watson Knowledge Catalog
 ### Installing Watson Knowledge Catalog service
+ 1. Because of all the Kernel changes, I generally suggest installing Watson Knowledge Catalog using the template during the control plane installation.
  1. Verify you have enough resource capacity to run Watson Knowledge Catalog.  You many need to increase your work pool by a node.
  1. Create a secret in the kube-system project or namespace for the norootsquash.yaml will execute properly.  **Note: **All norootsquash pods in Kube-system namespace will restart using the new parameters.
     - `oc project kube-system`
@@ -1162,6 +1131,8 @@ Understand the [current differences here](https://community.ibm.com/community/us
       - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
+
 ### Post install tasks  (To Do's for Tom to validate)
 1. [Setting up your default catalog](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/wsj/catalog/set-up-first.html)
 1. [Optional tasks](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/wsj/install/postinstall-wkc.html)
