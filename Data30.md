@@ -352,8 +352,8 @@ From time to time any software needs a patch for security reasons, new feature o
 ## Watson Machine Learning
 ### Install Watson Machine Learning
    ***Coming Soon Need to add override file***
-   1. Run env to verify that the following variables are exported
-     - OpenShift 3.x
+1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
       ~~~
       export OS_NAME=[darwin, linux]
       export NAMESPACE=zen
@@ -361,7 +361,7 @@ From time to time any software needs a patch for security reasons, new feature o
       export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
       export LOCAL_REGISTRY=docker-registry.default.svc:5000
       ~~~
-     - OpenShift 4.x
+  - OpenShift 4.x
       ~~~
       export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
       export NAMESPACE=zen
@@ -369,32 +369,32 @@ From time to time any software needs a patch for security reasons, new feature o
       export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
       export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
       ~~~
-    1. Set the security aspects for Watson Machine Learning to install properly
+1. Set the security aspects for Watson Machine Learning to install properly
       ~~~
       ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wml
       ~~~
-    1. Deploy **Watson Machine Learning** by running the following:
+1. Deploy **Watson Machine Learning** by running the following:
       ~~~
       ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wml
       ~~~  
-    1. Verify the installation  
+1. Verify the installation  
       ~~~
       ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
       ~~~
-    1. Check for patches
+1. Check for patches
       ~~~
       ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
       ~~~
-    1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
-           - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
+1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+      - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Increase the capacity or scale up your Watson Machine Learning service
-   1. To scale services, you will need to have the command line installed.  (Instruction under the ***Adding additional services*** section)
-   1. You can scale **up** the services by executing these commands for either **wml**.  **Note:** There is currently no scale down function.
-   1. Run env to verify that the following variables are exported,**Pick one no brackets Example** ***export OS_NAME=darwin***
-    - OpenShift 3.x
+1. To scale services, you will need to have the command line installed.  (Instruction under the ***Adding additional services*** section)
+1. You can scale **up** the services by executing these commands for either **wml**.  **Note:** There is currently no scale down function.
+1. Run env to verify that the following variables are exported,**Pick one no brackets Example** ***export OS_NAME=darwin***
+  - OpenShift 3.x
     ~~~
     export OS_NAME=[darwin, linux]
     export NAMESPACE=zen
@@ -402,19 +402,19 @@ From time to time any software needs a patch for security reasons, new feature o
     export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
     export LOCAL_REGISTRY=docker-registry.default.svc:5000
     ~~~
-   - OpenShift 4.x
+ - OpenShift 4.x
     ~~~
     export OS_NAME=[darwin, linux]
     export NAMESPACE=zen
     export STORAGE_CLASS=ibmc-file-gold-gid
     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
     export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
-    ~~~
-  1. Scale up **Watson Machine Learning** by running the following (config sizes are small, medium and large):
+    ~~~  
+1. Scale up **Watson Machine Learning** by running the following (config sizes are small, medium and large):
     ~~~
     ./cpd-${OS_NAME} scale -n $NAMESPACE --config medium  --load-from ./cpd-${OS_NAME}-workspace  -a wml
     ~~~
-  1. Scale down **Watson Machine Learning** by running the following (config sizes are small, medium and large):
+1. Scale down **Watson Machine Learning** by running the following (config sizes are small, medium and large):
     ~~~
     ./cpd-${OS_NAME} scale -n zen --config small  --load-from ./cpd-${OS_NAME}-workspace -a wml
     ~~~
@@ -423,7 +423,7 @@ From time to time any software needs a patch for security reasons, new feature o
 
 ## Watson OpenScale
 ### Install Watson OpenScale
- 1. When setting up OpenScale, there are 2 pre-prerequisites.
+1. When setting up OpenScale, there are 2 pre-prerequisites.
    - Watson Machine Learning (Local or remote)
     - [Local then install](#watson-machine-learning)
     - Remote then document the following parameters:
@@ -481,8 +481,8 @@ From time to time any software needs a patch for security reasons, new feature o
 ## Db2 Warehouse
 ### Install Db2 Warehouse (SMP)
 1. The first thing you will want to do is to pick one node that will house Db2 Warehouse and add a label.
-   1. Run: `oc get nodes`   This will produce a list of nodes.
-   1. Run `oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '` Review the output and find the node with the least amount of resources allocated   You will be setting a ***label*** to create **Node Affinity**.  **Db2 Warehouse** pods will be installed to this particular node.  Database will also be provisioned to this node.   Sometimes you may need to resize your OpenShift worker pool size to increase capacity. Base on review I will pick node `10.95.7.49` as it has the least amount of resources allocated right now.
+1. Run: `oc get nodes`   This will produce a list of nodes.
+1. Run `oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '` Review the output and find the node with the least amount of resources allocated   You will be setting a ***label*** to create **Node Affinity**.  **Db2 Warehouse** pods will be installed to this particular node.  Database will also be provisioned to this node.   Sometimes you may need to resize your OpenShift worker pool size to increase capacity. Base on review I will pick node `10.95.7.49` as it has the least amount of resources allocated right now.
    ~~~
    Toms-MBP:bin tjm$ oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '
     MemoryPressure   False   Wed, 10 Jun 2020 16:21:28 -0400   Mon, 08 Jun 2020 10:19:26 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
@@ -502,7 +502,7 @@ From time to time any software needs a patch for security reasons, new feature o
     cpu       11970m (75%)      49570m (312%)
     memory    30833170Ki (51%)  87313121280 (142%)
    ~~~
-   1. Bind Db2 Warehouse and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2wh` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
+1. Bind Db2 Warehouse and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2wh` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
    ~~~
    oc label node <node name or IP Address> icp4data=database-db2wh
    ~~~
@@ -516,7 +516,7 @@ From time to time any software needs a patch for security reasons, new feature o
    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
    export LOCAL_REGISTRY=docker-registry.default.svc:5000
    ~~~
-   - OpenShift 4.x
+  - OpenShift 4.x
     ~~~
     export OS_NAME=darwin or linux or win
     export NAMESPACE=zen
@@ -579,8 +579,8 @@ From time to time any software needs a patch for security reasons, new feature o
 ### Uninstalling DB2 Warehouse.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
 1. From the command line:
-  - Set namespace.  My namespace is ***zen*** your may be different like ***default***
-  - Run env to verify that the following variables are exported
+1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
+1. Run env to verify that the following variables are exported
     - OpenShift 3.x
      ~~~
      export OS_NAME=[darwin, linux]
@@ -591,11 +591,11 @@ From time to time any software needs a patch for security reasons, new feature o
      export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
      ~~~
-  - Do a dry run uninstall to check what will be taken off.
+1. Do a dry run uninstall to check what will be taken off.
   ~~~
   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly db2wh --uninstall-dry-run
   ~~~
-  - Run the uninstall
+1. Run the uninstall
   ~~~
   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh
   ~~~
@@ -605,9 +605,9 @@ From time to time any software needs a patch for security reasons, new feature o
 
 ## Db2 Advanced
 ### Install Db2 Advanced
- 1. The first thing you will want to do is to pick one node that will house Db2 Advanced and add a label.
-    1. Run: `oc get nodes`   This will produce a list of nodes.
-    1. Run `oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '` Review the output and find the node with the least amount of resources allocated   You will be setting a ***label*** to create **Node Affinity**.  **Db2 OLTP** pods will be installed to this particular node.  Database will also be provisioned to this node.   Sometimes you may need to resize your OpenShift worker pool size to increase capacity. Base on review I will pick node `10.95.7.49` as it has the least amount of resources allocated right now.
+1. The first thing you will want to do is to pick one node that will house Db2 Advanced and add a label.
+1. Run: `oc get nodes`   This will produce a list of nodes.
+1. Run `oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '` Review the output and find the node with the least amount of resources allocated   You will be setting a ***label*** to create **Node Affinity**.  **Db2 OLTP** pods will be installed to this particular node.  Database will also be provisioned to this node.   Sometimes you may need to resize your OpenShift worker pool size to increase capacity. Base on review I will pick node `10.95.7.49` as it has the least amount of resources allocated right now.
     ~~~
     Toms-MBP:bin tjm$ oc describe node |  grep -eHostname: -e 'cpu ' -e 'memory '
      MemoryPressure   False   Wed, 10 Jun 2020 16:21:28 -0400   Mon, 08 Jun 2020 10:19:26 -0400   KubeletHasSufficientMemory   kubelet has sufficient memory available
@@ -627,12 +627,12 @@ From time to time any software needs a patch for security reasons, new feature o
      cpu       11970m (75%)      49570m (312%)
      memory    30833170Ki (51%)  87313121280 (142%)
     ~~~
-    1. Bind Db2 Advanced and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2-oltp` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
+1. Bind Db2 Advanced and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2-oltp` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
     ~~~
     oc label node <node name or IP Address> icp4data=database-oltp
     ~~~
-    1. You can dedicate one or more [worker nodes to your Db2® database service](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/svc/dbs/aese-dednodes.html#aese-dednodes).  Do this before installing the service.
- 1. Run env to verify that the following variables are exported
+1. You can dedicate one or more [worker nodes to your Db2® database service](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/svc/dbs/aese-dednodes.html#aese-dednodes).  Do this before installing the service.
+1. Run env to verify that the following variables are exported
    - OpenShift 3.x
     ~~~
     export OS_NAME=darwin or linux
@@ -649,50 +649,49 @@ From time to time any software needs a patch for security reasons, new feature o
      export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
      export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
      ~~~
- 1. Set the security aspects for Db2 Advanced to install properly
+1. Set the security aspects for Db2 Advanced to install properly
    ~~~
    ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2oltp
    ~~~
- 1. Deploy **Db2 Advanced** by running the following:
+1. Deploy **Db2 Advanced** by running the following:
    ~~~
    ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2oltp
    ~~~
- 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
- 1. The deployed service will look like this from `oc get pods`.  The completed pod is a load job which can be deleted.
+1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+1. The deployed service will look like this from `oc get pods`.  The completed pod is a load job which can be deleted.
    ~~~
    db2oltp-catalog-11530-6c488d895f-jddzn   1/1       Running     0          5m11s
    db2oltp-catalog-11530-uploadjob-hcsqr    0/1       Completed   0          5m11s
    ~~~
- 1. Verify the installation  
+1. Verify the installation  
    ~~~
    ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
    ~~~
- 1. Check for patches
+1. Check for patches
    ~~~
    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
    ~~~
-  1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Provision an OLTP Database instance
- 1. Once installed and the `db2oltp-catalog-11530` pod is running or the service tile is marked as available , you can go to the service catalog page with the square with petals icon in upper right.  
- 1. On the services page, **Click** the left side filter to go to ***Datasources*** to get to **Db2 Advanced** tile.  
- 1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
- 1. On the ***Configure*** page keep defaults or adjust if you know you need more.  **Click** ***Next***.  **NOTE** Make sure the ***Value for node label*** matches what was set above.
- 1. On the ***System Storage*** page, Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
- 1. **Click** ***Next***
- 1. On the ***User Storage*** page, Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
- 1. **Click** ***Next***
- 1. On the ***Backup Storage*** page, Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
- 1. **Click** ***Next***
- 1. Review the settings. Here you can change the **Display name** to something more memorable. **Click** ***Create***.
-
- 1. Your instance is being created and will be accessible from the **Services > Db2 Advanced tile.**  Also accessed from the Left menu ***My Instance*** then **Click** ***Provisioned instances***
- 1. From ***Provision Instances*** , you will see a list of instances.   If you left the defaults, the name will be something like ***Db2 Advanced Edition-1***.   To get details **Click** on the instance name.  In my case ***Db2 Advanced Edition-1***.
+1. Once installed and the `db2oltp-catalog-11530` pod is running or the service tile is marked as available , you can go to the service catalog page with the square with petals icon in upper right.  
+1. On the services page, **Click** the left side filter to go to ***Datasources*** to get to **Db2 Advanced** tile.  
+1. **Click** the 3 vertical dots on upper left of the tile or **Click** through the tile then **Click** ***Provision Instance***.
+1. On the ***Configure*** page keep defaults or adjust if you know you need more.  **Click** ***Next***.  **NOTE** Make sure the ***Value for node label*** matches what was set above.
+1. On the ***System Storage*** page, Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
+1. **Click** ***Next***
+1. On the ***User Storage*** page, Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
+1. **Click** ***Next***
+1. On the ***Backup Storage*** page, Change **Storage Class** to ***ibmc-file-gold-gid*** ; Adjust the size to reflect the amount needed.  ***Default is 100GB***.
+1. **Click** ***Next***
+1. Review the settings. Here you can change the **Display name** to something more memorable. **Click** ***Create***.
+1. Your instance is being created and will be accessible from the **Services > Db2 Advanced tile.**  Also accessed from the Left menu ***My Instance*** then **Click** ***Provisioned instances***
+1. From ***Provision Instances*** , you will see a list of instances.   If you left the defaults, the name will be something like ***Db2 Advanced Edition-1***.   To get details **Click** on the instance name.  In my case ***Db2 Advanced Edition-1***.
  **Note:** You can see a red triangle that states Failed. This is temporary and is most likely the Cloud provision service waiting on a storage volume to come online and available to mount as a persistent volume to map the persistent volume claim.
- 1. **Click** the horizontal 3 "." on the right and see the options.
+1. **Click** the horizontal 3 "." on the right and see the options.
    - ***Open*** This will open the UI to allow you to work on the database
    - ***Manage Access*** This lets you control high level ACLs to the database.  
    - ***Delete*** This will delete this particular instance.
@@ -701,16 +700,16 @@ From time to time any software needs a patch for security reasons, new feature o
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Create a Table  
- 1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by ***admin***, via **SQL editor** by default will go under **Schema** ***user999***.
+1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by ***admin***, via **SQL editor** by default will go under **Schema** ***user999***.
    - You can use the UI and select and create tables under certain schemas.
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Uninstalling DB2 Warehouse.
- 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
- 1. From the command line:
-   1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
-   1. Run env to verify that the following variables are exported
+1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
+1. From the command line:
+1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
+1. Run env to verify that the following variables are exported
      - OpenShift 3.x
       ~~~
       export OS_NAME=[darwin, linux]
@@ -721,15 +720,15 @@ From time to time any software needs a patch for security reasons, new feature o
       export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
       export NAMESPACE=zen
       ~~~
-   1. Do a dry run uninstall to check what will be taken off.
+1. Do a dry run uninstall to check what will be taken off.
     ~~~
     ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh --uninstall-dry-run
     ~~~
-   1. Run the uninstall
+1. Run the uninstall
     ~~~
     ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh
     ~~~
- 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
+1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
@@ -779,8 +778,8 @@ From time to time any software needs a patch for security reasons, new feature o
 ### Create a Transformation Project
 1. From the navigator **click** ***Organize > transform data***.  This will bring you into the Data Flow Designer in a projects view.
   1. If you do not see ***Organize > transform data***, check your setting and profile in the upper right under the user icon. **Click** ***Profile and Setttings*** > ***Permissions*** then verify that you have following two permissions:
-  - Integrate and transform data
-  - View governance artifacts
+  1. Integrate and transform data
+  1. View governance artifacts
     If not the users will need to have ***Data Engineer*** role.
      - Go to the Navigator on the left and scroll down to ***Administer***  **Click** on ***Manage Users***.
      - On the right of the list of users, you will see a pencil, which indicates ***edit***.  
@@ -805,8 +804,8 @@ From time to time any software needs a patch for security reasons, new feature o
 ### Uninstalling DataStage.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
 1. From the command line:
-  - Set namespace.  My namespace is ***zen*** your may be different like ***default***
-  - Run env to verify that the following variables are exported
+1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
+1. Run env to verify that the following variables are exported
     - OpenShift 3.x
      ~~~
      export OS_NAME=[darwin, linux]
@@ -817,11 +816,11 @@ From time to time any software needs a patch for security reasons, new feature o
      export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
      ~~~
-  - Do a dry run uninstall to check what will be taken off.
+1.  Do a dry run uninstall to check what will be taken off.
    ~~~
    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly ds --uninstall-dry-run
    ~~~
-  - Run the uninstall
+1. Run the uninstall
    ~~~
    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly ds
    ~~~
@@ -873,8 +872,8 @@ From time to time any software needs a patch for security reasons, new feature o
 
 ### Uninstalling Analytics Dashboards
 1. From the command line:
-  - Set namespace.  My namespace is ***zen*** your may be different like ***default***
-  - Run env to verify that the following variables are exported
+1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
+1. Run env to verify that the following variables are exported
     - OpenShift 3.x
      ~~~
      export OS_NAME=[darwin, linux]
@@ -885,11 +884,11 @@ From time to time any software needs a patch for security reasons, new feature o
      export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
      ~~~
-  - Do a dry run uninstall to check what will be taken off.
+1. Do a dry run uninstall to check what will be taken off.
    ~~~
    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly cde --uninstall-dry-run
    ~~~
-  - Run the uninstall
+1. Run the uninstall
    ~~~
    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly cde
    ~~~
@@ -952,9 +951,9 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
   [Governing the about of resources in an instance](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/wsj/spark/spark-resource-quota.html)
 
 ### Uninstalling Analytics Engine
- 1. From the command line:
-   - Set namespace.  My namespace is ***zen*** your may be different like ***default***
-   - Run env to verify that the following variables are exported
+1. From the command line:
+1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
+1. Run env to verify that the following variables are exported
      - OpenShift 3.x
       ~~~
       export OS_NAME=[darwin, linux]
@@ -965,15 +964,15 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
       export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
       export NAMESPACE=zen
       ~~~
-   - Do a dry run uninstall to check what will be taken off.
+1. Do a dry run uninstall to check what will be taken off.
     ~~~
     ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly spark --uninstall-dry-run
     ~~~
-   - Run the uninstall
+1. Run the uninstall
     ~~~
     ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly spark
     ~~~
- 1.  Go to the **Services** catalog and verify that **Analytics Engine** is no longer ***enabled***.   
+1.  Go to the **Services** catalog and verify that **Analytics Engine** is no longer ***enabled***.   
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)  
 
