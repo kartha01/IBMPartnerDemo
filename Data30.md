@@ -18,7 +18,7 @@
 - [Watson Studio](#watson-studio)
   * [Install](#install-watson-studio)
   * [Set up](#set-up-watson-studio)
-  * [Increase the capacity or scale up your service](#increase-the-capacity-or-scale-up-your-service)
+  * [Increase the capacity or scale up](#increase-the-capacity-or-scale)
 - [Watson Machine Learning](#watson-machine-learning)
   * [Install](#install-watson-machine-learning)
   * [Set up](#set-up-watson-machine-learning)
@@ -198,16 +198,16 @@
 1. It is suggested to connect your user repository to an LDAP system.  
 1. Once connected to LDAP, you should ***disable*** the default **admin** user.
 1. To do this you will run a script in the user management pod.
-~~~
-export NAMESPACE=zen
-oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | tail -1 | cut -f1 -d\ ) -- bash -c "/usr/src/server-src/scripts/manage-user.sh --disable-user admin"
-~~~
+ ~~~
+ export NAMESPACE=zen
+ oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | tail -1 | cut -f1 -d\ ) -- bash -c "/usr/src/server-src/scripts/manage-user.sh --disable-user admin"
+ ~~~
 1. To reenable **admin** user run the following, which will prompt you for a new password:
-~~~
-export NAMESPACE=zen
-oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | tail -1 | cut -f1 -d\ ) -- bash -c "/usr/src/server-src/scripts/manage-user.sh --enable-user admin"
-~~~
-**Note:** If you have lost or forgotten your CPD Admin password, you can log into OpenShift then execute the enable command which prompts you for a new password.
+ ~~~
+ export NAMESPACE=zen
+ oc exec -it -n $NAMESPACE  $(oc get pod -n $NAMESPACE  -l component=usermgmt | tail -1 | cut -f1 -d\ ) -- bash -c "/usr/src/server-src/scripts/manage-user.sh --enable-user admin"
+ ~~~
+ **Note:** If you have lost or forgotten your CPD Admin password, you can log into OpenShift then execute the enable command which prompts you for a new password.
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
@@ -235,16 +235,16 @@ From time to time any software needs a patch for security reasons, new feature o
   ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite
   ~~~
 1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-3.0.1-lite-patch-5***.  This name will change after this writing. Note the assembly name can be `lite`, `wkc` or `wsl`.  
-~~~
-./cpd-${OS_NAME} patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly lite  --patch-name cpd-3.0.1-lite-patch-5
-~~~
+ ~~~
+ ./cpd-${OS_NAME} patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly lite  --patch-name cpd-3.0.1-lite-patch-5
+ ~~~
 1. Verify that the patch has been applied.
-~~~
-Toms-MBP:~ tjm$ oc project zen
-Already on project "zen" on server "https://c106-e.us-south.containers.cloud.ibm.com:31432".
-Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort | uniq | cut -d: -f2
+ ~~~
+ Toms-MBP:~ tjm$ oc project zen
+ Already on project "zen" on server "https://c106-e.us-south.containers.cloud.ibm.com:31432".
+ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort | uniq | cut -d: -f2
        cpd-3.0.1-lite-patch-5
-~~~
+ ~~~
 1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name**
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
@@ -303,12 +303,12 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    ~~~  
 1. Verify the installation  
    ~~~
-  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
-  ~~~
+   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+   ~~~
    1. Check for patches
-     ~~~
-     ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
-     ~~~
+   ~~~
+   ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+   ~~~
    1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
      - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
@@ -420,6 +420,7 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
     ~~~
 
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+
 ## Watson OpenScale
 ### Install Watson OpenScale
  1. When setting up OpenScale, there are 2 pre-prerequisites.
@@ -445,34 +446,34 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
   export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
   ~~~
-  1. Set the security aspects for Watson Machine Learning to install properly
+1. Set the security aspects for Watson Machine Learning to install properly
   ~~~
   ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly aiopenscale
   ~~~
-  1. Deploy **Watson OpenScale** by running the following:
+1. Deploy **Watson OpenScale** by running the following:
   ~~~
   ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly aiopenscale
   ~~~  
-  1. Verify the installation  
-     ~~~
-    ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
-    ~~~
-  1. Check for patches
+1. Verify the installation  
+   ~~~
+  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+  ~~~
+1. Check for patches
     ~~~
     ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
     ~~~
-  1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 
 ### Set up Watson OpenScale
- 1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
- 1. Let's provision OpenScale.
- 1. You will be met with an ***auto setup*** to configure.  
- 1. First step is accept the local WML instance.
- 1. Enter connection details for a Db2 Database.  I am using a DB2 Warehouse that I installed later on.  You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section.
+1. For Watson OpenScale Service, there is an `Open` button which launch a UI to help configure the initial information.
+1. Let's provision OpenScale.
+1. You will be met with an ***auto setup*** to configure.  
+1. First step is accept the local WML instance.
+1. Enter connection details for a Db2 Database.  I am using a DB2 Warehouse that I installed later on.  You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section.
 ***Coming soon***
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
@@ -534,12 +535,12 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
    ~~~
-  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
-  ~~~
+   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+   ~~~
 1. Check for patches
-  ~~~
-  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
-  ~~~
+   ~~~
+   ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
@@ -658,10 +659,10 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
    ~~~
  1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
  1. The deployed service will look like this from `oc get pods`.  The completed pod is a load job which can be deleted.
-    ~~~
-    db2oltp-catalog-11530-6c488d895f-jddzn   1/1       Running     0          5m11s
-    db2oltp-catalog-11530-uploadjob-hcsqr    0/1       Completed   0          5m11s
-    ~~~
+   ~~~
+   db2oltp-catalog-11530-6c488d895f-jddzn   1/1       Running     0          5m11s
+   db2oltp-catalog-11530-uploadjob-hcsqr    0/1       Completed   0          5m11s
+   ~~~
  1. Verify the installation  
    ~~~
    ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
@@ -708,8 +709,8 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
 ### Uninstalling DB2 Warehouse.
  1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
  1. From the command line:
-   - Set namespace.  My namespace is ***zen*** your may be different like ***default***
-   - Run env to verify that the following variables are exported
+   1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
+   1. Run env to verify that the following variables are exported
      - OpenShift 3.x
       ~~~
       export OS_NAME=[darwin, linux]
@@ -720,14 +721,14 @@ Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort
       export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
       export NAMESPACE=zen
       ~~~
-   - Do a dry run uninstall to check what will be taken off.
-   ~~~
-   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh --uninstall-dry-run
-   ~~~
-   - Run the uninstall
-   ~~~
-   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh
-   ~~~
+   1. Do a dry run uninstall to check what will be taken off.
+    ~~~
+    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh --uninstall-dry-run
+    ~~~
+   1. Run the uninstall
+    ~~~
+    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh
+    ~~~
  1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
