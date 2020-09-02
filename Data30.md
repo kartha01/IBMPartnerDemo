@@ -1062,80 +1062,80 @@ Understand the [current differences here](https://community.ibm.com/community/us
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)   
 
 ### Uninstalling Cognos Analytics
-  1. From the command line:
-    - Set namespace.  My namespace is ***zen*** your may be different like ***default***
-    - Run env to verify that the following variables are exported
-      - OpenShift 3.x
-       ~~~
-       export OS_NAME=[darwin, linux]
-       export NAMESPACE=zen
-       ~~~
-      - OpenShift 4.x
-       ~~~
-       export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
-       export NAMESPACE=zen
-       ~~~
-    - Do a dry run uninstall to check what will be taken off.
-     ~~~
-     ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly ca --uninstall-dry-run
-     ~~~
-    - Run the uninstall
-     ~~~
-     ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly ca
-     ~~~
-  1.  Go to the **Services** catalog and verify that **Cognos Analytics** is no longer ***enabled***.   
+1. From the command line:
+1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
+1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
+  ~~~
+  export OS_NAME=[darwin, linux]
+  export NAMESPACE=zen
+  ~~~
+  - OpenShift 4.x
+  ~~~
+  export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
+  export NAMESPACE=zen
+  ~~~
+1. Do a dry run uninstall to check what will be taken off.
+  ~~~
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly ca --uninstall-dry-run
+  ~~~
+1. Run the uninstall
+  ~~~
+  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly ca
+  ~~~
+1.  Go to the **Services** catalog and verify that **Cognos Analytics** is no longer ***enabled***.   
 
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 
 ## Watson Knowledge Catalog
 ### Installing Watson Knowledge Catalog service
- 1. Because of all the Kernel changes, I generally suggest installing Watson Knowledge Catalog using the template during the control plane installation.
- 1. Verify you have enough resource capacity to run Watson Knowledge Catalog.  You many need to increase your work pool by a node.
- 1. Create a secret in the kube-system project or namespace for the norootsquash.yaml will execute properly.  **Note: **All norootsquash pods in Kube-system namespace will restart using the new parameters.
-    - `oc project kube-system`
-    -  Get the apikey from the repo.yaml file and use your accounts email address.
-    - `oc create secret docker-registry cpregistrysecret --docker-username=cp --docker-password= API KEY used in repo.yaml  --docker-server=cp.icr.io/cp/cpd --docker-email= your email address`
- 1. Adjust the kernel parameters.  Save the files to the directory with `cpd-<os>` command prior to executing or running the command.
-    - Run ***oc create -f [wkc-tune-43.yaml](wkc-tune-43.yaml)*** command to tune the kernel parameters.  
-    - Run ***oc apply -f [setkernelparameters.yaml](setkernelparameters.yaml) -n kube-system***
-    - Run ***oc apply -f [norootsquash.yaml](norootsquash.yaml) -n kube-system***
- 1. Run env to verify that the following variables are exported
-   - OpenShift 3.x
-    ~~~
-    export OS_NAME=darwin or linux
-    export NAMESPACE=zen
-    export STORAGE_CLASS=ibmc-file-gold-gid
-    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-    export LOCAL_REGISTRY=docker-registry.default.svc:5000
-    ~~~
-    - OpenShift 4.x
-     ~~~
-     export OS_NAME=darwin or linux or win
-     export NAMESPACE=zen
-     export STORAGE_CLASS=ibmc-file-gold-gid
-     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
-     export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
-     ~~~
- 1. Set the security aspects for Watson Knowledge Catalog to install properly
+1. Because of all the Kernel changes, I generally suggest installing Watson Knowledge Catalog using the template during the control plane installation.
+1. Verify you have enough resource capacity to run Watson Knowledge Catalog.  You many need to increase your work pool by a node.
+1. Create a secret in the kube-system project or namespace for the norootsquash.yaml will execute properly.  **Note: **All norootsquash pods in Kube-system namespace will restart using the new parameters.
+  - `oc project kube-system`
+  -  Get the apikey from the repo.yaml file and use your accounts email address.
+  - `oc create secret docker-registry cpregistrysecret --docker-username=cp --docker-password= API KEY used in repo.yaml  --docker-server=cp.icr.io/cp/cpd --docker-email= your email address`
+1. Adjust the kernel parameters.  Save the files to the directory with `cpd-<os>` command prior to executing or running the command.
+  - Run ***oc create -f [wkc-tune-43.yaml](wkc-tune-43.yaml)*** command to tune the kernel parameters.  
+  - Run ***oc apply -f [setkernelparameters.yaml](setkernelparameters.yaml) -n kube-system***
+  - Run ***oc apply -f [norootsquash.yaml](norootsquash.yaml) -n kube-system***
+1. Run env to verify that the following variables are exported
+ - OpenShift 3.x
+  ~~~
+  export OS_NAME=darwin or linux
+  export NAMESPACE=zen
+  export STORAGE_CLASS=ibmc-file-gold-gid
+  export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
+  export LOCAL_REGISTRY=docker-registry.default.svc:5000
+  ~~~
+ - OpenShift 4.x
+  ~~~
+  export OS_NAME=darwin or linux or win
+  export NAMESPACE=zen
+  export STORAGE_CLASS=ibmc-file-gold-gid
+  export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+  export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+  ~~~
+1. Set the security aspects for Watson Knowledge Catalog to install properly
    ~~~
    ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wkc
    ~~~
- 1. Deploy Watson Knowledge Catalog by running the following: Download the [override-nginx.yaml](override-nginx.yaml) file for use in the install command.
+1. Deploy Watson Knowledge Catalog by running the following: Download the [override-nginx.yaml](override-nginx.yaml) file for use in the install command.
    ~~~
    ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --override override-nginx.yaml --assembly wkc
    ~~~
- 1. You will need to tab to accept the license.
- 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
- 1. Verify the installation  
+1. You will need to tab to accept the license.
+1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+1. Verify the installation  
     ~~~
     ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
     ~~~
- 1. Check for patches
+1. Check for patches
     ~~~
     ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
     ~~~
-  1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
       - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
@@ -1147,23 +1147,23 @@ Understand the [current differences here](https://community.ibm.com/community/us
 
 ### Uninstalling Watson Knowledge Catalog
 1. From the command line:
-  - Set namespace.  My namespace is ***zen*** your may be different like ***default***
-  - Run env to verify that the following variables are exported
-     - OpenShift 3.x
-     ~~~
-     export OS_NAME=[darwin, linux]
-     export NAMESPACE=zen
-     ~~~
-     - OpenShift 4.x
-     ~~~
-     export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
-     export NAMESPACE=zen
-     ~~~  
-  - Do a dry run uninstall to check what will be taken off.
+1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
+1. Run env to verify that the following variables are exported
+  - OpenShift 3.x
+   ~~~
+   export OS_NAME=[darwin, linux]
+   export NAMESPACE=zen
+    ~~~
+  - OpenShift 4.x
+   ~~~
+   export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
+   export NAMESPACE=zen    
+  ~~~  
+1. Do a dry run uninstall to check what will be taken off.
    ~~~
    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc --uninstall-dry-run
    ~~~
-  - Run the uninstall
+1. Run the uninstall
    ~~~
    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc
    ~~~
