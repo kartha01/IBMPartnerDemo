@@ -20,7 +20,7 @@
 1. Let's check our Kubernetes infrastructure permissions.
  - Run `ibmcloud ks infra-permissions get`
  - In my case below, I should have proper permissions to create an OpenShift cluster.
- ~~~
+  ~~~
   [root@nz-install ~]#  ibmcloud oc infra-permissions get
   Analyzing the infrastructure permissions for resource group ...
   Retrieved suggested and required infrastructure permissions that are missing for account ID 21#####6 with infrastructure access set up by linked account API key.
@@ -134,6 +134,6 @@ PREFERRED_RESOURCE_GROUP ${PREFERRED_RESOURCE_GROUP}
   sao01   Sao Paulo (sao)         Brazil (br)           South America (sa)   
   wdc04   Washington DC (wdc)†    United States (us)    North America (na)   
   ~~~
-1. 
+1.
 
  pXfxxVdg0IhfD39uKQnisQ3sDr9zNO2Q5QsxC6EJFSAq
