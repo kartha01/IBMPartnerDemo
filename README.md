@@ -16,7 +16,7 @@
   * [Retrieving the token to log into OpenShift on IBM Cloud](#retrieving-the-token-to-log-into-openshift-on-ibm-cloud)
   * [Quick run through of some OpenShift CLI commands](#quick-run-through-of-some-openshift-cli-commands)
 - [Install your Cloud Pak of Choice (currently only Data)](#install-your-cloud-pak-of-choice)
-
+- [Install Netezza on IBM Cloud](#install-netezza-on-ibm-cloud)
 
 ## Product demo (free) Good if limited customization needed
 1. Product demos where you are just showing the product with some canned assets, you can use [Cloud Pak for Data Experiences](https://www.ibm.com/cloud/paks/experiences/cloud-pak-for-data)  
@@ -372,6 +372,10 @@ Events:
   - [Cloud Pak for Data 2.5](Data25.md)
   - [Cloud Pak for Data 3.0](Data30.md)
 <!---  [Cloud Pak for Integration](integration.md)[Cloud Pak for Mult-Cloud Manager](mcm.md) --->
-## Install Netezza on IBM CLoud
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+
+## Install Netezza on IBM Cloud
+
   - [Netezza on IBM Cloud](nzcloud.md)
+
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
