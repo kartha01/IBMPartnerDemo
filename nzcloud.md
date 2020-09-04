@@ -9,7 +9,7 @@
 ### Create a bastion node (Linux VM)
 1. I created a 2x4GB virtual server with CentOs and 100GB boot disk. This is used as an installation or Bastion Node.   I selected a place in the same Data Center as the OpenShift nodes.
 
-### Add prereqs to the bastion node and test permissions on IBM Cloud Account
+### Add prereqs to the bastion node and test permissions on IBM Cloud account
 1. I install IBM Cloud CLI to run a few sanity checks on my account prior to trying to install ***NZ CLoud***
  - Run `curl -sL https://ibm.biz/idt-installer | bash`
 1. Log in through the CLI, using your IBM Cloud ID.
@@ -88,7 +88,52 @@ PREFERRED_RESOURCE_GROUP ${PREFERRED_RESOURCE_GROUP}
 ~~~  
 
 ### Collect information for the ibm_infra.properties files
+1. Open up the ***ibm_infra.properties*** file.  
+1. Replace `${CLUSTER_NAME}` with a unique name.  I will use ***NZCluster***
+1. Replace `${ZONE}` with your preferred zone.  I'll use ***wdc06***
+  - find the available zone using `ibmcloud ks zone ls --provider classic`   
+  - If you are not sure what these symbols stand for, look up **locations**.  Anything with a ***†*** is a **zone**  `ibmcloud ks locations --provider classic`
+  ~~~
+  [root@nz-install nz-cloud]# ibmcloud ks locations --provider classic
+  Classic Infrastructure Zones
 
-
+  Zone    Metro                   Country               Geography   
+  hkg02   Hong Kong (hkg-mtr)     Hong Kong (hkg)       Asia Pacific (ap)   
+  syd05   Sydney (syd)†           Australia (au)        Asia Pacific (ap)   
+  tok02   Tokyo (tok)†            Japan (jp)            Asia Pacific (ap)   
+  dal12   Dallas (dal)†           United States (us)    North America (na)   
+  mon01   Montreal (mon)          Canada (ca)           North America (na)   
+  fra02   Frankfurt (fra)†        Germany (de)          Europe (eu)   
+  fra05   Frankfurt (fra)†        Germany (de)          Europe (eu)   
+  lon02   London (lon)†           United Kingdom (uk)   Europe (eu)   
+  seo01   Seoul (seo)             Korea (kr)            Asia Pacific (ap)   
+  wdc06   Washington DC (wdc)†    United States (us)    North America (na)   
+  wdc07   Washington DC (wdc)†    United States (us)    North America (na)   
+  tok04   Tokyo (tok)†            Japan (jp)            Asia Pacific (ap)   
+  mex01   Mexico City (mex-cty)   Mexico (mex)          North America (na)   
+  lon04   London (lon)†           United Kingdom (uk)   Europe (eu)   
+  tok05   Tokyo (tok)†            Japan (jp)            Asia Pacific (ap)   
+  lon06   London (lon)†           United Kingdom (uk)   Europe (eu)   
+  tor01   Toronto (tor)           Canada (ca)           North America (na)   
+  che01   Chennai (che)           India (in)            Asia Pacific (ap)   
+  hou02   Houston (hou)           United States (us)    North America (na)   
+  osl01   Oslo (osl)              Norway (no)           Europe (eu)   
+  syd04   Sydney (syd)†           Australia (au)        Asia Pacific (ap)   
+  fra04   Frankfurt (fra)†        Germany (de)          Europe (eu)   
+  ams03   Amsterdam (ams)         Netherlands (nl)      Europe (eu)   
+  syd01   Sydney (syd)†           Australia (au)        Asia Pacific (ap)   
+  dal13   Dallas (dal)†           United States (us)    North America (na)   
+  mil01   Milan (mil)             Italy (it)            Europe (eu)   
+  dal10   Dallas (dal)†           United States (us)    North America (na)   
+  mel01   Melbourne (mel)         Australia (au)        Asia Pacific (ap)   
+  sjc03   San Jose (sjc)          United States (us)    North America (na)   
+  sjc04   San Jose (sjc)          United States (us)    North America (na)   
+  sng01   Singapore (sng-mtr)     Singapore (sng)       Asia Pacific (ap)   
+  lon05   London (lon)†           United Kingdom (uk)   Europe (eu)   
+  par01   Paris (par)             France (fr)           Europe (eu)   
+  sao01   Sao Paulo (sao)         Brazil (br)           South America (sa)   
+  wdc04   Washington DC (wdc)†    United States (us)    North America (na)   
+  ~~~
+1. 
 
  pXfxxVdg0IhfD39uKQnisQ3sDr9zNO2Q5QsxC6EJFSAq
