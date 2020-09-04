@@ -8,6 +8,8 @@
   * [Creating an IBM Cloud account without credits.](#creating-an-ibm-cloud-account-without-credits)
 - [Add IBM Cloud Security instructions and best practices](#add-ibm-cloud-security-instructions-and-best-practices)
 - [Creating an Open Shift cluster](#creating-an-open-shift-cluster)
+  * [Via the UI](#via-the-ui)
+  * [Via the Command line](#via-the-command-line)
 - [Checking OpenShift was created and working properly](#checking-openshift-was-created-and-working-properly)
 - [Using OpenShift console](#using-openshift-console)
 - [Installing the CLI environment](#installing-the-cli-environment)
@@ -93,6 +95,7 @@ How do I request an account?  What qualifies? Can my VAD help here?
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Creating an Open Shift cluster
+### Via the UI
 1. Log into [IBM Cloud](https://cloud.ibm.com/)
 1. Click on **Catalog** > **Services**
 1. Filter on ***Containers*** by checking the box on the left.
@@ -128,6 +131,69 @@ How do I request an account?  What qualifies? Can my VAD help here?
 
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+
+### Via the Command line
+1. Log into your account using `ibmcloud login`
+1. List out all the locations which provide infrastructure for **OpenShift** using ***classic*** public cloud. There are other options which are a little more complicated to create, but you can get isolation and latest networking and infrastructure.   ***vpc-classic***  and ***vpc-gen2***
+  - `ibmcloud oc locations --provider classic`
+  - If you want to narrow it to a Geography: Americas (na), Europe (eu) or Asia Pacific (ap)
+   ~~~
+   Toms-MBP:bin tjm$ ibmcloud oc locations --provider classic | grep \(na\)
+   dal13   Dallas (dal)†           United States (us)    North America (na)   
+   wdc06   Washington DC (wdc)†    United States (us)    North America (na)   
+   sjc04   San Jose (sjc)          United States (us)    North America (na)   
+   dal12   Dallas (dal)†           United States (us)    North America (na)   
+   wdc07   Washington DC (wdc)†    United States (us)    North America (na)   
+   tor01   Toronto (tor)           Canada (ca)           North America (na)   
+   sjc03   San Jose (sjc)          United States (us)    North America (na)   
+   wdc04   Washington DC (wdc)†    United States (us)    North America (na)   
+   hou02   Houston (hou)           United States (us)    North America (na)   
+   dal10   Dallas (dal)†           United States (us)    North America (na)   
+   mex01   Mexico City (mex-cty)   Mexico (mex)          North America (na)   
+   mon01   Montreal (mon)          Canada (ca)           North America (na)  
+   ~~~
+1. In this case, I have picked ***Washington DC*** datacenter ***06*** and I want to know what worker node configurations are offered. Generally I want either ***32x64GB*** or ***16x64GB*** servers.  To get the list execute: `ibmcloud oc flavors --zone wdc06 --provider classic`   Since I know that I only want virtual servers and servers with 64GB of RAM, I will run the following `ibmcloud oc flavors --zone wdc06 --provider classic | grep x64 | grep -v physical`
+~~~
+Toms-MBP:bin tjm$ ibmcloud oc flavors --zone wdc06 --provider classic | grep x64 | grep -v physical
+b2c.16x64                 16      64GB     1000Mbps        UBUNTU_16_64   virtual       25GB         100GB               classic   
+b3c.16x64                 16      64GB     1000Mbps        UBUNTU_18_64   virtual       25GB         100GB               classic   
+c2c.32x64                 32      64GB     1000Mbps        UBUNTU_16_64   virtual       25GB         100GB               classic   
+c3c.32x64                 32      64GB     1000Mbps        UBUNTU_18_64   virtual       25GB         100GB               classic   
+m2c.8x64                  8       64GB     1000Mbps        UBUNTU_16_64   virtual       25GB         100GB               classic   
+m3c.8x64                  8       64GB     1000Mbps        UBUNTU_18_64   virtual       25GB         100GB               classic   
+~~~
+1. You need to have a VLAN ID.  `ibmcloud oc vlan ls --zone wdc06`
+~~~
+Toms-MBP:bin tjm$ ibmcloud oc vlan ls --zone wdc06
+OK
+ID        Name   Number   Type      Router         Supports Virtual Workers   
+2942828          1250     private   bcr01a.wdc06   true   
+2942826          1315     public    fcr01a.wdc06   true   
+~~~
+1. You will need the version of OpenShift for the command line.   Use `ibmcloud oc versions`  You can get more specific using the --show-version.  These options are ***openshift*** or ***kubernetes***.  Below I am listing out only the OpenShift versions
+~~~
+Toms-MBP:bin tjm$ ibmcloud oc versions --show-version openshift
+OK
+OpenShift Versions   
+3.11.248_openshift   
+4.3.31_openshift (default)   
+4.4.17_openshift   
+~~~
+1. Now that you have all the information need to build an OpenShift Cluster.  Here is the command line to build out an OpenShift Cluster in the Wahington DC Data Center, using virtual servers with 16 cores and 64GB RAM.  The cluster will be using shared hardware using 3 worker pool of 3.   I also want to use the entitlement from the Cloud Pak. Without ***--entitlement cloud_pak*** your account will be charged for an OpenShift license.   Run the following `ibmcloud oc cluster create classic --zone wdc06 --flavor b3c.16x64 --hardware shared --public-vlan 2942826  --private-vlan 2942828 --workers 3 --name commandline --version 4.3.31_openshift  --public-service-endpoint --entitlement cloud_pak`
+~~~
+Toms-MBP:bin tjm$  ibmcloud oc cluster create classic --zone wdc06 --flavor b3c.16x64 --hardware shared --public-vlan 2942826  --private-vlan 2942828 --workers 3 --name commandline --version 4.3.31_openshift  --public-service-endpoint --entitlement cloud_pak
+Creating cluster...
+OK
+Cluster created with ID bt932qpw05g1h1gagch0
+~~~
+1. Let's list the clusters Use `ibmcloud oc cluster ls`
+~~~
+Toms-MBP:bin tjm$ ibmcloud oc cluster ls
+OK
+Name                        ID                     State           Created          Workers   Location          Version                 Resource Group Name   Provider   
+commandline                 bt932qpw05g1h1gagch0   normal          26 minutes ago   3         Washington D.C.   4.3.31_1536_openshift   Default               classic   
+~~~
+
 
 ## Checking OpenShift was created and working properly
 1. Open the [Dashboard](https://cloud.ibm.com/) on IBM Cloud.
