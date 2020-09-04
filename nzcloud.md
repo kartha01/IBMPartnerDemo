@@ -20,30 +20,30 @@
 1. Let's check our Kubernetes infrastructure permissions.
  - Run `ibmcloud ks infra-permissions get`
  - In my case below, I should have proper permissions to create an OpenShift cluster.
-  ~~~
-  [root@nz-install ~]#  ibmcloud oc infra-permissions get
-  Analyzing the infrastructure permissions for resource group ...
-  Retrieved suggested and required infrastructure permissions that are missing for account ID 21#####6 with infrastructure access set up by linked account API key.
-  OK
+   ~~~
+   [root@nz-install ~]#  ibmcloud oc infra-permissions get
+   Analyzing the infrastructure permissions for resource group ...
+   Retrieved suggested and required infrastructure permissions that are missing for account ID 21#####6 with infrastructure access set up by linked account API key.
+   OK
 
-  Missing Virtual Worker Permissions
+   Missing Virtual Worker Permissions
 
-  No changes are suggested or required.
+   No changes are suggested or required.
 
-  Missing Physical Worker Permissions
+   Missing Physical Worker Permissions
 
-  No changes are suggested or required.
+   No changes are suggested or required.
 
-  Missing Network Permissions
+   Missing Network Permissions
 
-  No changes are suggested or required.
+   No changes are suggested or required.
 
-  Missing Storage Permissions
+   Missing Storage Permissions
 
-  No changes are suggested or required.
+   No changes are suggested or required.
 
-  To set infrastructure permissions, see 'https://ibm.biz/infra-permission'
-  ~~~
+   To set infrastructure permissions, see 'https://ibm.biz/infra-permission'
+   ~~~
 1. Install the **Development Tools** to install ***unzip***, ***Python 3***, ***which*** and ***gettext***
  - `sudo yum groupinstall -y "Development Tools"`
 1. Install ***jq***
