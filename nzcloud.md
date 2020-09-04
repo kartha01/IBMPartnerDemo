@@ -9,7 +9,7 @@
 ### Create a bastion node (Linux VM)
 1. I created a 2x4GB virtual server with CentOs and 100GB boot disk. This is used as an installation or Bastion Node.   I selected a place in the same Data Center as the OpenShift nodes.
 
-### Add prereqs to the bastion node and test permissions on IBM CLoud Account
+### Add prereqs to the bastion node and test permissions on IBM Cloud Account
 1. I install IBM Cloud CLI to run a few sanity checks on my account prior to trying to install ***NZ CLoud***
  - Run `curl -sL https://ibm.biz/idt-installer | bash`
 1. Log in through the CLI, using your IBM Cloud ID.
