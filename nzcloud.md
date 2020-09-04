@@ -38,8 +38,7 @@ APIKEY ${IBM_CLOUD_API_KEY}
 PRIVATE_VLAN ${PRIVATE_VLAN}
 PUBLIC_VLAN ${PUBLIC_VLAN}
 PREFERRED_RESOURCE_GROUP ${PREFERRED_RESOURCE_GROUP}
-~~~
-1. Next steps are to collect the information to add to this file.  
+~~~  
 1. I install IBM Cloud CLI to run a few sanity checks on my account prior to trying to install ***NZ CLoud*** and to collect the information to complete the ***ibm_infra.properties***
  - Run `curl -sL https://ibm.biz/idt-installer | bash`
 1. Log in through the CLI, using your IBM Cloud ID.
