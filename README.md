@@ -372,5 +372,6 @@ Events:
   - [Cloud Pak for Data 2.5](Data25.md)
   - [Cloud Pak for Data 3.0](Data30.md)
 <!---  [Cloud Pak for Integration](integration.md)[Cloud Pak for Mult-Cloud Manager](mcm.md) --->
-
+## Install Netezza on IBM CLoud
+  - [Netezza on IBM Cloud](nzcloud.md)
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
