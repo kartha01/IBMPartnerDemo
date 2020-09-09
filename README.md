@@ -133,6 +133,7 @@ How do I request an account?  What qualifies? Can my VAD help here?
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ### Via the Command line
+1. Download and install the [IBM Cloud Command line interface or CLI](https://cloud.ibm.com/docs/cli?topic=cli-install-ibmcloud-cli)
 1. Log into your account using `ibmcloud login`
 1. List out all the locations which provide infrastructure for **OpenShift** using ***classic*** public cloud. There are other options which are a little more complicated to create, but you can get isolation and latest networking and infrastructure.   ***vpc-classic***  and ***vpc-gen2***
   - `ibmcloud oc locations --provider classic`
