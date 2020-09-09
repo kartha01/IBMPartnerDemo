@@ -50,7 +50,7 @@
 ~~~
 Toms-MBP:nzcloud tjm$ scp nzcloud-linux-v11.1.0.0.tar.gz root@169.60.72.67:/root/nz
 root@169.60.72.67's password:
-nzcloud-linux-v11.1.0.0.tar.gz                                                                                                                             100%   45MB  29.4MB/s   00:01    
+nzcloud-linux-v11.1.0.0.tar.gz      100%   45MB  29.4MB/s   00:01    
 ~~~
 1. Back in the terminal that is logged into the newly minted VM, I move to ***/root/nz*** to gunzip the installer.
 1. Add execute permissions to the file `chmod +x nzcloud-linux-v11.1.0.0.tar.gz `
@@ -69,7 +69,6 @@ CLOUD_PROVIDER IBM
 CLUSTER_NAME ${CLUSTER_NAME}
 ZONE ${ZONE}
 APIKEY ${IBM_CLOUD_API_KEY}
-
 #######################################
 #   USER OPTIONAL INPUT PROPERTIES    #
 #######################################
@@ -82,12 +81,12 @@ PREFERRED_RESOURCE_GROUP ${PREFERRED_RESOURCE_GROUP}
 1. Open up the ***ibm_infra.properties*** file.  
 1. Replace `${CLUSTER_NAME}` with a unique name.  I will use ***NZCluster***
 1. Replace `${ZONE}` with your preferred zone.  I'll use ***wdc06***
-  - find the available zone using `ibmcloud ks zone ls --provider classic`   
-  - If you are not sure what these symbols stand for, look up **locations**.  Anything with a ***†*** is a **zone**  `ibmcloud ks locations --provider classic`
+  - find the available zone using `ibmcloud oc zone ls --provider classic`   
+  - If you are not sure what these symbols stand for, look up **locations**.  Anything with a ***†*** is a **multi-zone** `ibmcloud oc locations --provider classic`   
+    **Note:** The listing of the locations is random and not consistent in order.   This list is subject to change as new data centers on line all the time.
   ~~~
-  [root@nz-install nz-cloud]# ibmcloud ks locations --provider classic
+  [root@nz-install nz-cloud]# ibmcloud oc locations --provider classic
   Classic Infrastructure Zones
-
   Zone    Metro                   Country               Geography   
   hkg02   Hong Kong (hkg-mtr)     Hong Kong (hkg)       Asia Pacific (ap)   
   syd05   Sydney (syd)†           Australia (au)        Asia Pacific (ap)   
@@ -125,6 +124,58 @@ PREFERRED_RESOURCE_GROUP ${PREFERRED_RESOURCE_GROUP}
   sao01   Sao Paulo (sao)         Brazil (br)           South America (sa)   
   wdc04   Washington DC (wdc)†    United States (us)    North America (na)   
   ~~~
-1.
+1. Next you will need to get your API Key.
+1. [Click here](https://cloud.ibm.com/iam/apikeys) to create your apikey to used in the file. You man need to log into IBM Cloud account to retrieve this.
+1. Click ***Create an IBM Cloud API key +***
+  - Provide a **name** and **description**.
+  - **Click** ***Create***
+  - For your sanity sake, download the file as you can use it to log in and it saves the apikey value to use another time.   You will use this value to replace `${IBM_CLOUD_API_KEY}`
+1. Get the ***Public and Private VLAN*** `ibmcloud oc vlan ls --zone  wdc06`
+  ~~~
+  [root@nz-install nz-cloud]# ibmcloud oc vlan ls --zone  wdc06
+  OK
+  ID        Name   Number   Type      Router         Supports Virtual Workers   
+  2942828          1250     private   bcr01a.wdc06   true   
+  2942826          1315     public    fcr01a.wdc06   true   
+  ~~~
+1. Find out the resource group you want to assign NZ Cloud.  It is easier to control if you use Resource groups.  In my case, I will use ***default***
+  ~~~
+  [root@nz-install nz-cloud]# ibmcloud resource groups
+  Retrieving all resource groups under account 10c85c1177aa4ae2959a936b46334bc1 as mactom@us.ibm.com...
+  OK
+  Name      ID                                 Default Group   State   
+  Default   a1083ff7fbd547f390d2b0f4c8735231   true            ACTIVE   
+  ~~~
+1. Edit the `ibm_infra.properties` file and add your selected values.   
+  ~~~
+  #######################################
+  #   USER REQUIRED INPUT PROPERTIES    #
+  #######################################
+  CLOUD_PROVIDER IBM
+  CLUSTER_NAME nzcluster
+  ZONE wdc06
+  APIKEY EwZheUTyL7kyzP4tuQDgD39sSqLDkHn900nrTZC2b
+  #######################################
+  #   USER OPTIONAL INPUT PROPERTIES    #
+  #######################################
+  PRIVATE_VLAN 2942828
+  PUBLIC_VLAN 2942826
+  PREFERRED_RESOURCE_GROUP Default
+  ~~~
 
- pXfxxVdg0IhfD39uKQnisQ3sDr9zNO2Q5QsxC6EJFSAq
+### Provision the Bare Metal Servers
+Run the installer to create the Openshift cluster on bare metal nodes of ROKS (IBM CLOUD). Note: The script will exit with a message to wait for the bare metal nodes to be in a normal state. This process can take up to a day, which is why the install is separated into different parts..
+
+```
+./nz-cloud -p ibm_infra.properties -i ocp -v
+```
+or
+```
+./nz-cloud -p ibm_infra.properties -i all -v
+```
+
+### Provision ocp
+
+### Provision CPD
+
+### Provision NPS
