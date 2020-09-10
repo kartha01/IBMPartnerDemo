@@ -2,10 +2,6 @@
 ##Installation Node
 ### Read the instructions
 1. Review the [installation instructions](https://www.ibm.com/support/knowledgecenter/SSTNZ3/com.ibm.ips.doc/postgresql/admin/adm_nps_cloud_ibm.html).  I will document how I did it and any gotchas.
-### Get the installer
-1. Get the installer for ***nzcloud***.  This is in [PartnerWorld Software Access Catalog](https://www.ibm.com/partnerworld/program/benefits/software-access-catalog).
- - Log in using your IBM ID that is linked to your PartnerWorld Account.    
- - Enter ***CC72JEN*** into the **Find by part number** edit box, then download this ***nzcloud-linux-v11.1.0.0.tar.gz*** file.
 ### Create a bastion node (Linux VM)
 1. I created a 2x4GB virtual server with CentOs and 100GB boot disk. This is used as an installation or Bastion Node.   I selected a place in the same Data Center as the OpenShift nodes.
 
@@ -42,6 +38,9 @@
   - `yum install jq -y`
   - `jq --version`
 
+### Get the installer
+1. While you can go to Software Access catalog to get the installer, it may make more sense to go to [Fix Central](https://www.ibm.com/support/fixcentral/swg/selectFixes?product=ibm%2FInformation+Management%2FIBM+Netezza+for+Cloud+Pak+for+Data) to pull the latest binaries.  These are only the client side or installer.
+
 ### Move the installer to bastion node
 1. Log into the newly provisioned VM
   - `ssh root@169.60.72.67`
@@ -67,14 +66,29 @@ nzcloud-linux-v11.1.0.0.tar.gz      100%   45MB  29.4MB/s   00:01
 #######################################
 CLOUD_PROVIDER IBM
 CLUSTER_NAME ${CLUSTER_NAME}
+# Either zone or region can be specified
 ZONE ${ZONE}
+#MULTIZONE_REGION ${MULTIZONE_REGION}
 APIKEY ${IBM_CLOUD_API_KEY}
 #######################################
-#   USER OPTIONAL INPUT PROPERTIES    #
+#   CONFIGURABLE PROPERTIES           #
 #######################################
-PRIVATE_VLAN ${PRIVATE_VLAN}
-PUBLIC_VLAN ${PUBLIC_VLAN}
-PREFERRED_RESOURCE_GROUP ${PREFERRED_RESOURCE_GROUP}
+# OPTIONAL: custom subnet CIDR for pod private IP addresses
+#IBM_POD_SUBNET ${IBM_POD_SUBNET}
+# OPTIONAL: custom subnet CIDR for service private IP addresses
+#IBM_SERVICE_SUBNET ${IBM_SERVICE_SUBNET}
+# OPTIONAL: VLANs may be specified for single zone deployment
+#PRIVATE_VLAN ${PRIVATE_VLAN}
+#PUBLIC_VLAN ${PUBLIC_VLAN}
+# OPTIONAL: Preferred resource group
+#PREFERRED_RESOURCE_GROUP ${PREFERRED_RESOURCE_GROUP}
+# OPTIONAL: VLANs may be specified for multizone deployment
+#PRIVATE_VLAN_ZONE_1 ${PRIVATE_VLAN_ZONE_1}
+#PUBLIC_VLAN_ZONE_1 ${PUBLIC_VLAN_ZONE_1}
+#PRIVATE_VLAN_ZONE_2 ${PRIVATE_VLAN_ZONE_2}
+#PUBLIC_VLAN_ZONE_2 ${PUBLIC_VLAN_ZONE_2}
+#PRIVATE_VLAN_ZONE_3 ${PRIVATE_VLAN_ZONE_3}
+#PUBLIC_VLAN_ZONE_3 ${PUBLIC_VLAN_ZONE_3}
 ~~~  
 
 ### Collect information for the ibm_infra.properties files
@@ -162,7 +176,38 @@ PREFERRED_RESOURCE_GROUP ${PREFERRED_RESOURCE_GROUP}
   PUBLIC_VLAN 2942826
   PREFERRED_RESOURCE_GROUP Default
   ~~~
-
+1. Test out the configuration and check for permissions needed.
+~~~
+[root@nz-install nz-cloud]# ./nz-cloud show-permissions -p ibm_infra.properties
+========================
+Required Access Policies
+========================
+Service                          Role(s)                         
+Kubernetes Service               Administrator (Platform access) and Manager (Service access)
+Cloud Object Storage             Administrator
+All Account Management Services  Administrator (if creating resource group) or Viewer (using existing resource group)
+For more information: https://cloud.ibm.com/docs/openshift?topic=openshift-access_reference#cluster_create_permissions
+~~~
+1. Verify on IBM Cloud that you have these permissions.
+~~~
+[root@nz-install nz-cloud]# ibmcloud iam user-policies mactom@us.ibm.com
+Getting policies of user mactom@us.ibm.com under current account as mactom@us.ibm.com...
+OK              
+Policy ID:   23d74da4-7473-49de-908c-ebc6b84f9963   
+Roles:       Manager, Writer, Reader, Administrator, Editor, Operator, Viewer   
+Resources:                        
+             Service Name   schematics                   
+Policy ID:   829dcb61-cbd5-4462-a6ed-88a04bed1c12   
+Roles:       Manager, Writer, Reader, Administrator, Editor, Operator, Viewer   
+Resources:            
+....
+....
+....
+Policy ID:   e9905a3a-c48c-4006-be80-bb57fd9f92c4   
+Roles:       Administrator, Manager   
+Resources:                        
+             Service Type   All resources in account               
+~~~
 ### Provision the Bare Metal Servers
 Run the installer to create the Openshift cluster on bare metal nodes of ROKS (IBM CLOUD). Note: The script will exit with a message to wait for the bare metal nodes to be in a normal state. This process can take up to a day, which is why the install is separated into different parts..
 
