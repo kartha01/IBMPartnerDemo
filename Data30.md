@@ -1019,14 +1019,15 @@ Understand the [current differences here](https://community.ibm.com/community/us
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
 
 ### Provision Cognos Analytics instance
-1. Preparing Db2 Advanced Database to make a connection that Cognos can used
-1. Collect the details of the provisioned database. This will be used for the environment variables
+1. Preparing Db2 Advanced Database to make a connection that **Cognos Analytics** can used
+1. Collect the details of the provisioned database. This will be used for the environment variables and when creating the global connection.
   ~~~
   Deployment id db2oltp-xxxxxxxxxxxxx
   Username userxxx
   Password xxxxxxxxxxxxxxxxxxxxxx
   JDBC URLjdbc:db2://HOST:PORT/BLUDB
   ~~~
+**NOTE:** If you do not run through the following steps to prepare the Database, your provision will fail.   
 1. From a terminal window. Run the following to set up the environment to execute the Database updates.
   ~~~
   export NAMESPACE=zen
@@ -1057,7 +1058,23 @@ Understand the [current differences here](https://community.ibm.com/community/us
   db2 CREATE SCHEMA db2COGNOS AUTHORIZATION $DB2USERNAME;
   db2 ALTER BUFFERPOOL ibmdefaultbp size 49800;
   ~~~
-1. Create a connection that will be used for cognos
+1. Create a connection that will be used for Cognos Analytics.   
+  1. From the main menu with 3 horizontal bars, click on ***Connections***.
+  1. Provide a **Name**, I used ***Cognosdb***
+  1. Provide a **Description** (optional)
+  1. Select a **Connection Type**, Select ***Db2***.  This will expand to give more options.
+  1. You will focus on the following.  You collected this at the top.
+    - **Host** - This comes from the JDBC URL.  It is the **IP address**
+    - **Port** - This comes from the JDBC URL.  It is the **number** after the ***IP:***
+    - **Database** - This comes from the JDBC URL.  It is the **number** after the ***IP:PORT/***  It is generally ***BLUDB***
+    - **Username** - Probably ***user999***
+    - **Password** - Same as collected above.
+  1. Click the ***Test connection*** button to verify that it works properly.
+  1. Click ***Create***  
+1. From the **Services** page, scroll to ***Cognos Analytic*** and **click** the tile  
+1. in the upper right there is a button to **Provision Instance**
+
+
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)   
 
