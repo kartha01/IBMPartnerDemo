@@ -14,7 +14,6 @@ Region: us-east
 ~~~
 Authenticating...
 OK
-
 Select an account:
 1. Thomas McManus's Account (eeee7d19b6701916e21bf02f116813a9) <-> 1670487
 2. IBM PoC - mactom Nz Cloud/CPD Cloud (f1af5bc92ad34287bbce250dfbe068a2) <-> 2134520
@@ -77,7 +76,7 @@ owner             IBM2134520
 vlans             type      number   id      
                   PUBLIC    1677     2947048      
                   PRIVATE   857      2947050      
-
+                  .
 users             software   username   password      
                   CentOS     root       lSwz289yyPJN      
 ~~~
