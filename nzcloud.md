@@ -4,6 +4,49 @@
 1. Review the [installation instructions](https://www.ibm.com/support/knowledgecenter/SSTNZ3/com.ibm.ips.doc/postgresql/admin/adm_nps_cloud_ibm.html).  I will document how I did it and any gotchas.
 ### Create a bastion node (Linux VM)
 1. I created a 2x4GB virtual server with CentOs and 100GB boot disk. This is used as an installation or Bastion Node.   I selected a place in the same Data Center as the OpenShift nodes.
+1. `ibmcloud login`
+~~~
+Toms-MBP:~ tjm$ ibmcloud login
+API endpoint: https://cloud.ibm.com
+Region: us-east
+~~~
+1. Select the account you want to use from the account list.
+~~~
+Authenticating...
+OK
+
+Select an account:
+1. Thomas McManus's Account (eeee7d19b6701916e21bf02f116813a9) <-> 1670487
+2. IBM PoC - mactom Nz Cloud/CPD Cloud (f1af5bc92ad34287bbce250dfbe068a2) <-> 2134520
+~~~
+1. Run to verify you can execute a Virtual Server create using `--test`.  I am creating this as a Transient server which has hourly suspended billing.
+  - **hostname**  `-H` ***bastion***,
+  - **FQDN** `-D` is by default the account name with dashes for spaces or `\` and a suffix of `.cloud`.  `IBM PoC - mactom Nz Cloud/CPD Cloud` converts to `IBM-PoC-mactom-Nz-Cloud-CPD-Cloud.cloud`
+  - **flavor** `--flavor` ***B1_2x4x100***   This is a Balanced 2 CPU, 4 GB RAM  100 GB Disk VM
+  - **data center** `-d` ***dal013***   Chose the data center of your choice here  I am picking ***Dallas 013***
+  - **Operating System** `-o` ***CentOS_8_64***  This is formed using the ***CentOS Version 8 64 bit architecture.*** 
+  - **suspended billing** `--transient`
+`ibmcloud sl vs create -H bastion -D IBM-PoC-mactom-Nz-Cloud-CPD-Cloud.cloud  --flavor  B1_2X4X100 -d dal13 -o CentOS_8_64 --transient -test`
+~~~
+Toms-MBP:~ tjm$ ibmcloud sl vs create -H bastion -D IBM-PoC-mactom-Nz-Cloud-CPD-Cloud.cloud  --flavor  B1_2X4X100 -d dal13 -o CentOS_8_64 --transient --test
+OK
+The order is correct.
+~~~
+1. Now remove the `--test` parameter to actually create the virtual server. You will have to enter ***y*** to approve the charges.
+~~~
+Toms-MBP:~ tjm$ ibmcloud sl vs create -H bastion -D IBM-PoC-mactom-Nz-Cloud-CPD-Cloud.cloud  --flavor  B1_2X4X100 -d dal13 -o CentOS_8_64 --transient
+This action will incur charges on your account. Continue?> y
+name                 value   
+ID                   109019840   
+FQDN                 bastion.IBM-PoC-mactom-Nz-Cloud-CPD-Cloud.cloud   
+Created              2020-09-14T16:04:08Z   
+GUID                 2370515c-83e2-4035-b4ff-30055e004bf1   
+Placement Group ID   -   
+~~~
+
+### Log into the bastion nodes
+1. `ibmcloud login`
+
 
 ### Add prereqs to the bastion node and test permissions on IBM Cloud account
 1. I install IBM Cloud CLI to run a few sanity checks on my account prior to trying to install ***NZ CLoud***
