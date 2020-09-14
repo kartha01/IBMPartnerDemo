@@ -125,9 +125,9 @@ root@52.116.5.59's password:
     ~~~  
 
 ### Get the installer
-1. While you can go to Software Access catalog to get the installer, it may make more sense to go to [Fix Central](https://www.ibm.com/support/fixcentral/swg/selectFixes?product=ibm%2FInformation+Management%2FIBM+Netezza+for+Cloud+Pak+for+Data) to pull the latest binaries.  These are only the client side or installer.
+1. While you can go to Software Access catalog to get the installer, it may make more sense to .  These are only the client side or installer.
 1. You can download this to your [laptop then move it to the bastion node](#move-the-installer-to-bastion-node).
-1. You can get the sftp details and proceed to pull down the nz-cloud client directly to the bastion node.
+1. You can get the [sftp details and proceed to pull down the nz-cloud client](#use-sftp-from-fix-central) directly to the bastion node.
 
 ### Move the installer to bastion node
 1. Log into the newly provisioned VM
@@ -139,11 +139,42 @@ Toms-MBP:nzcloud tjm$ scp nzcloud-linux-v11.1.0.0.tar.gz root@52.116.5.59:/root/
 root@52.116.5.59's password:
 nzcloud-linux-v11.1.0.0.tar.gz      100%   45MB  29.4MB/s   00:01    
 ~~~
+### Use sftp from fix central
+1. Go to [Fix Central](https://www.ibm.com/support/fixcentral/swg/selectFixes?product=ibm%2FInformation+Management%2FIBM+Netezza+for+Cloud+Pak+for+Data) to pull the latest binaries.
+1. Check the most recent version, at this writing, I am using `11.1.1.0-IM-INZCPD-fp200831`
+1. Click **continue** then click **I Agree**
+1. Use the values from the ***Fix package location*** section.  These values change every time you go to fix central, so ignore the ones you see inline.
+~~~
+Fix package location
+.
+The following location information can be used to download the fix files.
+.
+FTPS/SFTP server:	delivery04-bld.dhe.ibm.com
+User ID:	plieRnJu
+Password:	ZAAHyZ8sCncjB6n
+~~~
+1. Move to the `/root/nz` and execute the sftp id@hostname from above.  
+~~~
+[root@bastion nz]# sftp LpctfUwD@delivery04-bld.dhe.ibm.com
+The authenticity of host 'delivery04-bld.dhe.ibm.com (170.225.15.104)' can't be established.
+RSA key fingerprint is SHA256:QRJpOHdTFuPmP2NLOQHTpB+IrDSNrque7RadzKcFyFc.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'delivery04-bld.dhe.ibm.com,170.225.15.104' (RSA) to the list of known hosts.
+plieRnJu@delivery04-bld.dhe.ibm.com's password:
+Connected to plieRnJu@delivery04-bld.dhe.ibm.com.
+sftp> mget *
+Fetching /nzcloud-linux-v11.1.1.0.tar.gz to nzcloud-linux-v11.1.1.0.tar.gz
+/nzcloud-linux v11.1.1.0.tar.gz     100%   45MB  20.3MB/s   00:02    
+sftp> exit
+[root@bastion nz]# ls
+nzcloud-linux-v11.1.1.0.tar.gz
+[root@bastion nz]#
+~~~
 
 ### Installing the mz-cloud CLI
 1. Back in the terminal that is logged into the newly minted VM, I move to ***/root/nz*** to gunzip the installer.
-1. Add execute permissions to the file `chmod +x nzcloud-linux-v11.1.0.0.tar.gz `
-1. Unpack the archive `tar -xzf nzcloud-linux-v11.1.0.0.tar.gz`
+1. Add execute permissions to the file `chmod +x nzcloud-linux-v11.1.1.0.tar.gz `
+1. Unpack the archive `tar -xzf nzcloud-linux-v11.1.1.0.tar.gz`
 1. Move to the ***nz-cloud*** directory
  - `cd nz-cloud`
 1. Copy the ***ips_ibmcloud_infra.properties.template*** to ***ibm_infra.properties***
