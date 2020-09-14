@@ -98,6 +98,9 @@ root@52.116.5.59's password:
   - `yum install epel-release -y`
   - `yum install jq -y`
   - `jq --version`
+1. Install ***Python*** on RHEL 8.
+  - `yum install python3`
+  - `python3 --version`
 1. I install IBM Cloud CLI to run a few sanity checks on my account prior to trying to install ***NZ CLoud***
   - Run `curl -sL https://ibm.biz/idt-installer | bash`
 1. Log in through the CLI, using your IBM Cloud ID.
@@ -351,18 +354,18 @@ Roles:       Administrator, Manager
 Resources:                        
              Service Type   All resources in account               
 ~~~
+1.  For some reason, I need to have the following IBM Account access policy roles on my specific account, not the group
+   - "Kubernetes Service (Requires Administrator on Platform access and Manager on Service access)"
+   - "Cloud Object Storage (Requires Administrator)"
+
 ### Provision the Bare Metal Servers
 Run the installer to create the Openshift cluster on bare metal nodes of ROKS (IBM CLOUD). Note: The script will exit with a message to wait for the bare metal nodes to be in a normal state. This process can take up to a day, which is why the install is separated into different parts..
 
-```
-./nz-cloud -p ibm_infra.properties -i ocp -v
-```
-or
-```
-./nz-cloud -p ibm_infra.properties -i all -v
-```
-
 ### Provision ocp
+1.  As these are bare metal servers on IBM Cloud, this can take some time to provision.  Go get a coffee.  6:22PM
+```
+./nz-cloud -i ocp -p ibm_infra.properties -v
+```
 
 ### Provision CPD
 
