@@ -103,7 +103,7 @@ root@52.116.5.59's password:
 1. Log in through the CLI, using your IBM Cloud ID.
   - `ibmcloud login`
   - Select the account you want to use.
-  - Select the region - in my case ***us-east***
+  - Select the region - in my case ***us-south***
   - Send usage statistics (up to you on the answer)  
 1. Let's check our Kubernetes infrastructure permissions.
  - Run `ibmcloud oc infra-permissions get`
@@ -215,7 +215,7 @@ APIKEY ${IBM_CLOUD_API_KEY}
 ### Collect information for the ibm_infra.properties files
 1. Open up the ***ibm_infra.properties*** file.  
 1. Replace `${CLUSTER_NAME}` with a unique name.  I will use ***NZCluster***
-1. Replace `${ZONE}` with your preferred zone.  I'll use ***wdc06***
+1. Replace `${ZONE}` with your preferred zone.  I'll use ***dal013***
   - find the available zone using `ibmcloud oc zone ls --provider classic`   
   - If you are not sure what these symbols stand for, look up **locations**.  Anything with a ***†*** is a **multi-zone** `ibmcloud oc locations --provider classic`   
     **Note:** The listing of the locations is random and not consistent in order.   This list is subject to change as new data centers on line all the time.
@@ -259,12 +259,34 @@ APIKEY ${IBM_CLOUD_API_KEY}
   sao01   Sao Paulo (sao)         Brazil (br)           South America (sa)   
   wdc04   Washington DC (wdc)†    United States (us)    North America (na)   
   ~~~
-1. Next you will need to get your API Key.
+1. Next you will need to get your API Key. Either by browser or command line
+#### Browser: 
 1. [Click here](https://cloud.ibm.com/iam/apikeys) to create your apikey to used in the file. You man need to log into IBM Cloud account to retrieve this.
 1. Click ***Create an IBM Cloud API key +***
   - Provide a **name** and **description**.
   - **Click** ***Create***
   - For your sanity sake, download the file as you can use it to log in and it saves the apikey value to use another time.   You will use this value to replace `${IBM_CLOUD_API_KEY}`
+  Or
+#### Command line  
+1. Create via command line using `ibmcloud`
+  - run `ibmcloud iam api-key-create netezza  -d nz-key --file nzakikey.json `
+   ~~~
+   [root@bastion nz]# ibmcloud iam api-key-create netezza  -d nz-key --file nzakikey.json
+   Creating API key netezza under f1af5bc92ad34287bbce250dfbe068a2 as mactom@us.ibm.com...
+   OK
+   API key netezza was created
+   Successfully save API key information to nzakikey.json
+   ~~~
+  -  `cat nzakikey.json` and use the value from apikey in the file.
+   ~~~
+   {
+  	"id": "ApiKey-3e1cb4d5-849c-429e-a04c-8f7c1efc091a",
+   ...
+  "apikey": "SBZ1bF5dTC3mzyg3HNY3EChTk2Co-dp63HQTVjCcCp",
+  ...
+  "created_by": "IBMid-100000A84G",
+  "modified_at": "2020-09-14T18:51+0000"
+  ~~~
 1. Get the ***Public and Private VLAN*** `ibmcloud oc vlan ls --zone  wdc06`
   ~~~
   [root@nz-install nz-cloud]# ibmcloud oc vlan ls --zone  wdc06
