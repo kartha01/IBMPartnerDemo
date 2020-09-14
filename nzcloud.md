@@ -22,7 +22,7 @@ Select an account:
   - **hostname**  `-H` ***bastion***,
   - **FQDN** `-D` is by default the account name with dashes for spaces or `\` and a suffix of `.cloud`.  `IBM PoC - mactom Nz Cloud/CPD Cloud` converts to `IBM-PoC-mactom-Nz-Cloud-CPD-Cloud.cloud`
   - **flavor** `--flavor` ***B1_2x4x100***   This is a Balanced 2 CPU, 4 GB RAM  100 GB Disk VM
-  - **data center** `-d` ***dal013***   Chose the data center of your choice here  I am picking ***Dallas 013***
+  - **data center** `-d` ***dal13***   Chose the data center of your choice here  I am picking ***Dallas 013***
   - **Operating System** `-o` ***CentOS_8_64***  This is formed using the ***CentOS Version 8 64 bit architecture.***
   - **suspended billing** `--transient`
 `ibmcloud sl vs create -H bastion -D IBM-PoC-mactom-Nz-Cloud-CPD-Cloud.cloud  --flavor  B1_2X4X100 -d dal13 -o CentOS_8_64 --transient -test`
@@ -215,7 +215,7 @@ APIKEY ${IBM_CLOUD_API_KEY}
 ### Collect information for the ibm_infra.properties files
 1. Open up the ***ibm_infra.properties*** file.  
 1. Replace `${CLUSTER_NAME}` with a unique name.  I will use ***NZCluster***
-1. Replace `${ZONE}` with your preferred zone.  I'll use ***dal013***
+1. Replace `${ZONE}` with your preferred zone.  I'll use ***dal13***
   - find the available zone using `ibmcloud oc zone ls --provider classic`   
   - If you are not sure what these symbols stand for, look up **locations**.  Anything with a ***†*** is a **multi-zone** `ibmcloud oc locations --provider classic`   
     **Note:** The listing of the locations is random and not consistent in order.   This list is subject to change as new data centers on line all the time.
@@ -260,7 +260,7 @@ APIKEY ${IBM_CLOUD_API_KEY}
   wdc04   Washington DC (wdc)†    United States (us)    North America (na)   
   ~~~
 1. Next you will need to get your API Key. Either by browser or command line
-#### Browser: 
+#### Browser:
 1. [Click here](https://cloud.ibm.com/iam/apikeys) to create your apikey to used in the file. You man need to log into IBM Cloud account to retrieve this.
 1. Click ***Create an IBM Cloud API key +***
   - Provide a **name** and **description**.
@@ -287,9 +287,9 @@ APIKEY ${IBM_CLOUD_API_KEY}
   "created_by": "IBMid-100000A84G",
   "modified_at": "2020-09-14T18:51+0000"
   ~~~
-1. Get the ***Public and Private VLAN*** `ibmcloud oc vlan ls --zone  wdc06`
+1. Get the ***Public and Private VLAN*** `ibmcloud oc vlan ls --zone  dal13`
   ~~~
-  [root@nz-install nz-cloud]# ibmcloud oc vlan ls --zone  wdc06
+  [root@nz-install nz-cloud]# ibmcloud oc vlan ls --zone  dal13
   OK
   ID        Name   Number   Type      Router         Supports Virtual Workers   
   2942828          1250     private   bcr01a.wdc06   true   
@@ -310,8 +310,8 @@ APIKEY ${IBM_CLOUD_API_KEY}
   #######################################
   CLOUD_PROVIDER IBM
   CLUSTER_NAME nzcluster
-  ZONE wdc06
-  APIKEY EwZheUTyL7kyzP4tuQDgD39sSqLDkHn900nrTZC2b
+  ZONE dal13
+  APIKEY SBZ1bF5dTC3mzyg3HNY3EChTk2Co-dp63HQTVjCcCp
   #######################################
   #   USER OPTIONAL INPUT PROPERTIES    #
   #######################################
