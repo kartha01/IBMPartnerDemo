@@ -92,37 +92,37 @@ root@52.116.5.59's password:
 1. Create `mkdir /root/nz`  This is where the client media will be executed.
 
 ### Add prereqs to the bastion node and test permissions on IBM Cloud account
-1. I install IBM Cloud CLI to run a few sanity checks on my account prior to trying to install ***NZ CLoud***
- - Run `curl -sL https://ibm.biz/idt-installer | bash`
-1. Log in through the CLI, using your IBM Cloud ID.
-  - `ibmcloud login`
-  - Select the account you want to use.
-  - Select the region - in my case ***us-east***
-  - Send usage statistics (up to you on the answer)
-1. Let's check our Kubernetes infrastructure permissions.
- - Run `ibmcloud oc infra-permissions get`
- - In my case below, I should have proper permissions to create an OpenShift cluster.
-  ~~~
-  [root@nz-install ~]#  ibmcloud oc infra-permissions get
-  Analyzing the infrastructure permissions for resource group ...
-  Retrieved suggested and required infrastructure permissions that are missing for account ID 21#####6 with infrastructure access set up by linked account API key.
-  OK
-  Missing Virtual Worker Permissions
-  No changes are suggested or required.
-  Missing Physical Worker Permissions
-  No changes are suggested or required.
-  Missing Network Permissions
-  No changes are suggested or required.
-  Missing Storage Permissions
-  No changes are suggested or required.
-  To set infrastructure permissions, see 'https://ibm.biz/infra-permission'
-  ~~~
 1. Install the **Development Tools** to install ***unzip***, ***Python 3***, ***which*** and ***gettext***
  - `sudo yum groupinstall -y "Development Tools"`
 1. Install ***jq***
   - `yum install epel-release -y`
   - `yum install jq -y`
   - `jq --version`
+1. I install IBM Cloud CLI to run a few sanity checks on my account prior to trying to install ***NZ CLoud***
+  - Run `curl -sL https://ibm.biz/idt-installer | bash`
+1. Log in through the CLI, using your IBM Cloud ID.
+  - `ibmcloud login`
+  - Select the account you want to use.
+  - Select the region - in my case ***us-east***
+  - Send usage statistics (up to you on the answer)  
+1. Let's check our Kubernetes infrastructure permissions.
+ - Run `ibmcloud oc infra-permissions get`
+ - In my case below, I should have proper permissions to create an OpenShift cluster.
+    ~~~
+    [root@nz-install ~]#  ibmcloud oc infra-permissions get
+    Analyzing the infrastructure permissions for resource group ...
+    Retrieved suggested and required infrastructure permissions that are missing for account ID 21#####6 with infrastructure access set up by linked account API key.
+    OK
+    Missing Virtual Worker Permissions
+    No changes are suggested or required.
+    Missing Physical Worker Permissions
+    No changes are suggested or required.
+    Missing Network Permissions
+    No changes are suggested or required.
+    Missing Storage Permissions
+    No changes are suggested or required.
+    To set infrastructure permissions, see 'https://ibm.biz/infra-permission'
+    ~~~  
 
 ### Get the installer
 1. While you can go to Software Access catalog to get the installer, it may make more sense to go to [Fix Central](https://www.ibm.com/support/fixcentral/swg/selectFixes?product=ibm%2FInformation+Management%2FIBM+Netezza+for+Cloud+Pak+for+Data) to pull the latest binaries.  These are only the client side or installer.
