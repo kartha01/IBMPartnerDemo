@@ -47,8 +47,8 @@ Placement Group ID   -
 1. Assuming you are logged into IBM Cloud, run a list of the all the virtual server to get the one you wish to log into.
 ~~~
 Toms-MBP:~ tjm$ ibmcloud sl vs list
-id          hostname                                                domain                                  cpu   memory   public_ip     private_ip      datacenter   action   
-109019840   bastion                                                 IBM-PoC-mactom-Nz-Cloud-CPD-Cloud.cloud   2     4096     52.116.5.56   10.208.89.253   dal13           
+id         hostname   domain                                 cpu   memory  public_ip     private_ip    datacenter   action   
+109019840  bastion   IBM-PoC-mactom-Nz-Cloud-CPD-Cloud.cloud  2     4096   52.116.5.56   10.208.89.253   dal13           
 ~~~
 1. Get the details of this server.
 ~~~
