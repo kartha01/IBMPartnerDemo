@@ -272,15 +272,15 @@ APIKEY ${IBM_CLOUD_API_KEY}
 
 #### Command line  
    1. Create via command line using `ibmcloud`
-    - run `ibmcloud iam api-key-create netezza  -d nz-key --file nzakikey.json `
-    ~~~
+     - run `ibmcloud iam api-key-create netezza  -d nz-key --file nzakikey.json `
+      ~~~
       [root@bastion nz]# ibmcloud iam api-key-create netezza  -d nz-key --file nzakikey.json
       Creating API key netezza under f1af5bc92ad34287bbce250dfbe068a2 as mactom@us.ibm.com...
       OK
       API key netezza was created
       Successfully save API key information to nzakikey.json
       ~~~
-      -  `cat nzakikey.json` and use the value from apikey in the file.
+    -  `cat nzakikey.json` and use the value from apikey in the file.
       ~~~
       {
      	"id": "ApiKey-3e1cb4d5-849c-429e-a04c-8f7c1efc091a",
@@ -289,7 +289,7 @@ APIKEY ${IBM_CLOUD_API_KEY}
       ...
       "created_by": "IBMid-100000A84G",
       "modified_at": "2020-09-14T18:51+0000"
-    ~~~
+      ~~~
 1. Get the ***Public and Private VLAN*** `ibmcloud oc vlan ls --zone  dal13`
   ~~~
   [root@nz-install nz-cloud]# ibmcloud oc vlan ls --zone  dal13
