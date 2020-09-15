@@ -373,9 +373,43 @@ Run the installer to create the Openshift cluster on bare metal nodes of ROKS (I
 1.  This will make changes to your OCP cluster.  As you watch the script you will see nodes cordoned and uncordoned, pods evicted, etc.  This is all fine.  This could take 30 minutes.
 1. upon completion you should have a `envs/<cluster name>/assets/oc_login_details` directory.  
 ### Provision the infrastructure for the NPS Host and SPUs
-1. Before we progress with installing the NPS engine and SPUs, we will want to procure the hardware.  
+1. Before we progress with installing the NPS engine and SPUs, we will want to procure the hardware.  When you create these, the cluster name should match
+  1. To be consistent run these exports: **NOTE:**  Alter these values for your configuration.
+  ~~~
+  export NAMESPACE_NAME=nz
+  export CLUSTER=nzcluster
+  export ZONE=dal13
+  ~~~
+  1. find the vlan for the zone. `ibmcloud oc vlan ls --zone ${ZONE}`
+  ~~~
+  [root@bastion nz-cloud]# ibmcloud oc vlan ls --zone ${ZONE}
+  OK
+  ID        Name   Number   Type      Router         Supports Virtual Workers   
+  2947050          857      private   bcr01a.dal13   true   
+  2947048          1677     public    fcr01a.dal13   true     
+  ~~~
+  1. Export the following based on the previously run command
+  ~~~
+  # this comes from the private vlan
+  export PR_VLAN=2947050  
+  # this comes from the public vlan
+  export PUB_VLAN=2947048  
+  ~~~
   1. Create a worker pool with 2 nodes.
-  `ibmcloud oc worker-pool create classic --name nz_host --cluster nzcluster --flavor mb3c.16x64.encrypted --size-per-zone 2 --label nodetype=hostworker --label namespace=nz --entitlement cloud_pak --hardware dedicated`
-1. `ibmcloud oc worker-pool create classic --name nz_spu --cluster nzcluster --flavor ms3c.16x64.1.9tb.ssd.encrypted --size-per-zone 3 --label nodetype=spuworker --label namespace=nz --entitlement cloud_pak --hardware dedicated`
+  `ibmcloud oc worker-pool create classic --name ${NAMESPACE_NAME}_host --cluster ${CLUSTER} --flavor mb3c.16x64.encrypted --size-per-zone 2 --label nodetype=hostworker --label namespace=${NAMESPACE_NAME} --entitlement cloud_pak --hardware dedicated`
+  ~~~
+  [root@bastion nz-cloud]# ibmcloud oc worker-pool create classic --name ${NAMESPACE_NAME}_host --cluster ${CLUSTER} --flavor mb3c.16x64.encrypted --size-per-zone 2 --label nodetype=hostworker --label namespace=${NAMESPACE_NAME} --entitlement cloud_pak --hardware dedicated
+  OK
+  ~~~
+  1. `ibmcloud oc worker-pool create classic --name ${NAMESPACE_NAME}_spu --cluster ${CLUSTER} --flavor ms3c.16x64.1.9tb.ssd.encrypted --size-per-zone 3 --label nodetype=spuworker --label namespace=${NAMESPACE_NAME} --entitlement cloud_pak --hardware dedicated`
+  ~~~
+  [root@bastion nz-cloud]# ibmcloud oc worker-pool create classic --name ${NAMESPACE_NAME}_spu --cluster ${CLUSTER} --flavor ms3c.16x64.1.9tb.ssd.encrypted --size-per-zone 3 --label nodetype=spuworker --label namespace=${NAMESPACE_NAME} --entitlement cloud_pak --hardware dedicated
+  OK
+  ~~~
+  1. `ibmcloud ks zone add classic --cluster ${CLUSTER} --zone ${ZONE} -p ${NAMESPACE_NAME}_host -p ${NAMESPACE_NAME}_spu --private-vlan ${PR_VLAN} --public-vlan ${PUB_VLAN}`
+   ~~~
+   [root@bastion nz-cloud]# ibmcloud ks zone add classic --cluster nzcluster --zone dal13 -p nz_host -p nz_spu --private-vlan 2947050 -- public-vlan 2947048
+   OK
+   ~~~
 
 ### Provision NPS
