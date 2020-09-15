@@ -395,18 +395,17 @@ Run the installer to create the Openshift cluster on bare metal nodes of ROKS (I
   # this comes from the public vlan
   export PUB_VLAN=2947048  
   ~~~
-  1. Create a worker pool with 2 nodes.
-  `ibmcloud oc worker-pool create classic --name ${NAMESPACE_NAME}_host --cluster ${CLUSTER} --flavor mb3c.16x64.encrypted --size-per-zone 2 --label nodetype=hostworker --label namespace=${NAMESPACE_NAME} --entitlement cloud_pak --hardware dedicated`
+  1. Create a worker pool with 2 nodes.  This pool will be used for the NZ engines.  **Run** `ibmcloud oc worker-pool create classic --name ${NAMESPACE_NAME}_host --cluster ${CLUSTER} --flavor mb3c.16x64.encrypted --size-per-zone 2 --label nodetype=hostworker --label namespace=${NAMESPACE_NAME} --entitlement cloud_pak --hardware dedicated`
   ~~~
   [root@bastion nz-cloud]# ibmcloud oc worker-pool create classic --name ${NAMESPACE_NAME}_host --cluster ${CLUSTER} --flavor mb3c.16x64.encrypted --size-per-zone 2 --label nodetype=hostworker --label namespace=${NAMESPACE_NAME} --entitlement cloud_pak --hardware dedicated
   OK
   ~~~
-  1. `ibmcloud oc worker-pool create classic --name ${NAMESPACE_NAME}_spu --cluster ${CLUSTER} --flavor ms3c.16x64.1.9tb.ssd.encrypted --size-per-zone 3 --label nodetype=spuworker --label namespace=${NAMESPACE_NAME} --entitlement cloud_pak --hardware dedicated`
+  1. Create a worker pool with 3 nodes.  This pool will be used for the SPU engines.  **Run** `ibmcloud oc worker-pool create classic --name ${NAMESPACE_NAME}_spu --cluster ${CLUSTER} --flavor ms3c.16x64.1.9tb.ssd.encrypted --size-per-zone 3 --label nodetype=spuworker --label namespace=${NAMESPACE_NAME} --entitlement cloud_pak --hardware dedicated`
   ~~~
   [root@bastion nz-cloud]# ibmcloud oc worker-pool create classic --name ${NAMESPACE_NAME}_spu --cluster ${CLUSTER} --flavor ms3c.16x64.1.9tb.ssd.encrypted --size-per-zone 3 --label nodetype=spuworker --label namespace=${NAMESPACE_NAME} --entitlement cloud_pak --hardware dedicated
   OK
   ~~~
-  1. `ibmcloud ks zone add classic --cluster ${CLUSTER} --zone ${ZONE} -p ${NAMESPACE_NAME}_host -p ${NAMESPACE_NAME}_spu --private-vlan ${PR_VLAN} --public-vlan ${PUB_VLAN}`
+  1. Add nodes to the VLAN. **Run** `ibmcloud ks zone add classic --cluster ${CLUSTER} --zone ${ZONE} -p ${NAMESPACE_NAME}_host -p ${NAMESPACE_NAME}_spu --private-vlan ${PR_VLAN} --public-vlan ${PUB_VLAN}`
    ~~~
    [root@bastion nz-cloud]# ibmcloud ks zone add classic --cluster nzcluster --zone dal13 -p nz_host -p nz_spu --private-vlan 2947050 -- public-vlan 2947048
    OK
