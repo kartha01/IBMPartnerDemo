@@ -1,7 +1,6 @@
 # Installation Node
 ### Create a bastion node (Linux VM)
 1. I created a 2x4GB virtual server with CentOs and 100GB boot disk. This is used as an installation or Bastion Node.   I selected a place in the same Data Center as the OpenShift nodes.
-1. `ibmcloud login`
 ~~~
 Toms-MBP:~ tjm$ ibmcloud login
 API endpoint: https://cloud.ibm.com
