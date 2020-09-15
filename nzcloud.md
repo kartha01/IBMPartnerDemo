@@ -361,12 +361,21 @@ Resources:
 ### Provision the Bare Metal Servers
 Run the installer to create the Openshift cluster on bare metal nodes of ROKS (IBM CLOUD). Note: The script will exit with a message to wait for the bare metal nodes to be in a normal state. This process can take up to a day, which is why the install is separated into different parts..
 
-### Provision ocp
-1.  As these are bare metal servers on IBM Cloud, this can take some time to provision.  Go get a coffee.  6:22PM
+### Provision OpenShift Cluster
+1. As these are bare metal servers on IBM Cloud, this can take some time to provision.  Go get a coffee.
 ```
 ./nz-cloud -i ocp -p ibm_infra.properties -v
 ```
-
-### Provision CPD
+1. Once you see 3 bare metal servers 4x32 running, you will rerun this command again.
+```
+./nz-cloud -i ocp -p ibm_infra.properties -v
+```
+1.  This will make changes to your OCP cluster.  As you watch the script you will see nodes cordoned and uncordoned, pods evicted, etc.  This is all fine.  This could take 30 minutes.
+1. upon completion you should have a `envs/<cluster name>/assets/oc_login_details` directory.  
+### Provision the infrastructure for the NPS Host and SPUs
+1. Before we progress with installing the NPS engine and SPUs, we will want to procure the hardware.  
+  1. Create a worker pool with 2 nodes.
+  `ibmcloud oc worker-pool create classic --name nz_host --cluster nzcluster --flavor mb3c.16x64.encrypted --size-per-zone 2 --label nodetype=hostworker --label namespace=nz --entitlement cloud_pak --hardware dedicated`
+1. `ibmcloud oc worker-pool create classic --name nz_spu --cluster nzcluster --flavor ms3c.16x64.1.9tb.ssd.encrypted --size-per-zone 3 --label nodetype=spuworker --label namespace=nz --entitlement cloud_pak --hardware dedicated`
 
 ### Provision NPS
