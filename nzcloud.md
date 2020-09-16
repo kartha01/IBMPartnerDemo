@@ -63,8 +63,8 @@
 [Back to Table of Contents](nzcloud.md)
 
 ### Get the installer
-1. While you can go to Software Access catalog to get the installer, it may make more sense to .  These are only the client side or installer.
-1. You can download this to your [laptop then move it to the bastion node](#move-the-installer-to-bastion-node).
+1. While you can go to Software Access catalog to get the installer, it may make more sense to get it from Fix Central.  These are only the client side or installer.
+   **Note:** If using the bastion node as you don't have linux, you can download this to your [laptop then move it to the bastion node](#move-the-installer-to-bastion-node).
 1. You can get the [sftp details and proceed to pull down the nz-cloud client](#use-sftp-from-fix-central) directly to the bastion node.
 
 [Back to Table of Contents](nzcloud.md)
