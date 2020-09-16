@@ -1,4 +1,4 @@
-# Install instructions for Cloud Pak for Data (work in progress)
+significantly# Install instructions for Cloud Pak for Data (work in progress)
 - [Provision OpenShift](https://tjmcmanus.github.io/IBMPartnerDemo/#creating-an-open-shift-cluster)
 - [Provision the Control plane using IBM Cloud tile](#provision-the-control-plane-using-ibm-cloud-tile)
   * [Building the configuration](#building-the-configuration)
@@ -73,7 +73,7 @@
 1. Pick your resource group, if you did not create one, just use `Default`.
 1. You can tag your environment for easy search.  This is not required.
 1. Scroll down and select ***Run Script*** if you do not have permissions, you can share a link and have an administrator execute this.
-1. Scroll down and select the services that you desire to add to Cloud Pak for Data. **Note:** This is a first time set up action only. Currently, Once provisioned, toggling true then false will lead to no further action.  You will need to uninstall or install again, which will be shown later.
+1. Scroll down and select the services that you desire to add to Cloud Pak for Data. **Note:** This is a first time set up action only. Currently, Once provisioned, toggling true then false will lead to no further action.  You will need to uninstall or install again, which will be shown later.  To install all of these, you will need significantly more infrastructure.   The Master or controller OCP Nodes are part of a Service Account.  The Worker or Compute Nodes are added to your account.   VLAN Spanning is needed for this to work.  To get a better idea for sizing infrastructure, you can used this [Sales Config tool](https://salesconfig.ibmcloudpack.com/sales/#/).  It may require an IBM approval for access, which you will use your IBM ID.
 - **AI** (Apache Spark, IBM Streams, RStudio Server, Watson Studio, Watson Machine Learning, Watson OpenScale)
 - **Dashboarding** (Analytic Dashboards)
 - **Data Governance** (Watson Knowledge Catalog, Open Source Management)
