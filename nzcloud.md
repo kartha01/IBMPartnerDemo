@@ -115,19 +115,13 @@ APIKEY ${IBM_CLOUD_API_KEY}
 #######################################
 # OPTIONAL: custom subnet CIDR for pod private IP addresses
 #IBM_POD_SUBNET ${IBM_POD_SUBNET}
-# OPTIONAL: custom subnet CIDR for service private IP addresses
-#IBM_SERVICE_SUBNET ${IBM_SERVICE_SUBNET}
-# OPTIONAL: VLANs may be specified for single zone deployment
+...
 #PRIVATE_VLAN ${PRIVATE_VLAN}
 #PUBLIC_VLAN ${PUBLIC_VLAN}
 # OPTIONAL: Preferred resource group
 #PREFERRED_RESOURCE_GROUP ${PREFERRED_RESOURCE_GROUP}
 # OPTIONAL: VLANs may be specified for multizone deployment
-#PRIVATE_VLAN_ZONE_1 ${PRIVATE_VLAN_ZONE_1}
-#PUBLIC_VLAN_ZONE_1 ${PUBLIC_VLAN_ZONE_1}
-#PRIVATE_VLAN_ZONE_2 ${PRIVATE_VLAN_ZONE_2}
-#PUBLIC_VLAN_ZONE_2 ${PUBLIC_VLAN_ZONE_2}
-#PRIVATE_VLAN_ZONE_3 ${PRIVATE_VLAN_ZONE_3}
+...
 #PUBLIC_VLAN_ZONE_3 ${PUBLIC_VLAN_ZONE_3}
 ~~~  
 
