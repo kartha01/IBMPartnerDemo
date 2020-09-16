@@ -86,3 +86,14 @@ Warning: Permanently added '52.116.5.59' (ECDSA) to the list of known hosts.
 root@52.116.5.59's password:
 ~~~
 1. Create `mkdir /root/nz`  This is where the client media will be executed.
+
+### Move the installer to bastion node
+1. Log into the newly provisioned VM
+  - `ssh root@52.116.5.59`
+  - Create a directory called to put the install media. I created ***/root/nz***.
+1. From your laptop in a different terminal, move the installer to the bastion node.
+~~~
+Toms-MBP:nzcloud tjm$ scp nzcloud-linux-v11.1.0.0.tar.gz root@52.116.5.59:/root/nz
+root@52.116.5.59's password:
+nzcloud-linux-v11.1.0.0.tar.gz      100%   45MB  29.4MB/s   00:01    
+~~~
