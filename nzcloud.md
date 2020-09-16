@@ -247,6 +247,7 @@ APIKEY ${IBM_CLOUD_API_KEY}
   PUBLIC_VLAN 2942826
   PREFERRED_RESOURCE_GROUP Default
   ~~~
+
 ## Validate permissions  
 1. Test out the configuration and check for permissions needed.
 ~~~
@@ -286,6 +287,7 @@ Resources:
 
 [Back to Table of Contents](nzcloud.md)
 
+
 ## Starting the install of Netezza
 Run the installer to create the Openshift cluster on bare metal nodes of ROKS (IBM CLOUD). Note: The script will exit with a message to wait for the bare metal nodes to be in a normal state. This process can take up to a day, which is why the install is separated into different parts.
 
@@ -318,6 +320,7 @@ OC_PASSWORD=<your ibmcloud apikey>
 OC_API_URL=https://c106-e.us-south.containers.cloud.ibm.com:31553
 OC_CONSOLE_URL=https://console-openshift-console.nzcluster-83506b7a70a1a023393e8317da2d0f35-0000.us-south.containers.appdomain.cloud
 ~~~
+
 [Back to Table of Contents](nzcloud.md)
 
 ### Install Netezza and Cloud Pak for Data
