@@ -280,10 +280,10 @@ Run the installer to create the Openshift cluster on bare metal nodes of ROKS (I
 ~~~
 [root@bastion assets]# ibmcloud oc worker ls --cluster nzcluster
 OK
-ID                                                     Public IP     Private IP      Flavor                           State          Status                                        Zone    Version   
-kube-btfuoiod0929a3g5brkg-nzcluster-default-0000014c   52.116.5.52   10.208.89.254   mb3c.4x32.encrypted              normal         Ready                                         dal13   4.3.35_1538_openshift   
-kube-btfuoiod0929a3g5brkg-nzcluster-default-0000027c   52.116.5.61   10.208.89.197   mb3c.4x32.encrypted              normal         Ready                                         dal13   4.3.35_1538_openshift   
-kube-btfuoiod0929a3g5brkg-nzcluster-default-000003c5   52.116.5.60   10.208.89.199   mb3c.4x32.encrypted              normal         Ready                                         dal13   4.3.35_1538_openshift   
+ID                                                     Public IP     Private IP      Flavor                State    Status   Zone    Version   
+kube-btfuoiod0929a3g5brkg-nzcluster-default-0000014c   52.116.5.52   10.208.89.254   mb3c.4x32.encrypted   normal   Ready   dal13   4.3.35_1538_openshift   
+kube-btfuoiod0929a3g5brkg-nzcluster-default-0000027c   52.116.5.61   10.208.89.197   mb3c.4x32.encrypted   normal   Ready   dal13   4.3.35_1538_openshift   
+kube-btfuoiod0929a3g5brkg-nzcluster-default-000003c5   52.116.5.60   10.208.89.199   mb3c.4x32.encrypted   normal   Ready   dal13   4.3.35_1538_openshift   
 ~~~
 1. Once you see 3 bare metal servers 4x32 running, you will rerun this command again.
 ```
