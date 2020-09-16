@@ -42,7 +42,7 @@ GUID                 2370515c-83e2-4035-b4ff-30055e004bf1
 Placement Group ID   -
 ~~~
 
-[Back to Table of Contents](hhttps://tjmcmanus.github.io/IBMPartnerDemo/bastion.html)
+[Back to Table of Contents](bastion.md)
 
 ## Log into the bastion node
 1. Assuming you are logged into IBM Cloud, run a list of the all the virtual server to get the one you wish to log into.
@@ -92,7 +92,7 @@ root@52.116.5.59's password:
 ~~~
 1. Create `mkdir /root/nz`  This is where the client media will be executed.
 
-[Back to Table of Contents](#installation-ode)
+[Back to Table of Contents](bastion.md)
 
 ## Move the installer to bastion node
 1. Log into the newly provisioned VM
