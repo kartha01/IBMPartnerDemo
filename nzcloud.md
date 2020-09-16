@@ -6,13 +6,23 @@
   * [Use sftp from fix central](#use-sftp-from-fix-central)
 - [Installing the nz-cloud CLI](#installing-the-nz-cloud-CLI)
 - [Collect information for the ibm_infra.properties files](#collect-information-for-the-ibm_infra.properties-files)
+- [Validate permissions](#validate-permissions)
+- [Starting the install of Netezza](#starting-the-install-of-Netezza)
+  * [Provision OpenShift Cluster](#provision-openshift-cluster)
+  * [Install Netezza and Cloud Pak for Data](#install-netezza-and-cloud-pak-for-data)
+  * [Provision the infrastructure for the NPS Host and SPUs](provision-the-infrastructure-for-the-nps-host-and-spus)
+- [Using Netezza on IBM Cloud](#using-netezza-on-ibm-cloud)
 
 ## Read the instructions
 1. Review the [installation instructions](https://www.ibm.com/support/knowledgecenter/SSTNZ3/com.ibm.ips.doc/postgresql/admin/adm_nps_cloud_ibm.html).  I will document how I did it and any gotchas.
 
+  [Back to Table of Contents](nzcloud.md)
+
 ## Installing from linux
 1. If you have a linux desktop or access to a linux system then feel free to proceed to the next section with this system.
 1. If you do not have a linux system, follow these [instructions on creating bastion node](bastion.md)
+
+[Back to Table of Contents](nzcloud.md)
 
 ### Add prereqs to the bastion node and test permissions on IBM Cloud account
 1. Install the **Development Tools** to install ***unzip***, ***Python 3***, ***which*** and ***gettext***
@@ -50,10 +60,14 @@
     To set infrastructure permissions, see 'https://ibm.biz/infra-permission'
     ~~~  
 
+[Back to Table of Contents](nzcloud.md)
+
 ### Get the installer
 1. While you can go to Software Access catalog to get the installer, it may make more sense to .  These are only the client side or installer.
 1. You can download this to your [laptop then move it to the bastion node](#move-the-installer-to-bastion-node).
 1. You can get the [sftp details and proceed to pull down the nz-cloud client](#use-sftp-from-fix-central) directly to the bastion node.
+
+[Back to Table of Contents](nzcloud.md)
 
 ### Use sftp from fix central
 1. Go to [Fix Central](https://www.ibm.com/support/fixcentral/swg/selectFixes?product=ibm%2FInformation+Management%2FIBM+Netezza+for+Cloud+Pak+for+Data) to pull the latest binaries.
@@ -86,6 +100,8 @@ sftp> exit
 nzcloud-linux-v11.1.1.0.tar.gz
 [root@bastion nz]#
 ~~~
+
+[Back to Table of Contents](nzcloud.md)
 
 ## Installing the nz-cloud CLI
 1. Back in the terminal that is logged into the newly minted VM, I move to ***/root/nz*** to gunzip the installer.
@@ -121,6 +137,8 @@ APIKEY ${IBM_CLOUD_API_KEY}
 ...
 #PUBLIC_VLAN_ZONE_3 ${PUBLIC_VLAN_ZONE_3}
 ~~~  
+
+[Back to Table of Contents](nzcloud.md)
 
 ## Collect information for the ibm_infra.properties files
 1. Open up the ***ibm_infra.properties*** file.  
@@ -229,6 +247,7 @@ APIKEY ${IBM_CLOUD_API_KEY}
   PUBLIC_VLAN 2942826
   PREFERRED_RESOURCE_GROUP Default
   ~~~
+## Validate permissions  
 1. Test out the configuration and check for permissions needed.
 ~~~
 [root@nz-install nz-cloud]# ./nz-cloud show-permissions -p ibm_infra.properties
@@ -265,8 +284,12 @@ Resources:
    - "Kubernetes Service (Requires Administrator on Platform access and Manager on Service access)"
    - "Cloud Object Storage (Requires Administrator)"
 
-### Provision the Bare Metal Servers
-Run the installer to create the Openshift cluster on bare metal nodes of ROKS (IBM CLOUD). Note: The script will exit with a message to wait for the bare metal nodes to be in a normal state. This process can take up to a day, which is why the install is separated into different parts..
+[Back to Table of Contents](nzcloud.md)
+
+## Starting the install of Netezza
+Run the installer to create the Openshift cluster on bare metal nodes of ROKS (IBM CLOUD). Note: The script will exit with a message to wait for the bare metal nodes to be in a normal state. This process can take up to a day, which is why the install is separated into different parts.
+
+[Back to Table of Contents](nzcloud.md)
 
 ### Provision OpenShift Cluster
 1. As these are bare metal servers on IBM Cloud, this can take some time to provision.  Go get a coffee.
@@ -295,6 +318,7 @@ OC_PASSWORD=<your ibmcloud apikey>
 OC_API_URL=https://c106-e.us-south.containers.cloud.ibm.com:31553
 OC_CONSOLE_URL=https://console-openshift-console.nzcluster-83506b7a70a1a023393e8317da2d0f35-0000.us-south.containers.appdomain.cloud
 ~~~
+[Back to Table of Contents](nzcloud.md)
 
 ### Install Netezza and Cloud Pak for Data
 1. **Run** `./nz-cloud -p ibm_infra.properties -i cpd -i nps -v` This will install Cloud Pak for Data and install Netezza tile into the services catalog.  This is where you will click through to provision Netezza servers
@@ -305,6 +329,9 @@ cp4d_USERNAME=admin
 cp4d_PASSWORD=VHVlIFNlcCAsAxNjoyNzoxOCBDRF
 cp4d_CONSOLE_URL=https://zen-cpd-zen.nzcluster-8a2d0f35-0000.us-south.containers.appdomain.cloud
 ~~~
+
+[Back to Table of Contents](nzcloud.md)
+
 ### Provision the infrastructure for the NPS Host and SPUs
 1. Before we progress with installing the NPS engine and SPUs, we will want to procure the hardware.  When you create these, the cluster name should match.  Hold off on doing this as we may make changes down the line.  Also if you are migrating from on box to another, you should run a provision of Netezza.  It will not let you proceed until the spin up the hardware.
 1. Review what each decision points means for you [with this document](https://www.ibm.com/support/knowledgecenter/SSTNZ3/com.ibm.ips.doc/postgresql/admin/adm_nps_cloud_provisioning.html).
@@ -372,8 +399,13 @@ kube-btfuoiod0929a3g5brkg-nzcluster-nzspu-000008c8     52.116.5.55      10.208.8
 ~~~
 1.  Once these are all up and running.  you can **click** the ***provision*** button.  This should take about 20 minutes to complete.
 
+
+[Back to Table of Contents](nzcloud.md)
+
 ### Using Netezza on IBM Cloud
 1. From the Cloud Pak for Data UI, you can access Netezza via ***My Instances***.  If you don't remember how to get to Cloud Pak for Data, then go to the `<installation>/envs/<clustername>/assets` and look at the ***cp4d_login_details*** file.
 1. Click on the link in the name of the instance to show details.
 1. Click on the 3 vertical dots on the right and select Open to get to the Console.
 1. This should be familiar to you.
+
+[Back to Table of Contents](nzcloud.md) 
