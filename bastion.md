@@ -1,5 +1,8 @@
 # Installation Node
-### Create a bastion node (Linux VM)
+- [Create a bastion node (Linux VM)](#create-a-bastion-node-linux-vm)
+- [Log into the bastion node](#log-into-the-bastion-node)
+- [Move the installer to bastion node](#move-the-installer-to-bastion-node)
+## Create a bastion node (Linux VM)
 1. I created a 2x4GB virtual server with CentOs and 100GB boot disk. This is used as an installation or Bastion Node.   I selected a place in the same Data Center as the OpenShift nodes.
 ~~~
 Toms-MBP:~ tjm$ ibmcloud login
@@ -39,7 +42,7 @@ GUID                 2370515c-83e2-4035-b4ff-30055e004bf1
 Placement Group ID   -
 ~~~
 
-### Log into the bastion node
+## Log into the bastion node
 1. Assuming you are logged into IBM Cloud, run a list of the all the virtual server to get the one you wish to log into.
 ~~~
 Toms-MBP:~ tjm$ ibmcloud sl vs list
@@ -87,7 +90,7 @@ root@52.116.5.59's password:
 ~~~
 1. Create `mkdir /root/nz`  This is where the client media will be executed.
 
-### Move the installer to bastion node
+## Move the installer to bastion node
 1. Log into the newly provisioned VM
   - `ssh root@52.116.5.59`
   - Create a directory called to put the install media. I created ***/root/nz***.
