@@ -42,6 +42,8 @@ GUID                 2370515c-83e2-4035-b4ff-30055e004bf1
 Placement Group ID   -
 ~~~
 
+[Back to Table of Contents](hhttps://tjmcmanus.github.io/IBMPartnerDemo/bastion.html)
+
 ## Log into the bastion node
 1. Assuming you are logged into IBM Cloud, run a list of the all the virtual server to get the one you wish to log into.
 ~~~
@@ -90,6 +92,8 @@ root@52.116.5.59's password:
 ~~~
 1. Create `mkdir /root/nz`  This is where the client media will be executed.
 
+[Back to Table of Contents](#installation-ode)
+
 ## Move the installer to bastion node
 1. Log into the newly provisioned VM
   - `ssh root@52.116.5.59`
@@ -100,3 +104,6 @@ Toms-MBP:nzcloud tjm$ scp nzcloud-linux-v11.1.0.0.tar.gz root@52.116.5.59:/root/
 root@52.116.5.59's password:
 nzcloud-linux-v11.1.0.0.tar.gz      100%   45MB  29.4MB/s   00:01    
 ~~~
+1. Proceed to the [installation instructions for NZ CLoud](nzcloud.md).
+
+[Back to Table of Contents](bastion.md)
