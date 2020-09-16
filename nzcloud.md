@@ -5,12 +5,12 @@
   * [Get the installer](#get-the-installer)
   * [Use sftp from fix central](#use-sftp-from-fix-central)
 - [Installing the nz-cloud CLI](#installing-the-nzcloud-CLI)
-- [Collect information for the ibm_infra.properties files](#collect-information-for-the-ibm_infra-properties-files)
+- [Collect information for the ibm_infra.properties files](#collect-information-for-the-ibm_infraproperties-files)
 - [Validate permissions](#validate-permissions)
 - [Starting the install of Netezza](#starting-the-install-of-Netezza)
   * [Provision OpenShift Cluster](#provision-openshift-cluster)
   * [Install Netezza and Cloud Pak for Data](#install-netezza-and-cloud-pak-for-data)
-  * [Provision the infrastructure for the NPS Host and SPUs](provision-the-infrastructure-for-the-nps-host-and-spus)
+  * [Provision the infrastructure for the NPS Host and SPUs](#provision-the-infrastructure-for-the-nps-host-and-spus)
 - [Using Netezza on IBM Cloud](#using-netezza-on-ibm-cloud)
 
 ## Read the instructions
@@ -103,7 +103,7 @@ nzcloud-linux-v11.1.1.0.tar.gz
 
 [Back to Table of Contents](nzcloud.md)
 
-## Installing the nz-cloud CLI
+## Installing the nzcloud CLI
 1. Back in the terminal that is logged into the newly minted VM, I move to ***/root/nz*** to gunzip the installer.
 1. Add execute permissions to the file `chmod +x nzcloud-linux-v11.1.1.0.tar.gz `
 1. Unpack the archive `tar -xzf nzcloud-linux-v11.1.1.0.tar.gz`
