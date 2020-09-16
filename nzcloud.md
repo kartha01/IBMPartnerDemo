@@ -48,16 +48,6 @@
 1. You can download this to your [laptop then move it to the bastion node](#move-the-installer-to-bastion-node).
 1. You can get the [sftp details and proceed to pull down the nz-cloud client](#use-sftp-from-fix-central) directly to the bastion node.
 
-### Move the installer to bastion node
-1. Log into the newly provisioned VM
-  - `ssh root@52.116.5.59`
-  - Create a directory called to put the install media. I created ***/root/nz***.
-1. From your laptop in a different terminal, move the installer to the bastion node.
-~~~
-Toms-MBP:nzcloud tjm$ scp nzcloud-linux-v11.1.0.0.tar.gz root@52.116.5.59:/root/nz
-root@52.116.5.59's password:
-nzcloud-linux-v11.1.0.0.tar.gz      100%   45MB  29.4MB/s   00:01    
-~~~
 ### Use sftp from fix central
 1. Go to [Fix Central](https://www.ibm.com/support/fixcentral/swg/selectFixes?product=ibm%2FInformation+Management%2FIBM+Netezza+for+Cloud+Pak+for+Data) to pull the latest binaries.
 1. Check the most recent version, at this writing, I am using `11.1.1.0-IM-INZCPD-fp200831`
@@ -310,6 +300,7 @@ cp4d_CONSOLE_URL=https://zen-cpd-zen.nzcluster-8a2d0f35-0000.us-south.containers
 ~~~
 ### Provision the infrastructure for the NPS Host and SPUs
 1. Before we progress with installing the NPS engine and SPUs, we will want to procure the hardware.  When you create these, the cluster name should match.  Hold off on doing this as we may make changes down the line.  Also if you are migrating from on box to another, you should run a provision of Netezza.  It will not let you proceed until the spin up the hardware.
+1. Review what each decision points means for you [with this document](https://www.ibm.com/support/knowledgecenter/SSTNZ3/com.ibm.ips.doc/postgresql/admin/adm_nps_cloud_provisioning.html).
 1. Open up the `envs/<cluster name>/assets/cp4d_login_details` file and copy the ***CONSOLE_URL*** value
 1. Open up a browser and add the copied value into the address bar and click enter.  This should bring you to the login page.
 1. Using the ***USERNAME*** and ***PASSWORD*** from the file, log into **Cloud Pak for Data**.
@@ -373,3 +364,9 @@ kube-btfuoiod0929a3g5brkg-nzcluster-nzspu-000007d5     52.116.5.54      10.208.8
 kube-btfuoiod0929a3g5brkg-nzcluster-nzspu-000008c8     52.116.5.55      10.208.89.212   ms3c.16x64.1.9tb.ssd.encrypted   normal   Ready    dal13   4.3.35_1538_openshift
 ~~~
 1.  Once these are all up and running.  you can **click** the ***provision*** button.  This should take about 20 minutes to complete.
+
+### Using Netezza on IBM Cloud
+1. From the Cloud Pak for Data UI, you can access Netezza via ***My Instances***.  If you don't remember how to get to Cloud Pak for Data, then go to the `<installation>/envs/<clustername>/assets` and look at the ***cp4d_login_details*** file. 
+1. Click on the link in the name of the instance to show details.
+1. Click on the 3 vertical dots on the right and select Open to get to the Console.
+1. This should be familiar to you.
