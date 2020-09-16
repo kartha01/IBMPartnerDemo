@@ -372,6 +372,4 @@ kube-btfuoiod0929a3g5brkg-nzcluster-nzspu-0000062f     67.228.200.197   10.208.8
 kube-btfuoiod0929a3g5brkg-nzcluster-nzspu-000007d5     52.116.5.54      10.208.89.208   ms3c.16x64.1.9tb.ssd.encrypted   normal   Ready    dal13   4.3.35_1538_openshift   
 kube-btfuoiod0929a3g5brkg-nzcluster-nzspu-000008c8     52.116.5.55      10.208.89.212   ms3c.16x64.1.9tb.ssd.encrypted   normal   Ready    dal13   4.3.35_1538_openshift
 ~~~
-1.  Once these are all up and running.  you can **click** the ***provision*** button.  This should take about 20 minutes to complete. 
-
-### Provision NPS
+1.  Once these are all up and running.  you can **click** the ***provision*** button.  This should take about 20 minutes to complete.
