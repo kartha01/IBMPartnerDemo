@@ -5,7 +5,7 @@
   * [Get the installer](#get-the-installer)
   * [Use sftp from fix central](#use-sftp-from-fix-central)
 - [Installing the nz-cloud CLI](#installing-the-nzcloud-CLI)
-- [Collect information for the ibm_infra.properties files](#collect-information-for-the-ibm_infra.properties-files)
+- [Collect information for the ibm_infra.properties files](#collect-information-for-the-ibm_infra-properties-files)
 - [Validate permissions](#validate-permissions)
 - [Starting the install of Netezza](#starting-the-install-of-Netezza)
   * [Provision OpenShift Cluster](#provision-openshift-cluster)
