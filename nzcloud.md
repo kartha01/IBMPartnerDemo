@@ -4,7 +4,7 @@
   * [Add prereqs to the bastion node and test permissions on IBM Cloud account](#add-prereqs-to-the-bastion-node-and-test-permissions-on-ibm-cloud-account)
   * [Get the installer](#get-the-installer)
   * [Use sftp from fix central](#use-sftp-from-fix-central)
-- [Installing the nz-cloud CLI](#installing-the-nz-cloud-CLI)
+- [Installing the nz-cloud CLI](#installing-the-nzcloud-CLI)
 - [Collect information for the ibm_infra.properties files](#collect-information-for-the-ibm_infra.properties-files)
 - [Validate permissions](#validate-permissions)
 - [Starting the install of Netezza](#starting-the-install-of-Netezza)
@@ -408,4 +408,4 @@ kube-btfuoiod0929a3g5brkg-nzcluster-nzspu-000008c8     52.116.5.55      10.208.8
 1. Click on the 3 vertical dots on the right and select Open to get to the Console.
 1. This should be familiar to you.
 
-[Back to Table of Contents](nzcloud.md) 
+[Back to Table of Contents](nzcloud.md)
