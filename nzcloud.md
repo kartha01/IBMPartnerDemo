@@ -276,7 +276,7 @@ Run the installer to create the Openshift cluster on bare metal nodes of ROKS (I
 ```
 ./nz-cloud -i ocp -p ibm_infra.properties -v
 ```
-1. Look for the status of your servers provisioning.  These are currently bare metal servers, so they will take sometime.  Run `ibmcloud oc worker ls --cluster nzcluster`
+1. Look for the status of your servers provisioning.  These are currently bare metal servers, so they will take sometime.  ***Run*** `ibmcloud oc worker ls --cluster nzcluster`
 ~~~
 [root@bastion assets]# ibmcloud oc worker ls --cluster nzcluster
 OK
@@ -304,14 +304,23 @@ OC_CONSOLE_URL=https://console-openshift-console.nzcluster-83506b7a70a1a023393e8
 1. upon completion you should have a `envs/<cluster name>/assets/cp4d_login_details` directory.  
 1. The contents of this file are what allows you to upgrades, etc. SSH equivalent.  (FIX later)
 ~~~
-OC_USERNAME=apikey
-OC_PASSWORD=<your ibmcloud apikey>
-OC_API_URL=https://c106-e.us-south.containers.cloud.ibm.com:31553
-OC_CONSOLE_URL=https://console-openshift-console.nzcluster-83506b7a70a1a023393e8317da2d0f35-0000.us-south.containers.appdomain.cloud
+cp4d_USERNAME=admin
+cp4d_PASSWORD=VHVlIFNlcCAsAxNjoyNzoxOCBDRF
+cp4d_CONSOLE_URL=https://zen-cpd-zen.nzcluster-8a2d0f35-0000.us-south.containers.appdomain.cloud
 ~~~
 ### Provision the infrastructure for the NPS Host and SPUs
 1. Before we progress with installing the NPS engine and SPUs, we will want to procure the hardware.  When you create these, the cluster name should match.  Hold off on doing this as we may make changes down the line.  Also if you are migrating from on box to another, you should run a provision of Netezza.  It will not let you proceed until the spin up the hardware.
-
+1. Open up the `envs/<cluster name>/assets/cp4d_login_details` file and copy the ***CONSOLE_URL*** value
+1. Open up a browser and add the copied value into the address bar and click enter.  This should bring you to the login page.
+1. Using the ***USERNAME*** and ***PASSWORD*** from the file, log into **Cloud Pak for Data**.
+1. On the home page, there is a link underneath Welcome Admin, that reads ***Create a service instance***.  **Click** this link.
+1. **Click** the ***Netezza*** tile. **Click** ***Provision Instance*** or ***New Instance***
+1.  This is the configuration panel.  This is where you will get the number of ***VPCs*** and ***Storage***.
+1. Add a value for ***namespace***, you will use this in the next steps.  
+1. Select the workload type.  ***New*** for something new or if you need a demo, leave at new and lowest values.   If you are migrating from an existing rack toggle the list box and select the workload.
+1. **Click** ***Next***
+1. Scroll through the output.  When you get the the bottom, there are some commands that you will use to build out the infrastructure for this system.  Once these are complete, you can go forward with the provision.  
+1. Take note of the values and fill out the following exports.  
 1. To be consistent run these exports: **NOTE:**  Alter these values for your configuration.
   ~~~
   export NAMESPACE_NAME=nz
@@ -333,6 +342,7 @@ OC_CONSOLE_URL=https://console-openshift-console.nzcluster-83506b7a70a1a023393e8
   # this comes from the public vlan
   export PUB_VLAN=2947048  
   ~~~
+1. Before just copying and pasting, validate that the ***flavor*** is the same as the Provision UI.   It is expected that these values may change as hardware and cloud infrastructure change.  
 1. Create a worker pool with 2 nodes.  This pool will be used for the NZ engines.  **Run** `ibmcloud oc worker-pool create classic --name ${NAMESPACE_NAME}_host --cluster ${CLUSTER} --flavor mb3c.16x64.encrypted --size-per-zone 2 --label nodetype=hostworker --label namespace=${NAMESPACE_NAME} --entitlement cloud_pak --hardware dedicated`
   ~~~
   [root@bastion nz-cloud]# ibmcloud oc worker-pool create classic --name ${NAMESPACE_NAME}_host --cluster ${CLUSTER} --flavor mb3c.16x64.encrypted --size-per-zone 2 --label nodetype=hostworker --label namespace=${NAMESPACE_NAME} --entitlement cloud_pak --hardware dedicated
@@ -348,6 +358,20 @@ OC_CONSOLE_URL=https://console-openshift-console.nzcluster-83506b7a70a1a023393e8
    [root@bastion nz-cloud]# ibmcloud ks zone add classic --cluster nzcluster --zone dal13 -p nz_host -p nz_spu --private-vlan 2947050 -- public-vlan 2947048
    OK
    ~~~
-
+1. You can validate by ***running*** `ibmcloud oc worker ls --cluster ${CLUSTER}`
+~~~
+[root@bastion nz-cloud]# ibmcloud oc worker ls --cluster ${CLUSTER}
+OK
+ID                                                     Public IP        Private IP      Flavor                           State    Status   Zone    Version   
+kube-btfuoiod0929a3g5brkg-nzcluster-default-0000014c   52.116.5.52      10.208.89.254   mb3c.4x32.encrypted              normal   Ready    dal13   4.3.35_1538_openshift   
+kube-btfuoiod0929a3g5brkg-nzcluster-default-0000027c   52.116.5.61      10.208.89.197   mb3c.4x32.encrypted              normal   Ready    dal13   4.3.35_1538_openshift   
+kube-btfuoiod0929a3g5brkg-nzcluster-default-000003c5   52.116.5.60      10.208.89.199   mb3c.4x32.encrypted              normal   Ready    dal13   4.3.35_1538_openshift   
+kube-btfuoiod0929a3g5brkg-nzcluster-nzhost-00000485    67.228.200.196   10.208.89.220   mb3c.16x64.encrypted             normal   Ready    dal13   4.3.35_1538_openshift   
+kube-btfuoiod0929a3g5brkg-nzcluster-nzhost-00000517    52.116.5.53      10.208.89.247   mb3c.16x64.encrypted             normal   Ready    dal13   4.3.35_1538_openshift   
+kube-btfuoiod0929a3g5brkg-nzcluster-nzspu-0000062f     67.228.200.197   10.208.89.240   ms3c.16x64.1.9tb.ssd.encrypted   normal   Ready    dal13   4.3.35_1538_openshift   
+kube-btfuoiod0929a3g5brkg-nzcluster-nzspu-000007d5     52.116.5.54      10.208.89.208   ms3c.16x64.1.9tb.ssd.encrypted   normal   Ready    dal13   4.3.35_1538_openshift   
+kube-btfuoiod0929a3g5brkg-nzcluster-nzspu-000008c8     52.116.5.55      10.208.89.212   ms3c.16x64.1.9tb.ssd.encrypted   normal   Ready    dal13   4.3.35_1538_openshift
+~~~
+1.  Once these are all up and running.  you can click the provision button.  This should take about 20 minutes to complete. 
 
 ### Provision NPS
