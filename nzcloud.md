@@ -1,4 +1,11 @@
 # Installing Netezza on IBM Cloud
+- [Read the instructions](#read-the-instructions)
+- [Installing from linux](#installing-from-linux)
+  * [Add prereqs to the bastion node and test permissions on IBM Cloud account](#add-prereqs-to-the-bastion-node-and-test-permissions-on-ibm-cloud-account)
+  * [Get the installer](#get-the-installer)
+  * [Use sftp from fix central](#use-sftp-from-fix-central)
+- [Installing the nz-cloud CLI](#installing-the-nz-cloud-CLI)
+- [Collect information for the ibm_infra.properties files](#collect-information-for-the-ibm_infra.properties-files)
 
 ## Read the instructions
 1. Review the [installation instructions](https://www.ibm.com/support/knowledgecenter/SSTNZ3/com.ibm.ips.doc/postgresql/admin/adm_nps_cloud_ibm.html).  I will document how I did it and any gotchas.
@@ -80,7 +87,7 @@ nzcloud-linux-v11.1.1.0.tar.gz
 [root@bastion nz]#
 ~~~
 
-### Installing the nz-cloud CLI
+## Installing the nz-cloud CLI
 1. Back in the terminal that is logged into the newly minted VM, I move to ***/root/nz*** to gunzip the installer.
 1. Add execute permissions to the file `chmod +x nzcloud-linux-v11.1.1.0.tar.gz `
 1. Unpack the archive `tar -xzf nzcloud-linux-v11.1.1.0.tar.gz`
@@ -115,7 +122,7 @@ APIKEY ${IBM_CLOUD_API_KEY}
 #PUBLIC_VLAN_ZONE_3 ${PUBLIC_VLAN_ZONE_3}
 ~~~  
 
-### Collect information for the ibm_infra.properties files
+## Collect information for the ibm_infra.properties files
 1. Open up the ***ibm_infra.properties*** file.  
 1. Replace `${CLUSTER_NAME}` with a unique name.  I will use ***NZCluster***
 1. Replace `${ZONE}` with your preferred zone.  I'll use ***dal13***
@@ -254,7 +261,7 @@ Roles:       Administrator, Manager
 Resources:                        
              Service Type   All resources in account               
 ~~~
-1.  For some reason, I need to have the following IBM Account access policy roles on my specific account, not the group
+1.  For some reason, I need to have the following IBM Account access policy roles on my specific account, not the group.  **NOTE:**  This will be fixed in coming release.
    - "Kubernetes Service (Requires Administrator on Platform access and Manager on Service access)"
    - "Cloud Object Storage (Requires Administrator)"
 
@@ -366,7 +373,7 @@ kube-btfuoiod0929a3g5brkg-nzcluster-nzspu-000008c8     52.116.5.55      10.208.8
 1.  Once these are all up and running.  you can **click** the ***provision*** button.  This should take about 20 minutes to complete.
 
 ### Using Netezza on IBM Cloud
-1. From the Cloud Pak for Data UI, you can access Netezza via ***My Instances***.  If you don't remember how to get to Cloud Pak for Data, then go to the `<installation>/envs/<clustername>/assets` and look at the ***cp4d_login_details*** file. 
+1. From the Cloud Pak for Data UI, you can access Netezza via ***My Instances***.  If you don't remember how to get to Cloud Pak for Data, then go to the `<installation>/envs/<clustername>/assets` and look at the ***cp4d_login_details*** file.
 1. Click on the link in the name of the instance to show details.
 1. Click on the 3 vertical dots on the right and select Open to get to the Console.
 1. This should be familiar to you.
