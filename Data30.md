@@ -379,11 +379,11 @@ From time to time any software needs a patch for security reasons, new feature o
       ~~~  
 1. Verify the installation  
       ~~~
-      ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+      ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wml
       ~~~
 1. Check for patches
       ~~~
-      ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+      ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wml
       ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
       - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -456,11 +456,11 @@ From time to time any software needs a patch for security reasons, new feature o
   ~~~  
 1. Verify the installation  
    ~~~
-  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly aiopenscale
   ~~~
 1. Check for patches
     ~~~
-    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly aiopenscale
     ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -535,11 +535,11 @@ From time to time any software needs a patch for security reasons, new feature o
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
    ~~~
-   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly db2wh
    ~~~
 1. Check for patches
    ~~~
-   ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+   ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly db2wh
    ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -665,11 +665,11 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
 1. Verify the installation  
    ~~~
-   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly db2oltp
    ~~~
 1. Check for patches
    ~~~
-   ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+   ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly db2oltp
    ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -764,11 +764,11 @@ From time to time any software needs a patch for security reasons, new feature o
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
   ~~~
-  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly ds
   ~~~
 1. Check for patches
   ~~~
-  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly ds
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -859,11 +859,11 @@ From time to time any software needs a patch for security reasons, new feature o
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.
 1. Verify the installation  
   ~~~
-  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly cde
   ~~~
 1. Check for patches
   ~~~
-  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly cde
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -1008,11 +1008,11 @@ Understand the [current differences here](https://community.ibm.com/community/us
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
    ~~~
-  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly ca
    ~~~
 1. Check for patches
   ~~~
-  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly ca
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
    - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -1146,11 +1146,11 @@ Understand the [current differences here](https://community.ibm.com/community/us
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
     ~~~
-    ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+    ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wkc
     ~~~
 1. Check for patches
     ~~~
-    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wkc
     ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
       - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
