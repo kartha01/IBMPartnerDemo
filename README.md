@@ -61,6 +61,7 @@ How do I request an account?  What qualifies? Can my VAD help here?
 If you have one of these accounts, you can access by
   1. [Logging into IBM Cloud](https://cloud.ibm.com/login)
   1. Look across the black top menu bar, you will see ***Catalog***, ***Docs***, ***Support***, ***Manage***   The next list box to the right is one with your accounts.  Toggle the list box to select this POC Account.
+  1. Most likely the IBM admin of the account has set up with ACLS and an access group.  Work with this person to further access capabilities. 
 
 ***Coming soon***
 
