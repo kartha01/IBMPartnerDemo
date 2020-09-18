@@ -58,6 +58,10 @@ If you are looking for something you can personalized, isolated and persistent, 
 
 ### Proof of Technology (POC) account
 How do I request an account?  What qualifies? Can my VAD help here?
+If you have one of these accounts, you can access by
+  1. [Logging into IBM Cloud](https://cloud.ibm.com/login)
+  1. Look across the black top menu bar, you will see ***Catalog***, ***Docs***, ***Support***, ***Manage***   The next list box to the right is one with your accounts.  Toggle the list box to select this POC Account.
+
 ***Coming soon***
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
