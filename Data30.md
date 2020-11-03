@@ -117,22 +117,22 @@ significantly# Install instructions for Cloud Pak for Data (work in progress)
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under **Installing the client environment**  You will have logged into the OpenShift cluster, set the project to ***zen*** already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.  If ***zen*** doesn't exist, then your probably went with ***default***.
 1. Here is a link to the [knowledge center for Cloud Pak for Data](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/install/installation-files.html) installation instructions.  The next steps are a sequential version for this environment.  
 1. How do I get the installer? Click the [CPD Github](https://github.com/IBM/cpd-cli/releases) to download the **Enterprise Edition**.  Named ***cloudpak4data-ee-3.0.1.tgz***.  File is about 128MB.
-1. Unarchive the client bits.   You should find the following.
+1. Unarchive the client bits. You should find the following.
   - repo.yaml
   - bin
   - LICENSES
 1. Find the file called `repo.yaml`  This is a simple file, but key. Here is where you will add the `apikey` to get access to the container registry for the additional Services.   
 1. In a web browser, **Login** and access [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).  **Click** ***Get entitlement key*** on the left side above Library.  Either ***Generate a key*** or ***Copy the existing key***.  This will populate your scratchpad where you can paste it into the `repo.yaml` file.
 1.  **Paste** the ***apikey*** into the Yaml file to the right of the `apikey:`  After you paste, it should something like this only longer.
-  ~~~
-  registry:
-    - url: cp.icr.io/cp/cpd
-      username: cp
-      apikey: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJ
-      name: base-registry
-  fileservers:
-    - url: https://raw.github.com/IBM/cloud-pak/master/repo/cpd3
-  ~~~~
+~~~
+registry:
+  - url: cp.icr.io/cp/cpd
+    username: cp
+    apikey: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJ      
+    name: base-registry
+fileservers:
+  - url: https://raw.github.com/IBM/cloud-pak/master/repo/cpd3
+~~~~
   **Note:**  While the documentation denotes Linux, using **cpd-linux**, the video uses **cdp-darwin** for Mac, **cpd-windows.exe** for windows.  
 1. Move to the bin directory, this is where all the tools will be located for command line control of Cloud Pak for Data 3.0.x:
  ~~~
