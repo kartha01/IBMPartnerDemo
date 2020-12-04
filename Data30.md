@@ -257,7 +257,7 @@ From time to time any software needs a patch for security reasons, new feature o
   1. **Click** on the ***Services*** icon to get to the services catalog.
   1. Go to the Data Virtualization tile, you see to "Provision Instance".
   1. **Click** on ***Provision Instance***.
-  1. Then **Click** ***Configure***. **Note:** for this Cloud Pak for Data on ROKS, the semaphores are already configured, so make sure to ***uncheck*** the box to the left of `Set up semaphore parameters for Data Virtualization automatically`, otherwise the provision can fail.
+  1. Then **Click** ***Configure***.  ***Check*** the box to the left of `Set up semaphore parameters for Data Virtualization automatically`.
   1. **Click** ***Configure***.
   1. Select the number of nodes and cores to allocate.  For a demo system defaults are enough.  **Note:** Depending on how many node you have in your worker pool, this could fail provisioning with a not enough resource message.  If you configure a default 3 16/64 workers and install all of the services, this message can appear.  Resizing your worker pool to 4 will get you around this.
   1. Make sure your change the storage classes from `default` to `ibmc-file-gold-gid`.  Choosing default could cause a failure.
