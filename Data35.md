@@ -62,7 +62,7 @@ significantly# Install instructions for Cloud Pak for Data (work in progress)
 1. **Click** on the ***Cloud Pak for Data*** tile.
 1. **Click** on the ***Readme*** tab to review what you can provision using ***Schematics*** (Terraform).
 
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Building the configuration
 1. On the ***create*** tab, this is where we will build the configuration of the Cloud Pak for Data clusters
@@ -83,7 +83,7 @@ significantly# Install instructions for Cloud Pak for Data (work in progress)
 1. Once install is complete, you may need to [check for and apply patches](#how-can-i-patch-a-service-or-control-plane).  Hopefully in the future you will always pull the latest from the container registry.
 
 
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Review Services installed
 1. From the Schematics workspace, **Click** `Offering dashboard`
@@ -98,61 +98,55 @@ significantly# Install instructions for Cloud Pak for Data (work in progress)
 1. Some are set up automatically and some you need to provision.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vYS7xwk0fn8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
 
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ## Troubleshooting and managing Cloud Pak for Data through the console
 
 ### Manage Deployments
  ***coming soon***  
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)    
 ### Manage Users
  ***coming soon***  
  <iframe width="600" height="322" src="https://www.youtube.com/embed/8D-IOawofAo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)    
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)    
 ### Viewing logs
  ***coming soon***  
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)  
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)  
 
 ## Setting up the Cloud Pak for Data Client
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under **Installing the client environment**  You will have logged into the OpenShift cluster, set the project to ***zen*** already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.  If ***zen*** doesn't exist, then your probably went with ***default***.
-1. Here is a link to the [knowledge center for Cloud Pak for Data](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/install/installation-files.html) installation instructions.  The next steps are a sequential version for this environment.  
-1. How do I get the installer? Click the [CPD Github](https://github.com/IBM/cpd-cli/releases) to download the **Enterprise Edition**.  Named ***cloudpak4data-ee-3.0.1.tgz***.  File is about 128MB.
+1. Here is a link to the [knowledge center for Cloud Pak for Data](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.5.0/cpd/install/install.html) installation instructions.  The next steps are a sequential version for this environment.  
+1. How do I get the installer? Click the [CPD Github](https://github.com/IBM/cpd-cli/releases) to download the **Enterprise Edition**.  Named ***cpd-cli-darwin-EE-3.5.1.tgz***.  File is about 128MB.
 1. Unarchive the client bits. You should find the following.
+  - cpd-cli
   - repo.yaml
-  - bin
-  - LICENSES
-1. Find the file called `repo.yaml`  This is a simple file, but key. Here is where you will add the `apikey` to get access to the container registry for the additional Services.   
+  - plugins  (directory)
+  - LICENSES (directory)
+1. Find the file called `repo.yaml`  This is a simple file, but key. Here is where you will add the `apikey` to get access to the container registry for the additional Services.  There are services where you will need to access different [container repository namespaces](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.5.0/cpd/install/installation-files.html)  I will include a repo.product.yaml when I document the install.
 1. In a web browser, **Login** and access [the entitlement registry](https://myibm.ibm.com/products-services/containerlibrary).  **Click** ***Get entitlement key*** on the left side above Library.  Either ***Generate a key*** or ***Copy the existing key***.  This will populate your scratchpad where you can paste it into the `repo.yaml` file.
-1.  **Paste** the ***apikey*** into the Yaml file to the right of the `apikey:`  After you paste, it should something like this only longer.
+1.  **Paste** the ***apikey*** into the Yaml file to the right of the `apikey:`  After you paste, it should something like this only longer.  ***Note*** Leave **namespace** as is as I have not yet found a use for it.
 ~~~
-registry:
-  - url: cp.icr.io/cp/cpd
-    username: cp
-    apikey: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJ      
-    name: base-registry
+---
 fileservers:
-  - url: https://raw.github.com/IBM/cloud-pak/master/repo/cpd3
+  -
+    url: "https://raw.github.com/IBM/cloud-pak/master/repo/cpd/3.5"
+registry:
+  -
+    apikey: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    name: base-registry
+    namespace: ""
+    url: cp.icr.io/cp/cpd
+    username: cp
 ~~~~
   **Note:**  While the documentation denotes Linux, using **cpd-linux**, the video uses **cdp-darwin** for Mac, **cpd-windows.exe** for windows.  
-1. Move to the bin directory, this is where all the tools will be located for command line control of Cloud Pak for Data 3.0.x:
- ~~~
- cd bin
- ~~~
-1. List the directory to see the command available.  I denoted the platform names in ( ).  I usualy delete the other platforms to not confuse myself.
- ~~~
- cpd-darwin  (Mac)
- cpd-linux  (Linux)
- cpd-windows.exe (Windows)
- cpd-ppc64le (Power)
- cpd-s390x (zOS)
- ~~~
+
 1. Run the client command to verify that it works.   On Mac you will need to verify the command by launching it from finder.  
  ~~~
- ./cpd-darwin
+ ./cpd-cli
  ~~~
-1. You will notice in the rest of the documentation, I reference the command as `./cpd-${OS_NAME}`  I also tell you to set and environment variable called `OS_NAME` which corresponds to the previous steps OS.  So if you were running linux, you would `export OS_NAME=linux`.  I mention this in each section, just in case.   Maybe overkill, but better than messing it up.
+***NOTE:*** `cpd-cli` will run different operators to execute commands.  These operators or executors are under `lib/os name`  These are `config`, `cpd-base`, `cpdbr`, `cpdtool`, and `service-instance`.  On Mac, you may see a sercurity pop-up running something like `./cpd-cli status --repo ./repo.yaml --namespace zen --assembly lite --patches --available-updates`   You need to tell Mac that you approve to run these.  The simplest way is to open Finder and move to the executors and **open in Terminal** and accept **Open**.  This tell the system to allow you to run these. There may be something similar on Windows, but I have not tried this.
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ## Installing the Cloud Pak for Data Control Plane by command line
 **Note:** This is not a recommended option on IBM Cloud. Since possible, I am documenting.
@@ -161,17 +155,8 @@ fileservers:
 1. Create your OpenShift namespace or project that you will install Cloud Pak for Data.
   - Example: `oc project zen`
 1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-  ~~~
-  export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
-  export NAMESPACE=zen
-  export STORAGE_CLASS=ibmc-file-gold-gid
-  export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-  export LOCAL_REGISTRY=docker-registry.default.svc:5000
-  ~~~
   - OpenShift 4.x
   ~~~
-  export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
   export NAMESPACE=zen
   export STORAGE_CLASS=ibmc-file-gold-gid
   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -180,15 +165,15 @@ fileservers:
 1. Make sure all the [node settings](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/install/node-settings.html) are set on the worker nodes. All this is done for you [Provision the Control plane using IBM Cloud tile](#provision-the-control-plane-using-ibm-cloud-tile)
 1. Install the control plane or the ***lite*** assembly
   ~~~
-  ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly lite
+  ./cpd-cli install --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly lite
   ~~~
 1. Verify the installation  
   ~~~
-  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly lite
+  ./cpd-cli status --namespace ${NAMESPACE} --assembly lite
   ~~~
 1. Check for patches
   ~~~
-  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite
+  ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -209,22 +194,13 @@ fileservers:
  ~~~
  **Note:** If you have lost or forgotten your CPD Admin password, you can log into OpenShift then execute the enable command which prompts you for a new password.
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### How can I patch a service or control plane
 From time to time any software needs a patch for security reasons, new feature or a bug fix.  How do you know that there is a patch for a specifica service, common services or the control plane.   Take a [look here for v3.0.x](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/patch/avail-patches.html).  This document has a link to each of the service patches and any extra work that might be needed.   Most patches need a prerequisite patch for the common services.
 1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-   ~~~
-   export OS_NAME=[darwin, linux]
-   export NAMESPACE=zen
-   export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-   export LOCAL_REGISTRY=docker-registry.default.svc:5000
-   ~~~
   - OpenShift 4.x
    ~~~
-   export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -232,11 +208,11 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
 1. Check for patches
   ~~~
-  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite
+  ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite
   ~~~
-1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-3.0.1-lite-patch-5***.  This name will change after this writing. Note the assembly name can be `lite`, `wkc` or `wsl`.  
+1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-3.5.1-lite-patch-1***.  This name will change after this writing. Note the assembly name can be `lite`, `wkc` or `wsl`.  
  ~~~
- ./cpd-${OS_NAME} patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly lite  --patch-name cpd-3.0.1-lite-patch-5
+ ./cpd-cli patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly lite  --patch-name cpd-3.0.1-lite-patch-5
  ~~~
 1. Verify that the patch has been applied.
  ~~~
@@ -247,7 +223,7 @@ From time to time any software needs a patch for security reasons, new feature o
  ~~~
 1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name**
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 
 ## Data Virtualization
@@ -270,24 +246,15 @@ From time to time any software needs a patch for security reasons, new feature o
 ### What can be done with Data Virtualization and Watson Knowledge Catalog
 <iframe width="600" height="322" src="https://www.youtube.com/embed/SU0aRs8wpgc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ## Watson Studio
 
 ### Install Watson Studio
 ***Coming Soon Need to add override file***
 1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-   ~~~
-   export OS_NAME=[darwin, linux]
-   export NAMESPACE=zen
-   export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-   export LOCAL_REGISTRY=docker-registry.default.svc:5000
-   ~~~
   - OpenShift 4.x
    ~~~
-   export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -295,45 +262,36 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
  1. Set the security aspects for Watson Studio to install properly
    ~~~
-   ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wsl
+   ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wsl
    ~~~
  1. Deploy **Watson Studio** by running the following:
    ~~~
-   ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wsl
+   ./cpd-cli install --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wsl
    ~~~  
 1. Verify the installation  
    ~~~
-   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wsl
+   ./cpd-cli status --namespace ${NAMESPACE} --assembly wsl
    ~~~
    1. Check for patches
    ~~~
-   ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+   ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
    ~~~
    1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
      - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Set up Watson Studio
 1. If you pick Watson Studio or Watson Machine Learning tiles, there will be no actions to take. You can proceed and create a project.
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Increase the capacity or scale up
 1. To scale services, you will need to have the command line installed.  (Instruction under the ***Adding additional services*** section)
 1. You can scale **up** the services by executing these commands for either **wsl**.  **Note:** There is currently no scale down function.
 1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-   ~~~
-   export OS_NAME=[darwin, linux]
-   export NAMESPACE=zen
-   export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-   export LOCAL_REGISTRY=docker-registry.default.svc:5000
-   ~~~
   - OpenShift 4.x
    ~~~
-   export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
    export NAMESPACE=zen
    export STORAGE_CLASS=ibmc-file-gold-gid
    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -341,29 +299,20 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
 1. Scale up **Watson Studio** by running the following (config sizes are small, medium and large):
    ~~~
-   ./cpd-${OS_NAME} scale -n $NAMESPACE --config medium  --load-from ./cpd-${OS_NAME}-workspace  -a wsl
+   ./cpd-cli scale -n $NAMESPACE --config medium  --load-from ./cpd-cli-workspace  -a wsl
    ~~~
 1. Scale down **Watson Studio** by running the following (config sizes are small, medium and large):
    ~~~
-   ./cpd-${OS_NAME} scale -n zen --config small  --load-from ./cpd-${OS_NAME}-workspace -a wsl
+   ./cpd-cli scale -n zen --config small  --load-from ./cpd-cli-workspace -a wsl
    ~~~
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 ## Watson Machine Learning
 ### Install Watson Machine Learning
    ***Coming Soon Need to add override file***
 1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-      ~~~
-      export OS_NAME=[darwin, linux]
-      export NAMESPACE=zen
-      export STORAGE_CLASS=ibmc-file-gold-gid
-      export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-      export LOCAL_REGISTRY=docker-registry.default.svc:5000
-      ~~~
   - OpenShift 4.x
       ~~~
-      export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
       export NAMESPACE=zen
       export STORAGE_CLASS=ibmc-file-gold-gid
       export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -371,40 +320,32 @@ From time to time any software needs a patch for security reasons, new feature o
       ~~~
 1. Set the security aspects for Watson Machine Learning to install properly
       ~~~
-      ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wml
+      ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wml
       ~~~
 1. Deploy **Watson Machine Learning** by running the following:
       ~~~
-      ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wml
+      ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wml
       ~~~  
 1. Verify the installation  
       ~~~
-      ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wml
+      ./cpd-cli status --namespace ${NAMESPACE} --assembly wml
       ~~~
 1. Check for patches
       ~~~
-      ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wml
+      ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wml
       ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
       - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Increase the capacity or scale up your Watson Machine Learning service
 1. To scale services, you will need to have the command line installed.  (Instruction under the ***Adding additional services*** section)
 1. You can scale **up** the services by executing these commands for either **wml**.  **Note:** There is currently no scale down function.
-1. Run env to verify that the following variables are exported,**Pick one no brackets Example** ***export OS_NAME=darwin***
-  - OpenShift 3.x
-    ~~~
-    export OS_NAME=[darwin, linux]
-    export NAMESPACE=zen
-    export STORAGE_CLASS=ibmc-file-gold-gid
-    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-    export LOCAL_REGISTRY=docker-registry.default.svc:5000
-    ~~~
+1. Run env to verify that the following variables are exported .
+
  - OpenShift 4.x
     ~~~
-    export OS_NAME=[darwin, linux]
     export NAMESPACE=zen
     export STORAGE_CLASS=ibmc-file-gold-gid
     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -412,14 +353,14 @@ From time to time any software needs a patch for security reasons, new feature o
     ~~~  
 1. Scale up **Watson Machine Learning** by running the following (config sizes are small, medium and large):
     ~~~
-    ./cpd-${OS_NAME} scale -n $NAMESPACE --config medium  --load-from ./cpd-${OS_NAME}-workspace  -a wml
+    ./cpd-cli scale -n $NAMESPACE --config medium  --load-from ./cpd-cli-workspace  -a wml
     ~~~
 1. Scale down **Watson Machine Learning** by running the following (config sizes are small, medium and large):
     ~~~
-    ./cpd-${OS_NAME} scale -n zen --config small  --load-from ./cpd-${OS_NAME}-workspace -a wml
+    ./cpd-cli scale -n zen --config small  --load-from ./cpd-cli-workspace -a wml
     ~~~
 
-   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ## Watson OpenScale
 ### Install Watson OpenScale
@@ -430,17 +371,8 @@ From time to time any software needs a patch for security reasons, new feature o
    - Db2 Database (Db2 Advanced or DB2 Warehouse Local or remote)
     - If no remote Db2 instance available, then install either [Db2 Advanced](#db2-advanced) or [Db2 Warehouse](#db2-warehouse)
 1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-  ~~~
-  export OS_NAME=[darwin, linux]
-  export NAMESPACE=zen
-  export STORAGE_CLASS=ibmc-file-gold-gid
-  export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-  export LOCAL_REGISTRY=docker-registry.default.svc:5000
-  ~~~
  - OpenShift 4.x
   ~~~
-  export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
   export NAMESPACE=zen
   export STORAGE_CLASS=ibmc-file-gold-gid
   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -448,24 +380,24 @@ From time to time any software needs a patch for security reasons, new feature o
   ~~~
 1. Set the security aspects for Watson Machine Learning to install properly
   ~~~
-  ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly aiopenscale
+  ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly aiopenscale
   ~~~
 1. Deploy **Watson OpenScale** by running the following:
   ~~~
-  ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly aiopenscale
+  ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly aiopenscale
   ~~~  
 1. Verify the installation  
    ~~~
-  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly aiopenscale
+  ./cpd-cli status --namespace ${NAMESPACE} --assembly aiopenscale
   ~~~
 1. Check for patches
     ~~~
-    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly aiopenscale
+    ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly aiopenscale
     ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
-   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 
 ### Set up Watson OpenScale
@@ -475,7 +407,7 @@ From time to time any software needs a patch for security reasons, new feature o
 1. First step is accept the local WML instance.
 1. Enter connection details for a Db2 Database.  I am using a DB2 Warehouse that I installed later on.  You need to have Db2/Db2 Warehouse running somewhere to get OpenScale to work.  If you have one handy, you can use this otherwise we will configure it in the next section.
 ***Coming soon***
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 
 ## Db2 Warehouse
@@ -508,17 +440,8 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
    **Note:**  If you resize your OpenShift cluster's worker pool to a lower number of nodes, it is possible that the node with the label for Db2 Warehouse may be deleted.   This would render any database instances unusable until you label another node and restart the `db2wh` pods, so they start on the same node.  Do not try to label 2 nodes as you will get an ***anti-affinity*** error in the `db2u-0` and unified-console pods,  They will stay in a state of `pending`.  
 1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-   ~~~
-   export OS_NAME=darwin or linux
-   export NAMESPACE=zen
-   export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-   export LOCAL_REGISTRY=docker-registry.default.svc:5000
-   ~~~
   - OpenShift 4.x
     ~~~
-    export OS_NAME=darwin or linux or win
     export NAMESPACE=zen
     export STORAGE_CLASS=ibmc-file-gold-gid
     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -526,20 +449,20 @@ From time to time any software needs a patch for security reasons, new feature o
     ~~~
 1. Set the security aspects for Db2 Warehouse to install properly
   ~~~
-  ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2wh
+  ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2wh
   ~~~
 1. Deploy **Db2 Warehouse** by running the following:
   ~~~
-  ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh
+  ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh
   ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
    ~~~
-   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly db2wh
+   ./cpd-cli status --namespace ${NAMESPACE} --assembly db2wh
    ~~~
 1. Check for patches
    ~~~
-   ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly db2wh
+   ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly db2wh
    ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -547,7 +470,7 @@ From time to time any software needs a patch for security reasons, new feature o
  **Note:** Actual time taken is 16 minutes
  <iframe width="560" height="315" src="https://www.youtube.com/embed/943Gi4Z9vUo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Provision a Database instance
 1. Once installed and all pods are up, you can go to the service catalog page with the square with petals icon in upper right.  
@@ -568,40 +491,34 @@ From time to time any software needs a patch for security reasons, new feature o
 **Note** Total time took about 12 minutes  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VLxgR3CeOCg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Create a Table  
 1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by ***admin***, via **SQL editor** by default will go under **Schema** ***user999***.
   - You can use the UI and select and create tables under certain schemas.
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Uninstalling DB2 Warehouse.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
 1. From the command line:
 1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
 1. Run env to verify that the following variables are exported
-    - OpenShift 3.x
-     ~~~
-     export OS_NAME=[darwin, linux]
-     export NAMESPACE=zen
-     ~~~
     - OpenShift 4.x
      ~~~
-     export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
      ~~~
 1. Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly db2wh --uninstall-dry-run
+  ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly db2wh --uninstall-dry-run
   ~~~
 1. Run the uninstall
   ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh
+  ./cpd-cli uninstall --namespace ${NAMESPACE}  --assembly db2wh
   ~~~
 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ## Db2 Advanced
 ### Install Db2 Advanced
@@ -633,17 +550,8 @@ From time to time any software needs a patch for security reasons, new feature o
     ~~~
 1. You can dedicate one or more [worker nodes to your Db2® database service](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/svc/dbs/aese-dednodes.html#aese-dednodes).  Do this before installing the service.
 1. Run env to verify that the following variables are exported
-   - OpenShift 3.x
-    ~~~
-    export OS_NAME=darwin or linux
-    export NAMESPACE=zen
-    export STORAGE_CLASS=ibmc-file-gold-gid
-    export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-    export LOCAL_REGISTRY=docker-registry.default.svc:5000
-    ~~~
     - OpenShift 4.x
      ~~~
-     export OS_NAME=darwin or linux or win
      export NAMESPACE=zen
      export STORAGE_CLASS=ibmc-file-gold-gid
      export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -651,11 +559,11 @@ From time to time any software needs a patch for security reasons, new feature o
      ~~~
 1. Set the security aspects for Db2 Advanced to install properly
    ~~~
-   ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2oltp
+   ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2oltp
    ~~~
 1. Deploy **Db2 Advanced** by running the following:
    ~~~
-   ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2oltp
+   ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2oltp
    ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. The deployed service will look like this from `oc get pods`.  The completed pod is a load job which can be deleted.
@@ -665,16 +573,16 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
 1. Verify the installation  
    ~~~
-   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly db2oltp
+   ./cpd-cli status --namespace ${NAMESPACE} --assembly db2oltp
    ~~~
 1. Check for patches
    ~~~
-   ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly db2oltp
+   ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly db2oltp
    ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
-   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Provision an OLTP Database instance
 1. Once installed and the `db2oltp-catalog-11530` pod is running or the service tile is marked as available , you can go to the service catalog page with the square with petals icon in upper right.  
@@ -697,56 +605,41 @@ From time to time any software needs a patch for security reasons, new feature o
    - ***Delete*** This will delete this particular instance.
 
 
-   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Create a Table  
 1. When you Open the interface, you will run as the user id that provisioned it, for example **user999** which is **admin**, so any tables that are created, by ***admin***, via **SQL editor** by default will go under **Schema** ***user999***.
    - You can use the UI and select and create tables under certain schemas.
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Uninstalling DB2 Warehouse.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
 1. From the command line:
 1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
 1. Run env to verify that the following variables are exported
-     - OpenShift 3.x
-      ~~~
-      export OS_NAME=[darwin, linux]
-      export NAMESPACE=zen
-      ~~~
      - OpenShift 4.x
       ~~~
-      export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
       export NAMESPACE=zen
       ~~~
 1. Do a dry run uninstall to check what will be taken off.
     ~~~
-    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh --uninstall-dry-run
+    ./cpd-cli uninstall --namespace ${NAMESPACE}  --assembly db2wh --uninstall-dry-run
     ~~~
 1. Run the uninstall
     ~~~
-    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly db2wh
+    ./cpd-cli uninstall --namespace ${NAMESPACE}  --assembly db2wh
     ~~~
 1.  Go to the **Services** catalog and verify that **Db2 Warehouse** is no longer ***enabled***.   
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ## Installing DataStage service
 1. Verify you have enough resource capcity to run DataStage.  You many need to increase your work pool by a node.
 1. Create a [ds.yaml](ds.yaml) file to override and set certain storage classes. On ROKS we will be using the default storage classes, but defining them no the less.
 1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-   ~~~
-   export OS_NAME=darwin or linux
-   export NAMESPACE=zen
-   export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-   export LOCAL_REGISTRY=docker-registry.default.svc:5000
-   ~~~
    - OpenShift 4.x
     ~~~
-    export OS_NAME=darwin or linux or win
     export NAMESPACE=zen
     export STORAGE_CLASS=ibmc-file-gold-gid
     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -754,7 +647,7 @@ From time to time any software needs a patch for security reasons, new feature o
     ~~~
 1. Set the security aspects for DataStage to install properly
   ~~~
-  ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ds
+  ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ds
   ~~~
 1. Deploy DataStage by running the following:
   ~~~
@@ -764,16 +657,16 @@ From time to time any software needs a patch for security reasons, new feature o
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
   ~~~
-  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly ds
+  ./cpd-cli status --namespace ${NAMESPACE} --assembly ds
   ~~~
 1. Check for patches
   ~~~
-  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly ds
+  ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly ds
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Create a Transformation Project
 1. From the navigator **click** ***Organize > transform data***.  This will bring you into the Data Flow Designer in a projects view.
@@ -799,49 +692,34 @@ From time to time any software needs a patch for security reasons, new feature o
   1. Across the top, you should see another cog.  This allows you to add ***Smart Palatte*** to the options.  This will start prompting you with potential options.
   1.  Across the very top, is where you will add ***Connections***, ***Table Definitions***, ***Parameter Sets***, ***Jobs*** and the current ***Job_1*** that you were just creating.  
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Uninstalling DataStage.
 1. First you will want to release any storage and delete instances to make sure storage is released.   Use ***Delete*** to do this.
 1. From the command line:
 1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
 1. Run env to verify that the following variables are exported
-    - OpenShift 3.x
-     ~~~
-     export OS_NAME=[darwin, linux]
-     export NAMESPACE=zen
-     ~~~
     - OpenShift 4.x
      ~~~
-     export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
      ~~~
 1.  Do a dry run uninstall to check what will be taken off.
    ~~~
-   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly ds --uninstall-dry-run
+   ./cpd-cli uninstall --namespace ${NAMESPACE}  --assembly ds --uninstall-dry-run
    ~~~
 1. Run the uninstall
    ~~~
-   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE}  --assembly ds
+   ./cpd-cli uninstall --namespace ${NAMESPACE}  --assembly ds
    ~~~
 1. Go to the **Services** catalog and verify that **DataStage** is no longer ***enabled***.   
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ## Installing Analytics Dashboards
 **Analytics Dashboards** gives you a quick way to visualize your data.  This is not full blown **Cognos Analytics for Cloud Pak for Data*** nor **on premises** version.  Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)
 1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-   ~~~
-   export OS_NAME=darwin or linux
-   export NAMESPACE=zen
-   export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-   export LOCAL_REGISTRY=docker-registry.default.svc:5000
-   ~~~
    - OpenShift 4.x
     ~~~
-    export OS_NAME=darwin or linux or win
     export NAMESPACE=zen
     export STORAGE_CLASS=ibmc-file-gold-gid
     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -849,68 +727,53 @@ From time to time any software needs a patch for security reasons, new feature o
     ~~~
 1. Set the security aspects for Analytics Dashboards to install properly
   ~~~
-  ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly cde
+  ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly cde
   ~~~
 1. Deploy Analytics Dashboards by running the following:
   ~~~
-  ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly cde
+  ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly cde
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.
 1. Verify the installation  
   ~~~
-  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly cde
+  ./cpd-cli status --namespace ${NAMESPACE} --assembly cde
   ~~~
 1. Check for patches
   ~~~
-  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly cde
+  ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly cde
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
-[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Uninstalling Analytics Dashboards
 1. From the command line:
 1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
 1. Run env to verify that the following variables are exported
-    - OpenShift 3.x
-     ~~~
-     export OS_NAME=[darwin, linux]
-     export NAMESPACE=zen
-     ~~~
     - OpenShift 4.x
      ~~~
-     export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
      export NAMESPACE=zen
      ~~~
 1. Do a dry run uninstall to check what will be taken off.
    ~~~
-   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly cde --uninstall-dry-run
+   ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly cde --uninstall-dry-run
    ~~~
 1. Run the uninstall
    ~~~
-   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly cde
+   ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly cde
    ~~~
 1.  Go to the **Services** catalog and verify that **Analytics Dashboards** is no longer ***enabled***.   
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 
 ## Installing Analytics Engine (Spark Clusters)
 If you are using **Data Refinery** and you have to prep files larger than 100MB, then you will want to install the **Analytics Engine** to be able to select a different runtime than ***Data Refinery XS***.  This is the service to ***install*** if you want to use **Spark** with **Watson Studio**.
 1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-   ~~~
-   export OS_NAME=darwin or linux
-   export NAMESPACE=zen
-   export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-   export LOCAL_REGISTRY=docker-registry.default.svc:5000
-   ~~~
    - OpenShift 4.x
     ~~~
-    export OS_NAME=darwin or linux or win
     export NAMESPACE=zen
     export STORAGE_CLASS=ibmc-file-gold-gid
     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -918,33 +781,33 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
     ~~~
 1. Set the security aspects for Analytics Engine to install properly
   ~~~
-  ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly spark
+  ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly spark
   ~~~
 1. You will need an when installing the Spark assembly on a OCP 4.3 cluster. This is not needed for 3.11.  Use this [spark-ocp43-override.yaml](spark-ocp43-override.yaml)
 1. Deploy Analytics Engine by running the following:
   ~~~
-  ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly spark --override spark-ocp43-override.yaml
+  ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly spark --override spark-ocp43-override.yaml
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
   ~~~
-   ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly spark
+   ./cpd-cli status --namespace ${NAMESPACE} --assembly spark
   ~~~
 1. Check for patches
   ~~~
-  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly spark
+  ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly spark
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:    
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Provision Analytics Engine instance
 ***coming soon***
   [Provision the instance](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/wsj/spark/spark-provision.html)
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Resource constraints  
 ***coming soon***
@@ -954,43 +817,28 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 1. From the command line:
 1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
 1. Run env to verify that the following variables are exported
-     - OpenShift 3.x
-      ~~~
-      export OS_NAME=[darwin, linux]
-      export NAMESPACE=zen
-      ~~~
      - OpenShift 4.x
       ~~~
-      export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
       export NAMESPACE=zen
       ~~~
 1. Do a dry run uninstall to check what will be taken off.
     ~~~
-    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly spark --uninstall-dry-run
+    ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly spark --uninstall-dry-run
     ~~~
 1. Run the uninstall
     ~~~
-    ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly spark
+    ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly spark
     ~~~
 1.  Go to the **Services** catalog and verify that **Analytics Engine** is no longer ***enabled***.   
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)  
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)  
 
 ##Cognos Analytics  
 ### Installing Cognos Analytics
 Understand the [current differences here](https://community.ibm.com/community/user/businessanalytics/blogs/david-cushing/2018/12/13/1)  
-1. Run env to verify that the following variables are exported.   For ***OS_NAME*** Pick one no brackets **Example:** `export OS_NAME=linux`
-  - OpenShift 3.x
-   ~~~
-   export OS_NAME=[darwin, linux]
-   export NAMESPACE=zen
-   export STORAGE_CLASS=ibmc-file-gold-gid
-   export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-   export LOCAL_REGISTRY=docker-registry.default.svc:5000
-   ~~~
+1. Run env to verify that the following variables are exported.
    - OpenShift 4.x
     ~~~
-    export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
     export NAMESPACE=zen
     export STORAGE_CLASS=ibmc-file-gold-gid
     export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -998,25 +846,25 @@ Understand the [current differences here](https://community.ibm.com/community/us
     ~~~
 1. Set the security aspects for Cognos to install properly
    ~~~
-   ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ca
+   ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ca
    ~~~
 1. Deploy Cognos Analytics by running the following:
    ~~~
-   ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly ca
+   ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly ca
    ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
    ~~~
-  ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly ca
+  ./cpd-cli status --namespace ${NAMESPACE} --assembly ca
    ~~~
 1. Check for patches
   ~~~
-  ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly ca
+  ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly ca
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
    - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 ### Provision Cognos Analytics instance
 1. Preparing Db2 Advanced Database to make a connection that **Cognos Analytics** can used
@@ -1076,33 +924,27 @@ Understand the [current differences here](https://community.ibm.com/community/us
 
 
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)   
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)   
 
 ### Uninstalling Cognos Analytics
 1. From the command line:
 1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
 1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-  ~~~
-  export OS_NAME=[darwin, linux]
-  export NAMESPACE=zen
-  ~~~
   - OpenShift 4.x
   ~~~
-  export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
   export NAMESPACE=zen
   ~~~
 1. Do a dry run uninstall to check what will be taken off.
   ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly ca --uninstall-dry-run
+  ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly ca --uninstall-dry-run
   ~~~
 1. Run the uninstall
   ~~~
-  ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly ca
+  ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly ca
   ~~~
 1.  Go to the **Services** catalog and verify that **Cognos Analytics** is no longer ***enabled***.   
 
-   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 
 ## Watson Knowledge Catalog
@@ -1118,17 +960,8 @@ Understand the [current differences here](https://community.ibm.com/community/us
   - Run ***oc apply -f [setkernelparameters.yaml](setkernelparameters.yaml) -n kube-system***
   - Run ***oc apply -f [norootsquash.yaml](norootsquash.yaml) -n kube-system***
 1. Run env to verify that the following variables are exported
- - OpenShift 3.x
-  ~~~
-  export OS_NAME=darwin or linux
-  export NAMESPACE=zen
-  export STORAGE_CLASS=ibmc-file-gold-gid
-  export DOCKER_REGISTRY_PREFIX=$(oc get routes docker-registry -n default -o template=\{\{.spec.host\}\})
-  export LOCAL_REGISTRY=docker-registry.default.svc:5000
-  ~~~
  - OpenShift 4.x
   ~~~
-  export OS_NAME=darwin or linux or win
   export NAMESPACE=zen
   export STORAGE_CLASS=ibmc-file-gold-gid
   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
@@ -1136,26 +969,26 @@ Understand the [current differences here](https://community.ibm.com/community/us
   ~~~
 1. Set the security aspects for Watson Knowledge Catalog to install properly
    ~~~
-   ./cpd-${OS_NAME} adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wkc
+   ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wkc
    ~~~
 1. Deploy Watson Knowledge Catalog by running the following: Download the [override-nginx.yaml](override-nginx.yaml) file for use in the install command.
    ~~~
-   ./cpd-${OS_NAME} --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --override override-nginx.yaml --assembly wkc
+   ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --override override-nginx.yaml --assembly wkc
    ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
     ~~~
-    ./cpd-${OS_NAME} status --namespace ${NAMESPACE} --assembly wkc
+    ./cpd-cli status --namespace ${NAMESPACE} --assembly wkc
     ~~~
 1. Check for patches
     ~~~
-    ./cpd-${OS_NAME} status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wkc
+    ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wkc
     ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
       - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
-  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 
 ### Post install tasks  (To Do's for Tom to validate)
@@ -1166,23 +999,17 @@ Understand the [current differences here](https://community.ibm.com/community/us
 1. From the command line:
 1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
 1. Run env to verify that the following variables are exported
-  - OpenShift 3.x
-   ~~~
-   export OS_NAME=[darwin, linux]
-   export NAMESPACE=zen
-    ~~~
   - OpenShift 4.x
    ~~~
-   export OS_NAME=[darwin, linux] **Pick one no brackets Example export OS_NAME=darwin**
    export NAMESPACE=zen    
   ~~~  
 1. Do a dry run uninstall to check what will be taken off.
    ~~~
-   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc --uninstall-dry-run
+   ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly wkc --uninstall-dry-run
    ~~~
 1. Run the uninstall
    ~~~
-   ./cpd-${OS_NAME} uninstall --namespace ${NAMESPACE} --assembly wkc
+   ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly wkc
    ~~~
 
- [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data30.html)
+ [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
