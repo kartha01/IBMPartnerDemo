@@ -16,6 +16,7 @@
   * [Retrieving the token to log into OpenShift on IBM Cloud](#retrieving-the-token-to-log-into-openshift-on-ibm-cloud)
   * [Quick run through of some OpenShift CLI commands](#quick-run-through-of-some-openshift-cli-commands)
 - [Install your Cloud Pak of Choice (currently only Data)](#install-your-cloud-pak-of-choice)
+  * [Install 3.5](Data35.md)
   * [Install 3.0](Data30.md)
   * [Install 2.5](Data25.md)
 - [Install Netezza on IBM Cloud](nzcloud.md)
@@ -61,7 +62,7 @@ How do I request an account?  What qualifies? Can my VAD help here?
 If you have one of these accounts, you can access by
   1. [Logging into IBM Cloud](https://cloud.ibm.com/login)
   1. Look across the black top menu bar, you will see ***Catalog***, ***Docs***, ***Support***, ***Manage***   The next list box to the right is one with your accounts.  Toggle the list box to select this POC Account.
-  1. Most likely the IBM admin of the account has set up with ACLS and an access group.  Work with this person to further access capabilities. 
+  1. Most likely the IBM admin of the account has set up with ACLS and an access group.  Work with this person to further access capabilities.
 
 ***Coming soon***
 
