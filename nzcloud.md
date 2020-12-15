@@ -324,7 +324,7 @@ OC_CONSOLE_URL=https://console-openshift-console.nzcluster-83506b7a70a1a023393e8
 [Back to Table of Contents](nzcloud.md)
 
 ### Install Netezza and Cloud Pak for Data
-1. **Run** `./nz-cloud -p ibm_infra.properties -i cpd -i nps -v` This will install Cloud Pak for Data and install Netezza tile into the services catalog.  This is where you will click through to provision Netezza servers
+1. **Run** `./nz-cloud -p ibm_infra.properties -i cpd -i nps-addon -v` This will install Cloud Pak for Data and install Netezza tile into the services catalog.  This is where you will click through to provision Netezza servers
 1. upon completion you should have a `envs/<cluster name>/assets/cp4d_login_details` directory.  
 1. The contents of this file are what allows you to upgrades, etc. SSH equivalent.  (FIX later)
 ~~~
