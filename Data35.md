@@ -1,4 +1,4 @@
-significantly# Install instructions for Cloud Pak for Data (work in progress)
+# Install instructions for Cloud Pak for Data (work in progress)
 - [Provision OpenShift](https://tjmcmanus.github.io/IBMPartnerDemo/#creating-an-open-shift-cluster)
 - [Provision the Control plane using IBM Cloud tile](#provision-the-control-plane-using-ibm-cloud-tile)
   * [Building the configuration](#building-the-configuration)
@@ -54,6 +54,34 @@ significantly# Install instructions for Cloud Pak for Data (work in progress)
 
 ## The AI Ladder and how Cloud Pak for Data
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pN_cZq-ov6Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Migrating from Cloud Pak for Data 3.0
+1. [Set up the Cloud Pak for Data Client](#setting-up-the-cloud-pak-for-data-client)
+1. Login to Openshift
+1. Run `env` to verify that the following variables are exported
+  - OpenShift 4.x
+  ~~~
+  export NAMESPACE=zen
+  export STORAGE_CLASS=ibmc-file-gold-gid
+  export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+  export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+  ~~~
+1. Convert the control plane metadata to be compatible with the new version 3.5 model by running the following command:
+  `./cpd-cli operator-upgrade -n ${NAMESPACE}`  
+1. Update the Control plane or **lite** assembly.  This is a dry run, so you understand what will be updated.  This takes about 60 seconds.
+  `./cpd-cli adm --repo ./repo.yaml --namespace ${NAMESPACE} --latest-dependency --assembly lite`
+1. Apply the changes.  This takes about 90 seconds.
+  `./cpd-cli adm --repo ./repo.yaml --namespace ${NAMESPACE} --latest-dependency --assembly lite --apply`
+1. Upgrade the control plane, but start with a dry run first to validate that you have everything in order.
+ `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly lite  --dry-run`
+1. Do the actual upgrade. This took me 26 minutes.
+  `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly lite`
+1. Check the status of the upgrade.
+  `./cpd-cli status --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite`
+1. Upgrade the services that you have installed.  I did Data Virtualization and it took 90 minutes.
+  `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly service name>`    
+
+
 
 ## Provision the Control plane using IBM Cloud tile
 1. **Click** ***Catalog***
