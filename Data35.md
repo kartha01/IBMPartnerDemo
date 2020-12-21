@@ -193,7 +193,7 @@ registry:
 1. Make sure all the [node settings](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/install/node-settings.html) are set on the worker nodes. All this is done for you [Provision the Control plane using IBM Cloud tile](#provision-the-control-plane-using-ibm-cloud-tile)
 1. Install the control plane or the ***lite*** assembly
   ~~~
-  ./cpd-cli install --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly lite
+  ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly lite
   ~~~
 1. Verify the installation  
   ~~~
@@ -201,7 +201,7 @@ registry:
   ~~~
 1. Check for patches
   ~~~
-  ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite
+  ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -236,11 +236,11 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
 1. Check for patches
   ~~~
-  ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite
+  ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite
   ~~~
 1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-3.5.1-lite-patch-1***.  This name will change after this writing. Note the assembly name can be `lite`, `wkc` or `wsl`.  
  ~~~
- ./cpd-cli patch --repo ../repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly lite  --patch-name cpd-3.0.1-lite-patch-5
+ ./cpd-cli patch --repo ./repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly lite  --patch-name cpd-3.0.1-lite-patch-5
  ~~~
 1. Verify that the patch has been applied.
  ~~~
@@ -256,7 +256,35 @@ From time to time any software needs a patch for security reasons, new feature o
 
 ## Data Virtualization
 ### Install Data Virtualization
-  ***Coming Soon***
+1. Run env to verify that the following variables are exported
+  - OpenShift 4.x
+   ~~~
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+   ~~~
+ 1. Set the security aspects for Watson Studio to install properly
+   ~~~
+   ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly dv
+   ~~~
+ 1. Deploy **Data Virtualization** by running the following:
+   ~~~
+   ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly dv
+   ~~~  
+1. Verify the installation  
+   ~~~
+   ./cpd-cli status --namespace ${NAMESPACE} --assembly dv
+   ~~~
+   1. Check for patches
+   ~~~
+   ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly dv
+   ~~~
+   1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
+
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
+
 ### Set up Data Virtualization
   1. **Click** on the ***Services*** icon to get to the services catalog.
   1. Go to the Data Virtualization tile, you see to "Provision Instance".
@@ -290,11 +318,11 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
  1. Set the security aspects for Watson Studio to install properly
    ~~~
-   ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wsl
+   ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wsl
    ~~~
  1. Deploy **Watson Studio** by running the following:
    ~~~
-   ./cpd-cli install --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wsl
+   ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly wsl
    ~~~  
 1. Verify the installation  
    ~~~
@@ -302,7 +330,7 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
    1. Check for patches
    ~~~
-   ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
+   ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wsl
    ~~~
    1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
      - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -348,11 +376,11 @@ From time to time any software needs a patch for security reasons, new feature o
       ~~~
 1. Set the security aspects for Watson Machine Learning to install properly
       ~~~
-      ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wml
+      ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wml
       ~~~
 1. Deploy **Watson Machine Learning** by running the following:
       ~~~
-      ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly wml
+      ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly wml
       ~~~  
 1. Verify the installation  
       ~~~
@@ -360,7 +388,7 @@ From time to time any software needs a patch for security reasons, new feature o
       ~~~
 1. Check for patches
       ~~~
-      ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wml
+      ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wml
       ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
       - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -408,11 +436,11 @@ From time to time any software needs a patch for security reasons, new feature o
   ~~~
 1. Set the security aspects for Watson Machine Learning to install properly
   ~~~
-  ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly aiopenscale
+  ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly aiopenscale
   ~~~
 1. Deploy **Watson OpenScale** by running the following:
   ~~~
-  ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly aiopenscale
+  ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly aiopenscale
   ~~~  
 1. Verify the installation  
    ~~~
@@ -420,7 +448,7 @@ From time to time any software needs a patch for security reasons, new feature o
   ~~~
 1. Check for patches
     ~~~
-    ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly aiopenscale
+    ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly aiopenscale
     ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -477,11 +505,11 @@ From time to time any software needs a patch for security reasons, new feature o
     ~~~
 1. Set the security aspects for Db2 Warehouse to install properly
   ~~~
-  ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2wh
+  ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2wh
   ~~~
 1. Deploy **Db2 Warehouse** by running the following:
   ~~~
-  ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2wh
+  ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly db2wh
   ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
@@ -490,7 +518,7 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
 1. Check for patches
    ~~~
-   ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly db2wh
+   ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly db2wh
    ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -587,11 +615,11 @@ From time to time any software needs a patch for security reasons, new feature o
      ~~~
 1. Set the security aspects for Db2 Advanced to install properly
    ~~~
-   ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2oltp
+   ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly db2oltp
    ~~~
 1. Deploy **Db2 Advanced** by running the following:
    ~~~
-   ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly db2oltp
+   ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly db2oltp
    ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. The deployed service will look like this from `oc get pods`.  The completed pod is a load job which can be deleted.
@@ -605,7 +633,7 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
 1. Check for patches
    ~~~
-   ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly db2oltp
+   ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly db2oltp
    ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
     - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -675,11 +703,11 @@ From time to time any software needs a patch for security reasons, new feature o
     ~~~
 1. Set the security aspects for DataStage to install properly
   ~~~
-  ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ds
+  ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ds
   ~~~
 1. Deploy DataStage by running the following:
   ~~~
-  ./cpd-linux --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly ds --override=ds.yaml
+  ./cpd-linux --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly ds --override=ds.yaml
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
@@ -689,7 +717,7 @@ From time to time any software needs a patch for security reasons, new feature o
   ~~~
 1. Check for patches
   ~~~
-  ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly ds
+  ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly ds
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -755,11 +783,11 @@ From time to time any software needs a patch for security reasons, new feature o
     ~~~
 1. Set the security aspects for Analytics Dashboards to install properly
   ~~~
-  ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly cde
+  ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly cde
   ~~~
 1. Deploy Analytics Dashboards by running the following:
   ~~~
-  ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly cde
+  ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependecncy --assembly cde
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.
@@ -769,7 +797,7 @@ From time to time any software needs a patch for security reasons, new feature o
   ~~~
 1. Check for patches
   ~~~
-  ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly cde
+  ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly cde
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -809,12 +837,12 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
     ~~~
 1. Set the security aspects for Analytics Engine to install properly
   ~~~
-  ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly spark
+  ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly spark
   ~~~
 1. You will need an when installing the Spark assembly on a OCP 4.3 cluster. This is not needed for 3.11.  Use this [spark-ocp43-override.yaml](spark-ocp43-override.yaml)
 1. Deploy Analytics Engine by running the following:
   ~~~
-  ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly spark --override spark-ocp43-override.yaml
+  ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly spark --override spark-ocp43-override.yaml
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
@@ -824,7 +852,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
   ~~~
 1. Check for patches
   ~~~
-  ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly spark
+  ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly spark
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:    
   - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -874,11 +902,11 @@ Understand the [current differences here](https://community.ibm.com/community/us
     ~~~
 1. Set the security aspects for Cognos to install properly
    ~~~
-   ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ca
+   ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly ca
    ~~~
 1. Deploy Cognos Analytics by running the following:
    ~~~
-   ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly ca
+   ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly ca
    ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
@@ -888,7 +916,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
    ~~~
 1. Check for patches
   ~~~
-  ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly ca
+  ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly ca
   ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
    - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -997,11 +1025,11 @@ Understand the [current differences here](https://community.ibm.com/community/us
   ~~~
 1. Set the security aspects for Watson Knowledge Catalog to install properly
    ~~~
-   ./cpd-cli adm --repo ../repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wkc
+   ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wkc
    ~~~
 1. Deploy Watson Knowledge Catalog by running the following: Download the [override-nginx.yaml](override-nginx.yaml) file for use in the install command.
    ~~~
-   ./cpd-cli --repo ../repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --override override-nginx.yaml --assembly wkc
+   ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --override override-nginx.yaml --assembly wkc
    ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
@@ -1011,7 +1039,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
     ~~~
 1. Check for patches
     ~~~
-    ./cpd-cli status  --repo ../repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wkc
+    ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wkc
     ~~~
 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
       - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
