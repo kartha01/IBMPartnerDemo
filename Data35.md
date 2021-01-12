@@ -240,7 +240,7 @@ From time to time any software needs a patch for security reasons, new feature o
   ~~~
 1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-3.5.1-lite-patch-1***.  This name will change after this writing. Note the assembly name can be `lite`, `wkc` or `wsl`.  
  ~~~
- ./cpd-cli patch --repo ./repo.yaml  --namespace ${NAMESPACE}  --transfer-image-to ${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --insecure-skip-tls-verify  --assembly lite  --patch-name cpd-3.0.1-lite-patch-5
+ ./cpd-cli patch --repo ./repo.yaml  --namespace ${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE}  --insecure-skip-tls-verify --assembly lite  --patch-name cpd-3.5.1-lite-patch-1 --action online
  ~~~
 1. Verify that the patch has been applied.
  ~~~
