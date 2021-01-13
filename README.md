@@ -101,6 +101,8 @@ If you have one of these accounts, you can access by
 
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+## Create a admin Virtual server
+1. Follow these (instructions)[https://tjmcmanus.github.io/IBMPartnerDemo/bastion.html]
 
 ## Creating an Open Shift cluster
 ### Via the UI
