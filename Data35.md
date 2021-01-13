@@ -380,7 +380,7 @@ From time to time any software needs a patch for security reasons, new feature o
       ~~~
 1. Deploy **Watson Machine Learning** by running the following:
       ~~~
-      ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly wml
+      ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly wml --override override-wml.yaml
       ~~~  
 1. Verify the installation  
       ~~~
@@ -440,7 +440,7 @@ From time to time any software needs a patch for security reasons, new feature o
   ~~~
 1. Deploy **Watson OpenScale** by running the following:
   ~~~
-  ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly aiopenscale
+  ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --assembly aiopenscale
   ~~~  
 1. Verify the installation  
    ~~~
@@ -509,7 +509,7 @@ From time to time any software needs a patch for security reasons, new feature o
   ~~~
 1. Deploy **Db2 Warehouse** by running the following:
   ~~~
-  ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly db2wh
+  ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly db2wh
   ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. Verify the installation  
@@ -619,7 +619,7 @@ From time to time any software needs a patch for security reasons, new feature o
    ~~~
 1. Deploy **Db2 Advanced** by running the following:
    ~~~
-   ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly db2oltp
+   ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly db2oltp
    ~~~
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
 1. The deployed service will look like this from `oc get pods`.  The completed pod is a load job which can be deleted.
@@ -787,7 +787,7 @@ From time to time any software needs a patch for security reasons, new feature o
   ~~~
 1. Deploy Analytics Dashboards by running the following:
   ~~~
-  ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependecncy --assembly cde
+  ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly cde
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.
@@ -842,7 +842,7 @@ If you are using **Data Refinery** and you have to prep files larger than 100MB,
 1. You will need an when installing the Spark assembly on a OCP 4.3 cluster. This is not needed for 3.11.  Use this [spark-ocp43-override.yaml](spark-ocp43-override.yaml)
 1. Deploy Analytics Engine by running the following:
   ~~~
-  ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly spark --override spark-ocp43-override.yaml
+  ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly spark --override spark-ocp43-override.yaml
   ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
@@ -906,7 +906,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
    ~~~
 1. Deploy Cognos Analytics by running the following:
    ~~~
-   ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly ca
+   ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly ca
    ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
@@ -1029,7 +1029,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
    ~~~
 1. Deploy Watson Knowledge Catalog by running the following: Download the [override-nginx.yaml](override-nginx.yaml) file for use in the install command.
    ~~~
-   ./cpd-cli --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --override override-nginx.yaml --assembly wkc
+   ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --override override-nginx.yaml --assembly wkc
    ~~~
 1. You will need to tab to accept the license.
 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
