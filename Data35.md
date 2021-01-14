@@ -78,8 +78,11 @@
   `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly lite`
 1. Check the status of the upgrade.
   `./cpd-cli status --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite`
+1. Apply security changes for the services that you have installed.  I did Data Virtualization.  Removing the `--apply` flag will be a dry run.
+  `./cpd-cli adm --repo ./repo.yaml --namespace ${NAMESPACE} --latest-dependency --assembly dv --apply`  
 1. Upgrade the services that you have installed.  I did Data Virtualization and it took 90 minutes.
   `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly service name>`    
+1. Upgrade any running services instances.  
 
 
 
@@ -378,6 +381,7 @@ From time to time any software needs a patch for security reasons, new feature o
       ~~~
       ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wml
       ~~~
+1. Download the (override-wml.yaml)[override-wml.yaml]
 1. Deploy **Watson Machine Learning** by running the following:
       ~~~
       ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly wml --override override-wml.yaml
