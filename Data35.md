@@ -76,14 +76,13 @@
  `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly lite  --dry-run`
 1. Do the actual upgrade. This took me 26 minutes.
   `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly lite`
-1. Check the status of the upgrade.
+1. Check the status of the upgrade.  This will give you a list of the other services to update and patch.
   `./cpd-cli status --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite`
 1. Apply security changes for the services that you have installed.  I did Data Virtualization.  Removing the `--apply` flag will be a dry run.
   `./cpd-cli adm --repo ./repo.yaml --namespace ${NAMESPACE} --latest-dependency --assembly dv --apply`  
 1. Upgrade the services that you have installed.  I did Data Virtualization and it took 90 minutes.
   `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly service name>`    
-1. Upgrade any running services instances.  
-
+1. Upgrade any running services instances.  Each service has its own prerequites, so please consult the knowledge center.   I have not needed to update any service instances.   DV is one that I deleted before I could update. 
 
 
 ## Provision the Control plane using IBM Cloud tile
