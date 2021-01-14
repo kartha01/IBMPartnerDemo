@@ -10,13 +10,13 @@ API endpoint: https://cloud.ibm.com
 Region: us-east
 ~~~
 1. Select the account you want to use from the account list.
-~~~
-Authenticating...
-OK
-Select an account:
-1. Thomas McManus's Account (eeee7d19b6701916e21bf02f116813a9) <-> 1670487
-2. IBM PoC - mactom Nz Cloud/CPD Cloud (f1af5bc92ad34287bbce250dfbe068a2) <-> 2134520
-~~~
+ ~~~
+ Authenticating ...
+ OK
+ Select an account:
+ 1. Thomas McManus's Account (eeee7d19b6701916e21bf02f116813a9) <-> 1670487
+ 2. IBM PoC - mactom Nz Cloud/CPD Cloud (f1af5bc92ad34287bbce250dfbe068a2) <-> 2134520
+ ~~~
 1. Run to verify you can execute a Virtual Server create using `--test`.  I am creating this as a Transient server which has hourly suspended billing.
   - **hostname**  `-H` ***bastion***,
   - **FQDN** `-D` is by default the account name with dashes for spaces or `\` and a suffix of `.cloud`.  `IBM PoC - mactom Nz Cloud/CPD Cloud` converts to `IBM-PoC-mactom-Nz-Cloud-CPD-Cloud.cloud`
