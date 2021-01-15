@@ -57,6 +57,11 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pN_cZq-ov6Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Migrating from Cloud Pak for Data 3.0
+1. High level steps:
+  - Apply latest patches for all services on cp4d v3.0.1  **Note** I missed this step and had issues with WML, Db2-OLTP and DV
+  - Upgrade OCP v4.3 to V4.5 via v4.4
+  - Make sure CPD running fine
+  - Upgrade CPD v3.0.1 to v3.5
 1. [Set up the Cloud Pak for Data Client](#setting-up-the-cloud-pak-for-data-client)
 1. Login to Openshift
 1. Run `env` to verify that the following variables are exported
