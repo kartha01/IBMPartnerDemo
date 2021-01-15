@@ -1,4 +1,5 @@
 # Install instructions for Cloud Pak for Data (work in progress)
+- [Migrating from Cloud Pak for Data 3.0](#migrating-from-cloud-pak-for-data-3.0)
 - [Provision OpenShift](https://tjmcmanus.github.io/IBMPartnerDemo/#creating-an-open-shift-cluster)
 - [Provision the Control plane using IBM Cloud tile](#provision-the-control-plane-using-ibm-cloud-tile)
   * [Building the configuration](#building-the-configuration)
