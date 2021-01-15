@@ -1,5 +1,5 @@
 # Install instructions for Cloud Pak for Data (work in progress)
-- [Migrating from Cloud Pak for Data 3.0](#migrating-from-cloud-pak-for-data-3.0)
+- [Migrating from Cloud Pak for Data 3](#migrating-from-cloud-pak-for-data-3.0)
 - [Provision OpenShift](https://tjmcmanus.github.io/IBMPartnerDemo/#creating-an-open-shift-cluster)
 - [Provision the Control plane using IBM Cloud tile](#provision-the-control-plane-using-ibm-cloud-tile)
   * [Building the configuration](#building-the-configuration)
@@ -56,7 +56,7 @@
 ## The AI Ladder and how Cloud Pak for Data
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pN_cZq-ov6Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Migrating from Cloud Pak for Data 3.0
+## Migrating from Cloud Pak for Data 3
 1. High level steps:
   - Apply latest patches for all services on cp4d v3.0.1  **Note** I missed this step and had issues with WML, Db2-OLTP and DV
   - Upgrade OCP v4.3 to V4.5 via v4.4
