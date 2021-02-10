@@ -36,10 +36,7 @@ In many situations, [Cloud Pak for Data as a Service](https://dataplatform.cloud
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Other options to think about
-<!---  - Blue Demos (need competency to view certain assets) - Currently no CPD partner facing VMs. --->
-<!---  - Quick ready-for environments with canned set of services.  --->
-  - Cloud Pak for Data SaaS option to demonstrate product functionality
-  - Build on your own hardware
+  - Build on your own hardware or VMs **Need links to playbooks**
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
