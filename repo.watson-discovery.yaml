@@ -1,0 +1,34 @@
+---
+fileservers:
+  - url: https://raw.github.com/IBM/cloud-pak/master/repo/cpd/3.5
+registry:
+  - url: cp.icr.io/cp/cpd
+    apikey: eyJhbGciOiJIUzI1NV0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    name: base-registry
+    namespace: ""
+    username: cp
+  - url: cp.icr.io
+    username: cp
+    apikey: eyJhbGciOiJIUzI1NV0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    namespace: cp
+    name: prod-entitled-registry
+  - url: cp.icr.io
+    username: cp
+    apikey: eyJhbGciOiJIUzI1NV0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    namespace: cp
+    name: entitled-registry
+  - url: cp.icr.io
+    username: cp
+    apikey: eyJhbGciOiJIUzI1NV0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    namespace: cp/cpd
+    name: databases-registry
+  - url: cp.icr.io
+    username: cp
+    apikey: eyJhbGciOiJIUzI1NV0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    namespace: cp/modeltrain
+    name: modeltrain-classic-registry
+  - url: cp.icr.io
+    username: cp
+    apikey: eyJhbGciOiJIUzI1NV0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    namespace: cp/watson-discovery
+    name: watson-discovery-registry
