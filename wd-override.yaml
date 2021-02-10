@@ -1,35 +1,3 @@
-global:
-  deploymentType: "Development"
-  contentIntelligence:
-    enabled: true
-  image:
-    pullSecret: "default-dockercfg-pxdpt"
-  imagePullSecret: "default-dockercfg-pxdpt"
-core:
-  ingestion:
-    mount:
-      size: 20Gi
-      storageClassName: "ibmc-block-gold"
-rabbitmq:
-  persistentVolume:
-    size: 20Gi
-elastic:
-  persistence:
-    storageClassName: "ibmc-block-gold"
-  dataNode:
-    persistence:
-      size: 300Gi
-  masterNode:
-    persistence:
-      size: 20Gi
-wire:
-  kubernetesHost: "c104-e.us-east.containers.cloud.ibm.com"
-  kubernetesIP: "169.63.111.82"
-crust:
-  networkPolicy:
-    create: false
-mantle:
-  networkPolicy:
-    create: false
-networkPolicy:
-  create: false
+wdRelease:
+  deploymentType: Development
+  enableContentIntelligence: false
