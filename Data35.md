@@ -1102,12 +1102,17 @@ Understand the [current differences here](https://community.ibm.com/community/us
     ~~~
     ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wd
     ~~~
- 1. Deploy Watson Discovery by running the following: Download the [wd-override.yaml](wd-override.yaml) file for use in the install command.
-    ~~~
-    ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --override override-nginx.yaml --assembly wd -override wd-override.yaml
-    ~~~
- 1. You will need to tab to accept the license.
- 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+ 1. Deploy Watson Discovery happens in 2 steps by running the following: Download the [wd-override.yaml](wd-override.yaml) file for use in the install command update the repo file to look like this [repo.watson-discovery.yaml](repo.watson-discovery.yaml).  Update the `apikey` to match yours.
+   1. First you will install the `edb-operator`:
+      ~~~
+      ./cpd-cli install --repo ./repo.watson-discovery.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify  --assembly edb-operator --optional-modules edb-pg-base:x86_64 --override ./wd-override.yaml
+      ~~~
+   1. You will need to tab to accept the license.
+   1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+   1. Second install the the `watson-discovery` assembly
+      ~~~
+      ./cpd-cli install --repo ./repo.watson-discovery.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify  --assembly watson-discovery --override ./wd-override.yaml
+      ~~~
  1. Verify the installation  
      ~~~
      ./cpd-cli status --namespace ${NAMESPACE} --assembly wd
