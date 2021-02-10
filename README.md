@@ -1,5 +1,6 @@
 # Partner Demo Environments on IBM Cloud
 - [Product demo (free) Good if limited customization needed](#product-demo-free-good-if-limited-customization-needed)
+- [Cloud Pak for Data as a Service](#cloud-pak-for-data-as-a-service)
 - [Other options to think about](#other-options-to-think-about)
 - [Persistent Demo Environment (Cost)](#persistent-demo-environment-cost)
   * [Prerequisite steps to get entitlement to Cloud Pak software:](#prerequisite-steps-to-get-entitlement-to-cloud-pak-software)
@@ -21,16 +22,23 @@
   * [Install 2.5](Data25.md)
 - [Install Netezza on IBM Cloud](nzcloud.md)
 
-## Product demo (free) Good if limited customization needed
-1. Product demos where you are just showing the product with some canned assets, you can use [Cloud Pak for Data Experiences](https://www.ibm.com/cloud/paks/experiences/cloud-pak-for-data)  
-**Limitations:** Not every service is provisioned, but these are live clusters with multiple people sharing the environment.  Meaning while you can add live data (at this moment), but others can see it.  You can spin this up in 10 minutes and have most of what you need there.  There is internal discussions of locking this down tighter as mainly a sales tool.
+## Product demo (free) 14 day availability can be extended a bit if needed.
+1. Product demos where you are just showing the product with some canned assets, you can use [IBM Demos](https://www.ibm.com/demos/collection/Cloud-Pak-for-Data/)
 
+**Note:**  Make sure that you are signed in with your IBMID and it is linked to your companies PartnerWorld profile. Without this your options will be limited. Also the install pod has been removed, so you will not be able to add additional services to a cluster.
+
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
+
+## Cloud Pak for Data as a Service
+In many situations, [Cloud Pak for Data as a Service](https://dataplatform.cloud.ibm.com/home2?context=cpdaas) should work as an individual using some of the "lite" service plans.  If you look to run this as team in one account, there could be more costs as you move up the services plans.
+
+[Cloud Pak for Data as a Service](https://dataplatform.cloud.ibm.com/home2?context=cpdaas)
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
 
 ## Other options to think about
 <!---  - Blue Demos (need competency to view certain assets) - Currently no CPD partner facing VMs. --->
 <!---  - Quick ready-for environments with canned set of services.  --->
-  - IBM Cloud to demonstrate product functionality
+  - Cloud Pak for Data SaaS option to demonstrate product functionality
   - Build on your own hardware
 
 [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo)
