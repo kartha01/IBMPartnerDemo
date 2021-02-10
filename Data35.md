@@ -87,7 +87,7 @@
 1. Apply security changes for the services that you have installed.  I did Data Virtualization.  Removing the `--apply` flag will be a dry run.
   `./cpd-cli adm --repo ./repo.yaml --namespace ${NAMESPACE} --latest-dependency --assembly dv --apply`  
 1. Upgrade the services that you have installed.  I did Data Virtualization and it took 90 minutes.  **Note** on a few upgrades of services, I have seen the upgrade fail, but when I ran it again it succeeded.  Most errors were waiting on an Operator Lock.  
-  `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly service name>`    
+  `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE}  --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly service name>`    
 1. Upgrade any running services instances.  Each service has its own prerequites, so please consult the knowledge center.   I have not needed to update any service instances.   DV is one that I deleted before I could update.
 
 
@@ -152,7 +152,7 @@
 ## Setting up the Cloud Pak for Data Client
 1. You have already set up the client environment.  If not go have to the [first page](README.md) and execute these step under **Installing the client environment**  You will have logged into the OpenShift cluster, set the project to ***zen*** already built the encrypted route to the internal container repository.  This is where all of your containers and helm charts will be stored.  If ***zen*** doesn't exist, then your probably went with ***default***.
 1. Here is a link to the [knowledge center for Cloud Pak for Data](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.5.0/cpd/install/install.html) installation instructions.  The next steps are a sequential version for this environment.  
-1. How do I get the installer? Click the [CPD Github](https://github.com/IBM/cpd-cli/releases) to download the **Enterprise Edition**.  Named ***cpd-cli-darwin-EE-3.5.1.tgz***.  File is about 128MB.
+1. How do I get the installer? Click the [CPD Github](https://github.com/IBM/cpd-cli/releases) to download the **Enterprise Edition**.  Named ***cpd-cli-darwin-EE-3.5.2.tgz***.  File is about 101MB.
 1. Unarchive the client bits. You should find the following.
   - cpd-cli
   - repo.yaml
@@ -180,7 +180,7 @@ registry:
  ~~~
  ./cpd-cli
  ~~~
-***NOTE:*** `cpd-cli` will run different operators to execute commands.  These operators or executors are under `lib/os name`  These are `config`, `cpd-base`, `cpdbr`, `cpdtool`, and `service-instance`.  On Mac, you may see a sercurity pop-up running something like `./cpd-cli status --repo ./repo.yaml --namespace zen --assembly lite --patches --available-updates`   You need to tell Mac that you approve to run these.  The simplest way is to open Finder and move to the executors and **open in Terminal** and accept **Open**.  This tell the system to allow you to run these. There may be something similar on Windows, but I have not tried this.
+***NOTE:*** `cpd-cli` will run different operators to execute commands.  These operators or executors are under `lib/os name`  These are `config`, `cpd-base`, `cpdbr`, `cpdtool`, and `service-instance`.  On Mac, you may see a sercurity pop-up running something like `./cpd-cli status --repo ./repo.yaml --namespace zen --assembly lite --patches --available-updates`   You need to tell Mac that you approve to run these.  The simplest way is to run `xattr -c cpd-cli` against the executable files above.  This will clear all the attributes from the file.  Another way is to open Finder and move to the executors and **open in Terminal** and accept **Open**.  This tell the system to allow you to run these. There may be something similar on Windows, but I have not tried this.
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
@@ -611,7 +611,7 @@ From time to time any software needs a patch for security reasons, new feature o
     ~~~
 1. Bind Db2 Advanced and provisioned instances to a specific node, by adding a **label** of `icp4data=database-db2-oltp` to a node. Select this node according to known resources available.  I picked node `10.95.7.49` from the last command.
     ~~~
-    oc label node <node name or IP Address> icp4data=database-oltp
+    oc label node <node name or IP Address> icp4data=database-db2oltp
     ~~~
 1. You can dedicate one or more [worker nodes to your Db2® database service](https://www.ibm.com/support/knowledgecenter/SSQNUZ_3.0.1/cpd/svc/dbs/aese-dednodes.html#aese-dednodes).  Do this before installing the service.
 1. Run env to verify that the following variables are exported
