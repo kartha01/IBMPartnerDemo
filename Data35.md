@@ -1078,3 +1078,68 @@ Understand the [current differences here](https://community.ibm.com/community/us
    ~~~
 
  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
+
+## Watson Discovery
+### Installing Watson Discovery service
+ 1. There are a few things that you need to do in an override file to get this to install properly.  Here is your starting point[wd-override.yaml](wd-override.yaml)
+ 1. Edit this `wd-override.yaml` file.  Be careful of spaces, yaml is touchy.  
+  - `deploymentType: "Development"`  This should stay **Development** but if you wanted **Production** here is where you would change this.  This adds scaling to the deployment.
+  -  Changing if ***Content Intelligence*** is enabled in the file.  If you want this then change this part to **true**
+    ~~~
+    wdRelease:
+     deploymentType: Production
+     enableContentIntelligence: true
+    ~~~
+ 1. Run env to verify that the following variables are exported
+  - OpenShift 4.x
+   ~~~
+   export NAMESPACE=zen
+   export STORAGE_CLASS=ibmc-file-gold-gid
+   export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
+   export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
+   ~~~
+ 1. Set the security aspects for Watson Discovery to install properly
+    ~~~
+    ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wd
+    ~~~
+ 1. Deploy Watson Discovery by running the following: Download the [wd-override.yaml](wd-override.yaml) file for use in the install command.
+    ~~~
+    ./cpd-cli install --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --override override-nginx.yaml --assembly wd -override wd-override.yaml
+    ~~~
+ 1. You will need to tab to accept the license.
+ 1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+ 1. Verify the installation  
+     ~~~
+     ./cpd-cli status --namespace ${NAMESPACE} --assembly wd
+     ~~~
+ 1. Check for patches
+     ~~~
+     ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wd
+     ~~~
+ 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+       - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
+
+   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
+
+
+ ### Post install tasks  (To Do's for Tom to validate)
+ 1. TBD
+
+ ### Uninstalling Watson Knowledge Catalog
+ 1. From the command line:
+ 1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
+ 1. Run env to verify that the following variables are exported
+   - OpenShift 4.x
+    ~~~
+    export NAMESPACE=zen    
+   ~~~  
+ 1. Do a dry run uninstall to check what will be taken off.
+    ~~~
+    ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly wd --uninstall-dry-run
+    ~~~
+ 1. Run the uninstall
+    ~~~
+    ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly wd
+    ~~~
+
+  [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
