@@ -17,7 +17,7 @@ registry:
     apikey: iOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
     namespace: ""
     name: entitled-registry
-  - url: cp.icr.io/cp
+  - url: cp.icr.io/cp/cpd
     username: cp
     apikey: iOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
     namespace: ""
