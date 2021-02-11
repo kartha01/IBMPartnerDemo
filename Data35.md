@@ -1106,36 +1106,38 @@ Understand the [current differences here](https://community.ibm.com/community/us
     ./cpd-cli adm --repo ./repo.yaml  --namespace ${NAMESPACE} --apply --accept-all-licenses --assembly wd
     ~~~
  1. Deploy Watson Discovery happens in 2 steps by running the following: Download the [wd-override.yaml](wd-override.yaml) file for use in the install command update the repo file to look like this [repo.watson-discovery.yaml](repo.watson-discovery.yaml).  Update the `apikey` to match yours.
-   1. First you will install the `edb-operator`:
+  1. First you will install the `edb-operator`:
       ~~~
       ./cpd-cli install --repo ./repo.watson-discovery.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify  --assembly edb-operator --optional-modules edb-pg-base:x86_64 --override ./wd-override.yaml
       ~~~
-   1. You will need to tab to accept the license.
-   1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
-   1. Second install the the `watson-discovery` assembly
+     - You will need to tab to accept the license.
+     - This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.  
+  1. Second install the the `watson-discovery` assembly
       ~~~
       ./cpd-cli install --repo ./repo.watson-discovery.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify  --assembly watson-discovery --override ./wd-override.yaml
       ~~~
-    1. You will need to tab to accept the license.
-    1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.   
- 1. Verify the installation  
+    - You will need to tab to accept the license.
+    - This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.   
+1. Verify the installation  
      ~~~
      ./cpd-cli status --namespace ${NAMESPACE} --assembly watson-discovery
      ~~~
- 1. Check for patches
+1. Check for patches
      ~~~
      ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly watson-discovery
      ~~~
- 1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
-       - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
+1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
+    - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
 
    [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
 
 
- ### Post install tasks  (To Do's for Tom to validate)
+### Post install tasks  (To Do's for Tom to validate)
  1. TBD
 
- ### Uninstalling Watson Discovery
+[Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
+
+### Uninstalling Watson Discovery
  1. From the command line:
  1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
  1. Run env to verify that the following variables are exported
@@ -1145,11 +1147,11 @@ Understand the [current differences here](https://community.ibm.com/community/us
    ~~~  
  1. Do a dry run uninstall to check what will be taken off.
     ~~~
-    ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly watson-discovery --uninstall-dry-run
+    ./cpd-cli uninstall --namespace ${NAMESPACE} --include-dependent-assemblies --assembly watson-discovery --uninstall-dry-run
     ~~~
  1. Run the uninstall
     ~~~
-    ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly watson-discovery
+    ./cpd-cli uninstall --namespace ${NAMESPACE} --include-dependent-assemblies --assembly watson-discovery
     ~~~
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
