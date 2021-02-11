@@ -3,32 +3,32 @@ fileservers:
   - url: https://raw.github.com/IBM/cloud-pak/master/repo/cpd/3.5
 registry:
   - url: cp.icr.io/cp/cpd
-    apikey: eyJhbGciOiJIUzI1NV0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    apikey: iOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
     name: base-registry
     namespace: ""
     username: cp
-  - url: cp.icr.io
+  - url: cp.icr.io/cp
     username: cp
-    apikey: eyJhbGciOiJIUzI1NV0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
-    namespace: cp
+    apikey: iOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    namespace: ""
     name: prod-entitled-registry
-  - url: cp.icr.io
+  - url: cp.icr.io/cp
     username: cp
-    apikey: eyJhbGciOiJIUzI1NV0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
-    namespace: cp
+    apikey: iOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    namespace: ""
     name: entitled-registry
-  - url: cp.icr.io
+  - url: cp.icr.io/cp
     username: cp
-    apikey: eyJhbGciOiJIUzI1NV0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
-    namespace: cp/cpd
+    apikey: iOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    namespace: ""
     name: databases-registry
-  - url: cp.icr.io
+  - url: cp.icr.io/cp/modeltrain
     username: cp
-    apikey: eyJhbGciOiJIUzI1NV0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
-    namespace: cp/modeltrain
+    apikey: iOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    namespace: ""
     name: modeltrain-classic-registry
-  - url: cp.icr.io
+  - url: cp.icr.io/cp/watson-discovery
     username: cp
-    apikey: eyJhbGciOiJIUzI1NV0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
-    namespace: cp/watson-discovery
+    apikey: iOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE1NzYwMjA4NTAsImp0aSI6ImViMzliZTk4MDJjNzRjYjM4M2Q3YjYxYTYzNmUwY2VkIn0.5Czky1_pLPLIEzScJzQ_qVNxo3v3EXyVGK7a7Dafcrg
+    namespace: ""
     name: watson-discovery-registry
