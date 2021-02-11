@@ -1117,11 +1117,11 @@ Understand the [current differences here](https://community.ibm.com/community/us
     1. This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.   
  1. Verify the installation  
      ~~~
-     ./cpd-cli status --namespace ${NAMESPACE} --assembly wd
+     ./cpd-cli status --namespace ${NAMESPACE} --assembly watson-discovery
      ~~~
  1. Check for patches
      ~~~
-     ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly wd
+     ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly watson-discovery
      ~~~
  1. If there are patches  apply the highest number as it will be cumulative.  Some patches have prerequisite patches because they have dependencies on another service or on a set of shared, common services. If the patch details list one or more prerequisite patches, you must install the prerequisite patches before you install the service patch. You can run the following command to determine whether any of the prerequisite patches are already installed on the cluster:
        - [How can I patch a service or control plane](#how-can-i-patch-a-service-or-control-plane)
@@ -1132,7 +1132,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
  ### Post install tasks  (To Do's for Tom to validate)
  1. TBD
 
- ### Uninstalling Watson Knowledge Catalog
+ ### Uninstalling Watson Discovery
  1. From the command line:
  1. Set namespace.  My namespace is ***zen*** your may be different like ***default***
  1. Run env to verify that the following variables are exported
@@ -1142,11 +1142,11 @@ Understand the [current differences here](https://community.ibm.com/community/us
    ~~~  
  1. Do a dry run uninstall to check what will be taken off.
     ~~~
-    ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly wd --uninstall-dry-run
+    ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly watson-discovery --uninstall-dry-run
     ~~~
  1. Run the uninstall
     ~~~
-    ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly wd
+    ./cpd-cli uninstall --namespace ${NAMESPACE} --assembly watson-discovery
     ~~~
 
   [Back to Table of Contents](https://tjmcmanus.github.io/IBMPartnerDemo/Data35.html)
