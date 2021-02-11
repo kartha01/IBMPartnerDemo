@@ -1097,7 +1097,7 @@ Understand the [current differences here](https://community.ibm.com/community/us
   - OpenShift 4.x
    ~~~
    export NAMESPACE=zen
-   export STORAGE_CLASS=ibmc-file-gold-gid
+   export STORAGE_CLASS=ibmc-block-gold
    export DOCKER_REGISTRY_PREFIX=$(oc get routes image-registry -n openshift-image-registry -o template=\{\{.spec.host\}\})
    export LOCAL_REGISTRY=image-registry.openshift-image-registry.svc:5000
    ~~~
@@ -1117,7 +1117,6 @@ Understand the [current differences here](https://community.ibm.com/community/us
       ~~~
       ./cpd-cli install --repo ./repo.watson-discovery.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --accept-all-licenses --assembly watson-discovery --override ./wd-override.yaml
       ~~~
-    - You will need to tab to accept the license.
     - This will take some time to download, push to the registry, request new storage from IBM Cloud and provision the services and pods.   
 1. Verify the installation  
      ~~~
