@@ -52,6 +52,9 @@
 - [Watson Knowledge Catalog](#watson-knowledge-catalog)
   * [Installing Watson Knowledge Catalog service](#installing-watson-knowledge-catalog-service)  
   * [Uninstalling Watson Knowledge Catalog](uninstalling-watson-knowledge-catalog)
+- [Watson Discovery](#watson-discovery)
+  * [Installing Watson Discovery service](#installing-watson-discovery-service)  
+  * [Uninstalling Watson Knowledge Catalog](uninstalling-watson-discovery)
 
 ## The AI Ladder and how Cloud Pak for Data
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pN_cZq-ov6Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
