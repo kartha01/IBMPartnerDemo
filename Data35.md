@@ -249,16 +249,16 @@ From time to time any software needs a patch for security reasons, new feature o
   ~~~
   ./cpd-cli status  --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite
   ~~~
-1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-3.5.1-lite-patch-1***.  This name will change after this writing. Note the assembly name can be `lite`, `wkc` or `wsl`.  
+1. Run the command to patch the common services. Notice that the command is `patch`, `patch-name` is ***cpd-3.5.2-lite-patch-1***.  This name will change after this writing. Note the assembly name can be `lite`, `wkc` or `wsl`.  
  ~~~
- ./cpd-cli patch --repo ./repo.yaml  --namespace ${NAMESPACE} --cluster-pull-prefix image-${LOCAL_REGISTRY}/${NAMESPACE}  --insecure-skip-tls-verify --assembly lite  --patch-name cpd-3.5.1-lite-patch-1 --action online
+ ./cpd-cli patch --repo ./repo.yaml  --namespace ${NAMESPACE} --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE}  --insecure-skip-tls-verify --assembly lite  --patch-name cpd-3.5.2-lite-patch-1 --action online
  ~~~
 1. Verify that the patch has been applied.
  ~~~
  Toms-MBP:~ tjm$ oc project zen
  Already on project "zen" on server "https://c106-e.us-south.containers.cloud.ibm.com:31432".
  Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort | uniq | cut -d: -f2
-       cpd-3.0.1-lite-patch-5
+       cpd-3.0.2-lite-patch-1
  ~~~
 1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name**
 
