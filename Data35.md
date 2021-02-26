@@ -82,9 +82,9 @@
 1. Apply the changes.  This takes about 90 seconds.
   `./cpd-cli adm --repo ./repo.yaml --namespace ${NAMESPACE} --latest-dependency --assembly lite --apply`
 1. Upgrade the control plane, but start with a dry run first to validate that you have everything in order.
- `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly lite  --dry-run`
+ `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly lite  --dry-run`
 1. Do the actual upgrade. This took me 26 minutes.
-  `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --storageclass ${STORAGE_CLASS} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly lite`
+  `./cpd-cli upgrade --repo ./repo.yaml --namespace ${NAMESPACE} --transfer-image-to=${DOCKER_REGISTRY_PREFIX}/${NAMESPACE} --target-registry-username=ocadmin  --target-registry-password=$(oc whoami -t) --cluster-pull-prefix ${LOCAL_REGISTRY}/${NAMESPACE} --insecure-skip-tls-verify --latest-dependency --assembly lite`
 1. Check the status of the upgrade.  This will give you a list of the other services to update and patch.
   `./cpd-cli status --repo ./repo.yaml --namespace ${NAMESPACE} --patches --available-updates --assembly lite`
 1. Apply security changes for the services that you have installed.  I did Data Virtualization.  Removing the `--apply` flag will be a dry run.
@@ -258,7 +258,7 @@ From time to time any software needs a patch for security reasons, new feature o
  Toms-MBP:~ tjm$ oc project zen
  Already on project "zen" on server "https://c106-e.us-south.containers.cloud.ibm.com:31432".
  Toms-MBP:~ tjm$ oc describe cpdinstall cr-cpdinstall | grep "Patch Name:" | sort | uniq | cut -d: -f2
-       cpd-3.0.2-lite-patch-1 
+       cpd-3.0.2-lite-patch-1
  ~~~
 1. you can repeat this pattern, replacing the values to the right of **assembly**  and **patch-name**
 
